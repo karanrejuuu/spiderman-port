@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karan Reju — Full-Stack &amp; AI Engineer | Web-Slinger</title>
+<meta name="description" content="Karan Reju — Full-Stack &amp; AI Engineer based in Kochi, India. Building offline-first PWAs, high-concurrency Go backends, LLM SQL engines, and ML models.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF5;
+  --paper-2:#F2EFE6;
+  --paper-card:#FFFFFF;
+  --ink:#15151C;
+  --ink-soft:#4A4A58;
+  --red:#E0202F;
+  --red-deep:#B30E1E;
+  --blue:#2342D6;
+  --blue-deep:#16289B;
+  --yellow:#FFC400;
+  --accent:#E0202F;
+  --line:rgba(21,21,28,.16);
+  --suit-accent:#2342D6;
+  --electric:#FFEA00;
+  --glow:rgba(224,32,47,0.4);
+}
+
+/* Miles Morales Theme */
+body.theme-miles {
+  --paper:#0D0D14;
+  --paper-2:#151522;
+  --paper-card:#181828;
+  --ink:#F5F5FA;
+  --ink-soft:#A5A5C0;
+  --red:#FF1A4B;
+  --red-deep:#B3002D;
+  --blue:#00E5FF;
+  --blue-deep:#0091EA;
+  --yellow:#FFEA00;
+  --accent:#00E5FF;
+  --line:rgba(245,245,250,.18);
+  --suit-accent:#FF1A4B;
+  --glow:rgba(0,229,255,0.45);
+}
+
+/* Symbiote / Venom Theme */
+body.theme-symbiote {
+  --paper:#08070B;
+  --paper-2:#110F17;
+  --paper-card:#15131E;
+  --ink:#FFFFFF;
+  --ink-soft:#9E9BAC;
+  --red:#9D00FF;
+  --red-deep:#6200B3;
+  --blue:#7B1FA2;
+  --blue-deep:#4A148C;
+  --yellow:#00FF66;
+  --accent:#9D00FF;
+  --line:rgba(255,255,255,.16);
+  --suit-accent:#00FF66;
+  --glow:rgba(157,0,255,0.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{background:var(--paper);color:var(--ink);overflow-x:hidden;transition:background .4s ease,color .4s ease}
+body{font-family:'Archivo',sans-serif;line-height:1.6;cursor:none}
+::selection{background:var(--yellow);color:#15151C}
+a{color:inherit;text-decoration:none}
+
+/* ---------- Halftone Comic Texture ---------- */
+.halftone{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.38;
+  background-image:radial-gradient(rgba(21,21,28,.13) 1px,transparent 1.4px);
+  background-size:14px 14px}
+body.theme-miles .halftone{background-image:radial-gradient(rgba(0,229,255,.12) 1px,transparent 1.4px)}
+body.theme-symbiote .halftone{background-image:radial-gradient(rgba(157,0,255,.12) 1px,transparent 1.4px)}
+
+.halftone-accent{position:fixed;top:-20vh;right:-15vw;width:55vw;height:55vw;z-index:1;pointer-events:none;opacity:.16;border-radius:50%;
+  background-image:radial-gradient(var(--red) 1.5px,transparent 2px);background-size:12px 12px;
+  -webkit-mask-image:radial-gradient(circle,black 0%,transparent 68%);mask-image:radial-gradient(circle,black 0%,transparent 68%);
+  animation:dotDrift 16s ease-in-out infinite alternate}
+@keyframes dotDrift{from{transform:translate(0,0) rotate(0)}to{transform:translate(3vw,-2vh) rotate(6deg)}}
+
+/* ---------- Interactive Cursor & Spidey-Sense ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor-dot{width:10px;height:10px;background:var(--red);border:2px solid var(--ink);box-shadow:0 0 10px var(--glow)}
+.cursor-ring{width:44px;height:44px;border:2px solid var(--ink);transition:width .22s,height .22s,border-color .22s,background .22s}
+.cursor-ring.hovering{width:84px;height:84px;border-color:var(--red);background:rgba(224,32,47,.08)}
+.cursor-label{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;color:var(--blue);transform:translate(18px,20px) rotate(-4deg);opacity:0;transition:opacity .25s;text-shadow:1.5px 1.5px 0 var(--paper),2.5px 2.5px 0 var(--ink)}
+#webTrail{position:fixed;inset:0;z-index:9998;pointer-events:none}
+
+/* Spidey-Sense warning squiggles */
+.spidey-sense{position:fixed;pointer-events:none;z-index:9997;display:none;width:80px;height:80px;transform:translate(-50%,-50%)}
+.spidey-sense.active{display:block;animation:spideyPulse .4s ease-in-out infinite alternate}
+@keyframes spideyPulse{0%{transform:translate(-50%,-50%) scale(.9) rotate(-3deg)}100%{transform:translate(-50%,-50%) scale(1.15) rotate(3deg)}}
+@media (hover:none){.cursor-dot,.cursor-ring,.cursor-label,#webTrail,.spidey-sense{display:none}body{cursor:auto}}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;background:var(--paper);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .8s,visibility .8s}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{font-family:'Bangers',cursive;font-size:clamp(48px,9vw,96px);letter-spacing:.06em;color:var(--red);
+  text-shadow:2px 2px 0 var(--paper),5px 5px 0 var(--ink),8px 8px 0 rgba(35,66,214,.45);
+  animation:loaderBounce 1s ease-in-out infinite}
+@keyframes loaderBounce{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.04)}}
+.loader-bar{width:min(340px,70vw);height:16px;background:var(--paper-2);border:3px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:4px 4px 0 var(--ink)}
+.loader-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 14px,var(--blue) 14px 28px);transition:width .2s}
+.loader-status{font-family:'Bangers',cursive;font-size:18px;letter-spacing:.12em;color:var(--blue);min-height:26px;transform:rotate(-2deg)}
+
+#gl{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ---------- HUD & Suit AI Telemetry ---------- */
+.hud{position:fixed;z-index:7000;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase}
+.hud b{color:var(--red);font-weight:700}
+.hud-tl{top:84px;left:24px}.hud-br{bottom:20px;right:24px;text-align:right}
+.hud::before{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--ink)}
+.hud-tl::before{top:-12px;left:-8px;border-right:none;border-bottom:none}
+.hud-br::before{bottom:-6px;right:-8px;border-left:none;border-top:none}
+@media(max-width:860px){.hud{display:none}}
+
+/* Floating Suit AI Quip Bar */
+.suit-ai-bar{position:fixed;bottom:20px;left:24px;z-index:7000;background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 16px;border-radius:12px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink);max-width:440px}
+.suit-ai-icon{width:18px;height:18px;fill:var(--red);animation:pulseSlow 2s infinite ease-in-out;flex-shrink:0}
+@keyframes pulseSlow{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+@media(max-width:860px){.suit-ai-bar{display:none}}
+
+.progress{position:fixed;top:0;left:0;height:5px;width:100%;z-index:8000}
+.progress i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--red) 0 30px,var(--blue) 30px 60px);border-bottom:2px solid var(--ink)}
+
+/* ---------- Navigation Bar ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:7500;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(18px,4vw,60px);background:rgba(251,250,245,.82);backdrop-filter:blur(12px);border-bottom:3px solid var(--ink);transition:background .4s}
+body.theme-miles nav{background:rgba(13,13,20,.84)}
+body.theme-symbiote nav{background:rgba(8,7,11,.86)}
+.nav-logo{font-family:'Bangers',cursive;font-size:26px;letter-spacing:.06em;color:var(--ink)}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:28px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.nav-links a{position:relative;color:var(--ink-soft);transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:3px;background:var(--red);transition:width .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+@media(max-width:920px){.nav-links{display:none}}
+
+.nav-controls{display:flex;align-items:center;gap:12px}
+.mode-toggle{font-family:'Bangers',cursive;font-size:14px;letter-spacing:.06em;border:2px solid var(--ink);background:var(--paper-2);padding:6px 14px;border-radius:99px;cursor:pointer;color:var(--ink);box-shadow:2px 2px 0 var(--ink);transition:.2s;display:flex;align-items:center;gap:6px}
+.mode-toggle:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.sound-toggle{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;border:2px solid var(--ink);background:var(--paper-2);padding:6px 12px;border-radius:99px;cursor:pointer;color:var(--ink);box-shadow:2px 2px 0 var(--ink);transition:.2s}
+.sound-toggle:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.nav-cta{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;border:3px solid var(--ink);padding:8px 20px;border-radius:99px;color:var(--ink);background:var(--yellow);box-shadow:3px 3px 0 var(--ink);transition:.25s}
+.nav-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+
+/* ---------- Layout & Sections ---------- */
+main{position:relative;z-index:2}
+section{position:relative;padding:clamp(80px,12vh,150px) clamp(20px,6vw,96px)}
+.skew-wrap{will-change:transform}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:14px;margin-bottom:24px;font-weight:700}
+.eyebrow::before{content:"";width:34px;height:3px;background:var(--red)}
+
+/* ---------- 3D Hero Section ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:120px;perspective:1100px}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);letter-spacing:.38em;text-transform:uppercase;color:var(--blue);margin-bottom:22px;opacity:0;font-weight:700}
+.h1-3d{transform-style:preserve-3d;will-change:transform}
+.hero h1{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(56px,11vw,165px);line-height:.92;letter-spacing:.015em;text-transform:uppercase;transform-style:preserve-3d}
+.hero h1 .row{display:block;overflow:visible;transform-style:preserve-3d}
+.hero h1 .row span{display:inline-block;transform:translateY(120%) rotateX(-80deg);transform-style:preserve-3d}
+.t3d-red{color:var(--red);text-shadow:1px 1px 0 var(--red-deep),2px 2px 0 var(--red-deep),3px 3px 0 var(--red-deep),4px 4px 0 var(--red-deep),5px 5px 0 var(--ink),8px 8px 0 rgba(21,21,28,.18)}
+.t3d-blue{color:var(--blue);text-shadow:1px 1px 0 var(--blue-deep),2px 2px 0 var(--blue-deep),3px 3px 0 var(--blue-deep),4px 4px 0 var(--blue-deep),5px 5px 0 var(--ink),8px 8px 0 rgba(21,21,28,.18)}
+.t3d-ink{color:var(--paper);-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--yellow),8px 8px 0 var(--ink)}
+.hero-sub{margin-top:32px;max-width:620px;font-size:clamp(16px,1.6vw,19px);color:var(--ink-soft);opacity:0;font-weight:500}
+.hero-sub b{color:var(--ink);font-weight:700}
+.hero-actions{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap;opacity:0}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:'Bangers',cursive;font-size:20px;letter-spacing:.08em;padding:14px 30px;border-radius:14px;border:3px solid var(--ink);transition:.25s;will-change:transform;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:9px 9px 0 var(--ink);background:var(--red-deep)}
+.btn-ghost{background:var(--paper);color:var(--ink)}
+.btn-ghost:hover{transform:translate(-3px,-3px) rotate(1deg);box-shadow:9px 9px 0 var(--ink);background:var(--yellow)}
+.btn .dot{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--ink);animation:blink 1.2s infinite}
+.btn-ghost .dot{background:var(--red)}
+@keyframes blink{50%{opacity:.25}}
+.hero-meta{position:absolute;bottom:30px;left:clamp(20px,6vw,96px);right:clamp(20px,6vw,96px);display:flex;justify-content:space-between;align-items:flex-end;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);opacity:0;font-weight:600}
+.scroll-hint{display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint .wheel{width:3px;height:42px;background:linear-gradient(180deg,var(--red),transparent);animation:dropLine 1.8s ease-in-out infinite}
+@keyframes dropLine{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- Marquees ---------- */
+.marquee{position:relative;z-index:2;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;padding:15px 0;background:var(--ink);transform:rotate(-1.2deg) scale(1.02);margin:10px 0}
+.marquee.m2{background:var(--red);transform:rotate(1deg) scale(1.02)}
+.marquee-track{display:flex;width:max-content;font-family:'Bangers',cursive;font-size:clamp(20px,2.4vw,28px);text-transform:uppercase;letter-spacing:.14em;color:var(--paper)}
+.marquee-track span{padding:0 26px;white-space:nowrap}
+.marquee-track .hl{color:var(--yellow)}
+.m-fwd .marquee-track{animation:marquee 22s linear infinite}
+.m-rev .marquee-track{animation:marqueeRev 26s linear infinite}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes marqueeRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ---------- Headings ---------- */
+.h2{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(38px,6vw,80px);line-height:1;text-transform:uppercase;max-width:960px;letter-spacing:.02em;transform-style:preserve-3d}
+.h2 .accent{color:var(--red);text-shadow:3px 3px 0 var(--ink)}
+.h2 .accent-b{color:var(--blue);text-shadow:3px 3px 0 var(--ink)}
+.reveal{opacity:0;transform:translateY(50px)}
+.flip3d{opacity:0;transform:rotateX(-80deg) translateY(35px);transform-origin:top center}
+
+/* ---------- About & Origin Story ---------- */
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(36px,5vw,80px);margin-top:54px;align-items:start}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-text p{font-size:clamp(16px,1.6vw,19px);color:var(--ink-soft);margin-bottom:22px;font-weight:500}
+.about-text p b{color:var(--ink);font-weight:700}
+.about-text .quote{font-family:'Bangers',cursive;font-size:clamp(22px,2.2vw,28px);color:var(--ink);border:3px solid var(--ink);border-radius:18px;padding:22px 24px;background:var(--yellow);box-shadow:6px 6px 0 var(--ink);transform:rotate(-1deg);letter-spacing:.04em}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{position:relative;background:var(--paper-card);border:3px solid var(--ink);border-radius:16px;padding:24px 20px;box-shadow:5px 5px 0 var(--ink);transition:.25s;overflow:hidden}
+.stat:nth-child(odd){transform:rotate(-1deg)}
+.stat:nth-child(even){transform:rotate(1deg)}
+.stat:hover{transform:translate(-3px,-3px) rotate(0);box-shadow:9px 9px 0 var(--ink);background:var(--paper)}
+.stat .num{font-family:'Bangers',cursive;font-size:clamp(36px,3.8vw,52px);color:var(--red);text-shadow:2px 2px 0 var(--ink)}
+.stat .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px;font-weight:700}
+
+/* ---------- Rogues Gallery (Projects) ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:60px;perspective:1400px}
+.card{position:relative;border:3px solid var(--ink);border-radius:20px;padding:38px 30px;background:var(--paper-card);box-shadow:8px 8px 0 var(--ink);transform-style:preserve-3d;will-change:transform;overflow:hidden;transition:box-shadow .3s,background .3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(450px circle at var(--mx,50%) var(--my,50%),rgba(255,196,0,.25),transparent 45%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card:hover{box-shadow:14px 14px 0 var(--ink)}
+.card .badge{position:absolute;top:-3px;right:24px;font-family:'Bangers',cursive;font-size:15px;letter-spacing:.08em;background:var(--blue);color:#fff;border:3px solid var(--ink);border-top:none;padding:6px 14px;border-radius:0 0 12px 12px}
+.card:nth-child(2) .badge{background:var(--red)}
+.card:nth-child(3) .badge{background:var(--yellow);color:#15151C}
+.card:nth-child(4) .badge{background:var(--ink);color:var(--paper)}
+.card:nth-child(5) .badge{background:#10B981;color:#fff}
+.card h3{font-family:'Bangers',cursive;font-size:clamp(26px,2.4vw,34px);margin:18px 0 12px;text-transform:uppercase;letter-spacing:.04em;transform:translateZ(44px)}
+.card p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;transform:translateZ(26px);font-weight:500}
+.card .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;transform:translateZ(20px)}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--ink);border-radius:99px;padding:5px 11px;color:var(--ink);background:var(--paper-2);font-weight:700}
+.card .card-actions{display:flex;gap:12px;margin-top:24px;transform:translateZ(30px)}
+.card-btn{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.06em;padding:8px 16px;border:2px solid var(--ink);border-radius:10px;background:var(--paper-2);color:var(--ink);box-shadow:3px 3px 0 var(--ink);display:inline-flex;align-items:center;gap:6px;transition:.2s}
+.card-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--yellow)}
+.card-btn.live{background:var(--red);color:#fff}
+.card-btn.live:hover{background:var(--red-deep)}
+.card .glyph{font-size:36px;display:inline-block;animation:floatGlyph 4s ease-in-out infinite;transform:translateZ(50px);filter:drop-shadow(3px 3px 0 rgba(21,21,28,.3))}
+@keyframes floatGlyph{0%,100%{transform:translateZ(50px) translateY(0) rotate(-4deg)}50%{transform:translateZ(50px) translateY(-10px) rotate(4deg)}}
+
+/* ---------- Tech Arsenal (Skills) ---------- */
+.arsenal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:54px}
+.arsenal-card{border:3px solid var(--ink);border-radius:18px;padding:32px 26px;background:var(--paper-card);box-shadow:6px 6px 0 var(--ink);transition:.25s}
+.arsenal-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--ink)}
+.arsenal-card h4{font-family:'Bangers',cursive;font-size:24px;letter-spacing:.05em;margin-bottom:14px;color:var(--ink);display:flex;align-items:center;gap:10px}
+.arsenal-card ul{list-style:none}
+.arsenal-card li{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;padding:7px 0;border-bottom:1px dashed var(--line);display:flex;align-items:center;gap:8px;color:var(--ink-soft);font-weight:600}
+.arsenal-card li::before{content:"★";color:var(--red)}
+
+/* ---------- Daily Bugle Newspaper Section ---------- */
+.bugle-wrap{margin-top:70px;background:#F6F2E5;color:#15151C;border:4px solid #15151C;border-radius:12px;box-shadow:12px 12px 0 #15151C;padding:clamp(24px,5vw,50px);transform:rotate(-.6deg);position:relative;overflow:hidden}
+.bugle-masthead{text-align:center;border-bottom:4px double #15151C;padding-bottom:18px;margin-bottom:24px}
+.bugle-title{font-family:'Bangers',cursive;font-size:clamp(44px,8vw,90px);letter-spacing:.05em;line-height:.95;color:#15151C}
+.bugle-sub{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:12px;border-top:2px solid #15151C;padding-top:8px;font-weight:700}
+.bugle-content{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center}
+@media(max-width:860px){.bugle-content{grid-template-columns:1fr}}
+.bugle-pic{border:3px solid #15151C;background:#E7E1CD;padding:12px;box-shadow:5px 5px 0 #15151C;position:relative}
+.bugle-photo-inner{background:#15151C;color:#FBFAF5;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.bugle-stamp{position:absolute;bottom:12px;right:12px;border:3px solid var(--red);color:var(--red);font-family:'Bangers',cursive;font-size:22px;letter-spacing:.1em;padding:4px 14px;transform:rotate(-12deg);background:rgba(251,250,245,.95);box-shadow:2px 2px 0 rgba(0,0,0,.3)}
+.bugle-quote{font-family:'Archivo',sans-serif;font-size:clamp(16px,1.6vw,19px);line-height:1.55;font-weight:600}
+.bugle-quote b{font-family:'Bangers',cursive;font-size:clamp(26px,2.4vw,34px);display:block;margin-bottom:12px;color:var(--red);line-height:1.1}
+.bugle-sig{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#4A4A58;font-weight:700}
+
+/* ---------- Contact Section ---------- */
+.contact{text-align:center;min-height:90svh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.contact .h2{margin:0 auto}
+.mega-cta{margin-top:46px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.social-row{margin-top:48px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.social{display:flex;align-items:center;gap:10px;border:3px solid var(--ink);padding:14px 22px;border-radius:14px;font-family:'Bangers',cursive;font-size:17px;letter-spacing:.08em;color:var(--ink);transition:.25s;background:var(--paper-card);box-shadow:5px 5px 0 var(--ink)}
+.social:hover{transform:translate(-3px,-5px) rotate(-1deg);box-shadow:9px 11px 0 var(--ink)}
+.social.wa:hover{background:#E3F8EB}
+.social.li:hover{background:#E5F0FB}
+.social.gh:hover{background:#EDE9FE}
+.social.ig:hover{background:#FCE7F0}
+.social.em:hover{background:#FEF3C7}
+.social svg{width:20px;height:20px;fill:currentColor}
+
+footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px clamp(20px,6vw,96px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);font-weight:700}
+
+/* ---------- Comic Click Bursts & Web Splats ---------- */
+.burst{position:fixed;z-index:9500;pointer-events:none;transform:translate(-50%,-50%);font-family:'Bangers',cursive;display:flex;align-items:center;justify-content:center}
+.burst svg{position:absolute;width:150px;height:150px}
+.burst b{position:relative;font-size:28px;letter-spacing:.06em;color:#fff;transform:rotate(-6deg)}
+.websplat{position:fixed;z-index:9400;pointer-events:none;transform:translate(-50%,-50%)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  body{cursor:auto}
+  .cursor-dot,.cursor-ring,.cursor-label,#webTrail,.spidey-sense{display:none}
+  .reveal,.flip3d,.hero-tag,.hero-sub,.hero-actions,.hero-meta{opacity:1!important;transform:none!important}
+  .hero h1 .row span{transform:none!important}
+}
+</style>
+</head>
+<body class="theme-classic">
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">KARAN REJU!</div>
+  <div class="loader-bar"><i id="loadFill"></i></div>
+  <div class="loader-status" id="loadStatus">BREWING CHAI IN KOCHI…</div>
+</div>
+
+<!-- INTERACTIVE CURSOR & AUDIO HOOKS -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div class="cursor-label" id="cursorLabel"></div>
+<div class="spidey-sense" id="spideySense">
+  <svg viewBox="0 0 100 100" fill="none" stroke="#FFC400" stroke-width="4">
+    <path d="M 20,40 Q 10,25 30,10" />
+    <path d="M 50,25 Q 50,5 50,2" />
+    <path d="M 80,40 Q 90,25 70,10" />
+  </svg>
+</div>
+
+<canvas id="gl"></canvas>
+<canvas id="webTrail"></canvas>
+<div class="halftone"></div>
+<div class="halftone-accent"></div>
+<div class="progress"><i id="progFill"></i></div>
+
+<!-- HUD OVERLAYS -->
+<div class="hud hud-tl">SYS // <b>KARAN REJU</b><br>NODE: KOCHI, KERALA [EARTH-616]</div>
+<div class="hud hud-br">WEB FIRED <b id="hudWeb">000%</b><br>SCROLL <b id="hudScroll">000%</b></div>
+
+<!-- SUIT AI (KAREN HUD TELEMETRY) -->
+<div class="suit-ai-bar">
+  <svg class="suit-ai-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+  <span id="suitAiText">Suit AI: All systems green. Web shooters calibrated at 420 PSI.</span>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo hoverable" href="#top">KARAN<span> REJU</span></a>
+  <div class="nav-links">
+    <a class="hoverable" href="#about">Origin</a>
+    <a class="hoverable" href="#missions">Rogues Gallery</a>
+    <a class="hoverable" href="#arsenal">Tech Arsenal</a>
+    <a class="hoverable" href="#bugle">Daily Bugle</a>
+    <a class="hoverable" href="#contact">Signal</a>
+  </div>
+  <div class="nav-controls">
+    <button class="sound-toggle hoverable" id="soundBtn" title="Toggle Sound FX">🔊 SFX: ON</button>
+    <button class="mode-toggle hoverable" id="modeBtn" title="Cycle Spider-Verse Suit">🕸️ SUIT: 616</button>
+    <a class="nav-cta hoverable" href="#contact">Hire Me ↗</a>
+  </div>
+</nav>
+
+<main id="top">
+<div class="skew-wrap">
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-tag" id="scrambleTag">// FULL-STACK &amp; AI ENGINEER · KOCHI, KERALA · WEB-SLINGER</div>
+    <div class="h1-3d" id="h13d">
+      <h1>
+        <span class="row"><span class="t3d-ink">I WEAVE</span></span>
+        <span class="row"><span class="t3d-red">SCALABLE CODE</span></span>
+        <span class="row"><span class="t3d-blue">&amp; AI ENGINES.</span></span>
+      </h1>
+    </div>
+    <p class="hero-sub">Hey, I'm <b>Karan Reju</b> — your friendly neighborhood full-stack developer &amp; AI engineer from Kochi. Bitten by a radioactive compiler, I craft <b>offline-first PWAs, high-concurrency Go backends, natural-language SQL engines, and predictive ML models</b> that conquer real-world chaos.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary hoverable magnetic" data-label="THWIP!" href="#missions"><span class="dot"></span> View Missions</a>
+      <a class="btn btn-ghost hoverable magnetic" data-label="SIGNAL!" href="#contact">Deploy Together ↓</a>
+    </div>
+    <div class="hero-meta">
+      <div>FULL-STACK · AI · CLOUD</div>
+      <div class="scroll-hint"><div class="wheel"></div>SCROLL TO FIRE THE WEB</div>
+      <div>EARTH-616 // KOCHI NODE</div>
+    </div>
+  </section>
+
+  <!-- DOUBLE MARQUEE -->
+  <div class="marquee m-fwd">
+    <div class="marquee-track">
+      <span>Next.js 14</span><span class="hl">★</span><span>Go (Golang)</span><span class="hl">★</span><span>TypeScript</span><span class="hl">★</span><span>LLM SQL Engines</span><span class="hl">★</span><span>Scikit-Learn ML</span><span class="hl">★</span><span>AWS EC2 &amp; SES</span><span class="hl">★</span><span>Offline-First PWAs</span><span class="hl">★</span>
+      <span>Next.js 14</span><span class="hl">★</span><span>Go (Golang)</span><span class="hl">★</span><span>TypeScript</span><span class="hl">★</span><span>LLM SQL Engines</span><span class="hl">★</span><span>Scikit-Learn ML</span><span class="hl">★</span><span>AWS EC2 &amp; SES</span><span class="hl">★</span><span>Offline-First PWAs</span><span class="hl">★</span>
+    </div>
+  </div>
+  <div class="marquee m-rev m2">
+    <div class="marquee-track">
+      <span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span>
+      <span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT / ORIGIN STORY -->
+  <section id="about">
+    <div class="eyebrow reveal">01 — Origin Story</div>
+    <h2 class="h2 flip3d">WITH GREAT CODE COMES <span class="accent">GREAT SCALABILITY</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="reveal">Operating out of <b>Kochi, Kerala</b>, I engineer production software that bridges bulletproof backends with intuitive, high-performance user interfaces. Whether tackling route delivery logistics for FMCG distributors or predicting loan defaults with machine learning, I turn messy problems into clean architecture.</p>
+        <p class="reveal">My toolkit spans <b>Go, TypeScript, Next.js 14, Python, and AWS</b>. I build resilient systems designed to run smoothly when offline, handle massive concurrent bookings, and democratize database querying through LLM interfaces.</p>
+        <p class="quote reveal">"Anyone can wear the mask. But it takes serious engineering to make the server withstand peak traffic."</p>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Missions Shipped</div></div>
+        <div class="stat"><div class="num" data-count="4">0</div><div class="lbl">Core Languages Mastered</div></div>
+        <div class="stat"><div class="num" data-count="100">0</div><div class="lbl">% Web Fluid Reliability</div></div>
+        <div class="stat"><div class="num" data-count="0">0</div><div class="lbl">Unhandled Production Villains</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROGUES GALLERY (PROJECTS) -->
+  <section id="missions">
+    <div class="eyebrow reveal">02 — Rogues Gallery</div>
+    <h2 class="h2 flip3d">MISSIONS ACCOMPLISHED &amp; <span class="accent-b">VILLAINS DEFEATED</span></h2>
+    <div class="cards">
+
+      <!-- Waymark -->
+      <div class="card hoverable reveal">
+        <div class="badge">ISSUE #01</div>
+        <div class="glyph">🚚</div>
+        <h3>Waymark</h3>
+        <p>A minimal, offline-first delivery round reminder PWA engineered for FMCG distributors. Eliminates missed restocks and emergency calls with a zero-navigation daily due list, single/double-tap delivery logging, and self-correcting restock intervals.</p>
+        <div class="chip-row">
+          <span class="chip">TypeScript</span>
+          <span class="chip">PWA</span>
+          <span class="chip">Offline-First</span>
+          <span class="chip">FMCG Logistics</span>
+        </div>
+        <div class="card-actions">
+          <a class="card-btn live hoverable" href="https://waymark-sand.vercel.app" target="_blank" rel="noopener">🚀 Live Demo</a>
+          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/waymark" target="_blank" rel="noopener">📂 GitHub</a>
+        </div>
+      </div>
+
+      <!-- CineCloud -->
+      <div class="card hoverable reveal">
+        <div class="badge">ISSUE #02</div>
+        <div class="glyph">🎟️</div>
+        <h3>CineCloud</h3>
+        <p>Presentation-ready movie ticket booking platform built with Go and SQLite for deployment on AWS EC2 Ubuntu VMs. Features theatre &amp; show time selection, seat reservations, mock checkout, dynamic PDF ticket rendering, AWS SES delivery, and QR verification.</p>
+        <div class="chip-row">
+          <span class="chip">Go (Golang)</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">AWS EC2</span>
+          <span class="chip">AWS SES</span>
+        </div>
+        <div class="card-actions">
+          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/CineCloud" target="_blank" rel="noopener">📂 GitHub Repo</a>
+        </div>
+      </div>
+
+      <!-- LLM SQL Analyst -->
+      <div class="card hoverable reveal">
+        <div class="badge">ISSUE #03</div>
+        <div class="glyph">🤖</div>
+        <h3>LLM SQL Analyst</h3>
+        <p>A lightweight, production-focused Streamlit application that transforms natural language questions into executed SQL across uploaded CSV and Excel datasets. Dynamic schema extraction, prompt engineering, and clean rendered analytics.</p>
+        <div class="chip-row">
+          <span class="chip">Python</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">LLM / AI</span>
+          <span class="chip">SQL Engine</span>
+        </div>
+        <div class="card-actions">
+          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/llm-sql-analyst" target="_blank" rel="noopener">📂 GitHub Repo</a>
+        </div>
+      </div>
+
+      <!-- PawConnect -->
+      <div class="card hoverable reveal">
+        <div class="badge">ISSUE #04</div>
+        <div class="glyph">🐾</div>
+        <h3>PawConnect</h3>
+        <p>Full-stack community web platform connecting stray dogs with rescue NGOs for verified adoption, donations, and medical care tracking. Features responsive Next.js 14 App Router workflows with an Express and PostgreSQL backend.</p>
+        <div class="chip-row">
+          <span class="chip">Next.js 14</span>
+          <span class="chip">Express.js</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">Tailwind CSS</span>
+        </div>
+        <div class="card-actions">
+          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/pawconnect" target="_blank" rel="noopener">📂 GitHub Repo</a>
+        </div>
+      </div>
+
+      <!-- Credit Risk Model -->
+      <div class="card hoverable reveal">
+        <div class="badge">ISSUE #05</div>
+        <div class="glyph">📊</div>
+        <h3>Credit Risk Model</h3>
+        <p>Machine learning classification pipeline predicting loan default risk on real-world financial data. Implements SMOTE class imbalance handling, Random Forest, Decision Trees, Logistic Regression, and ROC-AUC evaluation metrics.</p>
+        <div class="chip-row">
+          <span class="chip">Python</span>
+          <span class="chip">Scikit-Learn</span>
+          <span class="chip">Random Forest</span>
+          <span class="chip">SMOTE</span>
+        </div>
+        <div class="card-actions">
+          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/credit-risk-model" target="_blank" rel="noopener">📂 GitHub Repo</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SUIT TECH ARSENAL (SKILLS) -->
+  <section id="arsenal">
+    <div class="eyebrow reveal">03 — Suit Tech &amp; Gadgets</div>
+    <h2 class="h2 flip3d">ENGINEERED FOR <span class="accent">MAXIMUM IMPACT</span></h2>
+    <div class="arsenal-grid">
+      <div class="arsenal-card hoverable reveal">
+        <h4>🕸️ Web-Shooters &amp; Frontend</h4>
+        <ul>
+          <li>Next.js 14 &amp; React (App Router, Server Components)</li>
+          <li>TypeScript &amp; Modern ES6+ JavaScript</li>
+          <li>Progressive Web Apps (Offline-first, Service Workers)</li>
+          <li>Tailwind CSS, Halftone UI &amp; Responsive Layouts</li>
+          <li>Three.js, WebGL &amp; GSAP Kinetic Animations</li>
+        </ul>
+      </div>
+
+      <div class="arsenal-card hoverable reveal">
+        <h4>⚡ Iron Spine &amp; Backend</h4>
+        <ul>
+          <li>Go (Golang) — High-throughput microservices</li>
+          <li>Node.js &amp; Express.js APIs</li>
+          <li>PostgreSQL &amp; SQLite relational databases</li>
+          <li>AWS Infrastructure: EC2 Ubuntu hosting, AWS SES mail</li>
+          <li>RESTful APIs, PDF generation &amp; QR verification</li>
+        </ul>
+      </div>
+
+      <div class="arsenal-card hoverable reveal">
+        <h4>🧠 Spidey-Sense &amp; AI / ML</h4>
+        <ul>
+          <li>LLM Natural Language to SQL generation</li>
+          <li>Machine Learning: Random Forest, Decision Trees</li>
+          <li>Imbalanced data handling with SMOTE</li>
+          <li>Streamlit rapid analytics &amp; visualization apps</li>
+          <li>Pandas, NumPy, and Scikit-Learn data pipelines</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY BUGLE (TESTIMONIALS / HUMOR) -->
+  <section id="bugle">
+    <div class="eyebrow reveal">04 — The Daily Bugle Exclusive</div>
+    <div class="bugle-wrap reveal">
+      <div class="bugle-masthead">
+        <div class="bugle-title">THE DAILY BUGLE</div>
+        <div class="bugle-sub">
+          <span>VOL. LXIV NO. 142</span>
+          <span>KOCHI SPECIAL EDITION</span>
+          <span>PRICE: 2 BITS</span>
+        </div>
+      </div>
+      <div class="bugle-content">
+        <div class="bugle-pic">
+          <div class="bugle-photo-inner">
+            <svg viewBox="0 0 24 24" width="70" height="70" fill="#E0202F"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+            <div style="font-family:'Bangers',cursive;font-size:24px;margin-top:10px;letter-spacing:.05em">CODE SPOTTED IN KOCHI!</div>
+          </div>
+          <div class="bugle-stamp">VERIFIED THREAT!</div>
+        </div>
+        <div>
+          <div class="bugle-quote">
+            <b>"HE'S A MENACE TO SLUGGISH CODE!"</b>
+            "This masked developer from Kochi automated an entire delivery route with an offline PWA, deployed a Go booking engine on AWS, and wired an LLM to query SQL databases in plain English — all before my afternoon cigar! I want him investigated... and then offered a long-term contract!"
+          </div>
+          <div class="bugle-sig">— J. JONAH JAMESON, EDITOR-IN-CHIEF, DAILY BUGLE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & SPIDER-SIGNAL -->
+  <section id="contact" class="contact">
+    <div class="eyebrow reveal" style="justify-content:center">05 — Flash The Spider-Signal</div>
+    <h2 class="h2 flip3d">READY TO LAUNCH YOUR <span class="accent">NEXT MISSION?</span></h2>
+    <p class="hero-sub reveal" style="opacity:1;margin:24px auto 0;text-align:center">Got a high-performance web app, Go backend, or AI integration in mind? <b>Drop a message or fire a signal — let's build something extraordinary.</b></p>
+    
+    <div class="mega-cta reveal">
+      <a class="btn btn-primary hoverable magnetic" data-label="SEND EMAIL!" href="mailto:karanreju@gmail.com"><span class="dot"></span> Send An Email</a>
+      <a class="btn btn-ghost hoverable magnetic" data-label="WHATSAPP!" href="https://wa.me/917356547600" target="_blank" rel="noopener">WhatsApp Direct ↗</a>
+    </div>
+
+    <div class="social-row reveal">
+      <a class="social em hoverable" href="mailto:karanreju@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        karanreju@gmail.com
+      </a>
+      <a class="social wa hoverable" href="https://wa.me/917356547600" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5.2.6.8 2 .9 2.2.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.5.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.8 2.2 1.2 1.1 2.2 1.4 2.6 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.2.5.2.6.4.1.1.1.7-.1 1.4z"/></svg>
+        +91 7356547600
+      </a>
+      <a class="social li hoverable" href="https://www.linkedin.com/in/karanreju/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social gh hoverable" href="https://github.com/karanrejuuu" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a class="social ig hoverable" href="https://www.instagram.com/karanreju" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div>© 2026 KARAN REJU — FULL-STACK &amp; AI ENGINEER</div>
+  <div>KOCHI, KERALA // EARTH-616 · BUILT WITH THREE.JS &amp; GSAP ⚡</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+gsap.registerPlugin(ScrollTrigger);
+
+/* ============================================================
+   WEB AUDIO API SYNTHESIZER (COMIC SOUND FX)
+============================================================ */
+let audioCtx = null;
+let soundEnabled = true;
+
+function initAudio() {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) audioCtx = new AudioContext();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+function playThwipSound() {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.16);
+
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+    filter.Q.setValueAtTime(3, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.16);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.16);
+  } catch (e) {}
+}
+
+function playPunchSound() {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.12);
+
+    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.12);
+  } catch (e) {}
+}
+
+const soundBtn = document.getElementById('soundBtn');
+soundBtn.addEventListener('click', () => {
+  initAudio();
+  soundEnabled = !soundEnabled;
+  soundBtn.textContent = soundEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+});
+
+/* ============================================================
+   SPIDER-VERSE SUIT MODE SWITCHER
+============================================================ */
+const themes = [
+  { name: '616', cls: 'theme-classic', label: '🕸️ SUIT: 616', webCol: 0xE0202F },
+  { name: 'MILES', cls: 'theme-miles', label: '⚡ SUIT: MILES', webCol: 0x00E5FF },
+  { name: 'VENOM', cls: 'theme-symbiote', label: '🖤 SUIT: VENOM', webCol: 0x9D00FF }
+];
+let currentThemeIdx = 0;
+const modeBtn = document.getElementById('modeBtn');
+
+modeBtn.addEventListener('click', () => {
+  initAudio();
+  playPunchSound();
+  document.body.classList.remove(themes[currentThemeIdx].cls);
+  currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+  const current = themes[currentThemeIdx];
+  document.body.classList.add(current.cls);
+  modeBtn.textContent = current.label;
+
+  // Update Three.js web color dynamically
+  if (web2) web2.material.color.setHex(current.webCol);
+  if (tip) tip.material.color.setHex(current.webCol);
+});
+
+/* ============================================================
+   SUIT AI (KAREN HUD) STATUS QUIP ENGINE
+============================================================ */
+const suitQuips = [
+  "Suit AI: All systems green. Web shooters calibrated at 420 PSI.",
+  "Suit AI: Detected high-performance Go backend running in Kochi.",
+  "Suit AI: Offline-First PWA synced with zero packet loss.",
+  "Suit AI: SMOTE algorithms normalized. Default risks predicted.",
+  "Suit AI: Spider-Sense active: Visitor is browsing Karan's GitHub.",
+  "Suit AI: Chai fuel levels at maximum capacity. Ready to deploy."
+];
+let quipIdx = 0;
+const suitAiText = document.getElementById('suitAiText');
+setInterval(() => {
+  quipIdx = (quipIdx + 1) % suitQuips.length;
+  suitAiText.textContent = suitQuips[quipIdx];
+}, 7000);
+
+/* ============================================================
+   3D SCENE — SKYLINE, HERO SILHOUETTE, SCROLL-DRIVEN 3D WEB
+============================================================ */
+const canvas = document.getElementById('gl');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0x000000, 0);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xFBFAF5, 26, 60);
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, .1, 200);
+camera.position.set(-2, 3.5, 14);
+
+const INK = 0x15151C, RED = 0xE0202F;
+
+function windowTexture(w, h) {
+  const c = document.createElement('canvas'); c.width = 64; c.height = 128;
+  const x = c.getContext('2d');
+  x.fillStyle = '#EFEBDE'; x.fillRect(0, 0, 64, 128);
+  x.fillStyle = 'rgba(21,21,28,.8)';
+  for (let r = 8; r < 124; r += 14) for (let col = 8; col < 60; col += 14) {
+    if (Math.random() < .72) x.fillRect(col, r, 7, 8);
+    else { x.fillStyle = 'rgba(255,196,0,.9)'; x.fillRect(col, r, 7, 8); x.fillStyle = 'rgba(21,21,28,.8)'; }
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.repeat.set(Math.max(1, Math.round(w / 1.4)), Math.max(1, Math.round(h / 2.4)));
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+
+const city = new THREE.Group();
+const buildingDefs = [
+  [-13, 3, 7, -6], [-9.5, 2.6, 10, -5], [-6, 3.4, 14, -4.5], [-2.4, 2.4, 8, -6.5],
+  [0.8, 3, 11, -5.5], [4.4, 2.8, 9, -6], [8.2, 3.6, 12.5, -2.6], [12.6, 3, 8, -6.2], [16.2, 3.4, 10.5, -5.4],
+  [-17, 3, 9, -7], [19.8, 2.8, 7.5, -7]
+];
+const HERO_BIDX = 6, HERO_BH = 12.5;
+let heroBuilding = null;
+buildingDefs.forEach((d, i) => {
+  const [bx, bw, bh, bz] = d;
+  const g = new THREE.BoxGeometry(bw, bh, bw);
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ map: windowTexture(bw, bh) }));
+  m.position.set(bx, bh / 2 - 4.5, bz);
+  city.add(m);
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({ color: INK, transparent: true, opacity: .9 }));
+  edges.position.copy(m.position);
+  city.add(edges);
+
+  const ledge = new THREE.Mesh(new THREE.BoxGeometry(bw + .3, .22, bw + .3), new THREE.MeshBasicMaterial({ color: INK }));
+  ledge.position.set(bx, bh - 4.5 + .11, bz);
+  city.add(ledge);
+  if (i === HERO_BIDX) heroBuilding = m;
+});
+scene.add(city);
+
+// Distant silhouette
+const farRow = new THREE.Group();
+for (let i = 0; i < 16; i++) {
+  const w = 2 + Math.random() * 2.5, h = 4 + Math.random() * 8;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: 0xD9D4C4, transparent: true, opacity: .55 }));
+  m.position.set(-22 + i * 3, h / 2 - 4.5, -16);
+  farRow.add(m);
+}
+scene.add(farRow);
+
+// Comic Clouds
+const clouds = new THREE.Group();
+for (let i = 0; i < 4; i++) {
+  const cg = new THREE.Group();
+  for (let b = 0; b < 4; b++) {
+    const s = new THREE.Mesh(new THREE.SphereGeometry(.7 + Math.random() * .5, 10, 10), new THREE.MeshBasicMaterial({ color: 0xFFFFFF }));
+    s.position.set(b * .9 - 1.3, Math.random() * .3, 0);
+    cg.add(s);
+    const o = new THREE.LineSegments(new THREE.EdgesGeometry(s.geometry), new THREE.LineBasicMaterial({ color: INK, transparent: true, opacity: .12 }));
+    o.position.copy(s.position); cg.add(o);
+  }
+  cg.position.set(-14 + i * 9, 6.5 + Math.random() * 3, -10 - Math.random() * 4);
+  cg.userData = { sp: .08 + Math.random() * .12 };
+  clouds.add(cg);
+}
+scene.add(clouds);
+
+// Hero Silhouette
+const hero = new THREE.Group();
+const inkMat = new THREE.MeshBasicMaterial({ color: INK });
+function part(geom, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) {
+  const m = new THREE.Mesh(geom, inkMat);
+  m.position.set(x, y, z); m.rotation.set(rx, ry, rz); m.scale.set(sx, sy, sz);
+  hero.add(m); return m;
+}
+part(new THREE.SphereGeometry(.34, 14, 14), .12, 1.62, 0, 0, 0, 0, 1, .92, 1);
+part(new THREE.CylinderGeometry(.26, .34, .95, 10), -.08, .95, 0, 0, 0, .5);
+part(new THREE.CylinderGeometry(.11, .13, .85, 8), -.42, .42, .16, 0, 0, 1.25);
+part(new THREE.CylinderGeometry(.09, .11, .8, 8), -.95, .18, .16, 0, 0, -.9);
+part(new THREE.CylinderGeometry(.11, .13, .8, 8), -.1, .36, -.18, 0, 0, .35);
+part(new THREE.CylinderGeometry(.09, .11, .75, 8), .12, .0, -.18, 0, 0, -.15);
+part(new THREE.BoxGeometry(.34, .12, .16), .16, -.36, -.18);
+part(new THREE.BoxGeometry(.34, .12, .16), -1.2, -.1, .16);
+part(new THREE.CylinderGeometry(.09, .1, .8, 8), .58, 1.45, .05, 0, 0, -1.35);
+part(new THREE.SphereGeometry(.12, 10, 10), .98, 1.62, .05);
+part(new THREE.CylinderGeometry(.08, .09, .6, 8), -.28, 1.15, -.22, 0, 0, .9);
+part(new THREE.SphereGeometry(.1, 10, 10), -.52, .88, -.22);
+hero.scale.setScalar(2.2);
+
+const perch = new THREE.Vector3(heroBuilding.position.x - .4, heroBuilding.position.y + (HERO_BH / 2) + .25, heroBuilding.position.z + 1.2);
+hero.position.copy(perch);
+const HERO_BASE_ROT = 2.75;
+hero.rotation.y = HERO_BASE_ROT;
+scene.add(hero);
+
+const handLocal = new THREE.Vector3(.98, 1.62, .05);
+function handWorld() { return hero.localToWorld(handLocal.clone()); }
+
+// Giant Comic Moon
+const moon = new THREE.Group();
+const moonDisc = new THREE.Mesh(new THREE.CircleGeometry(4.6, 48), new THREE.MeshBasicMaterial({ color: 0xFFE9A8 }));
+const moonRing = new THREE.Mesh(new THREE.RingGeometry(4.6, 4.78, 48), new THREE.MeshBasicMaterial({ color: INK }));
+moon.add(moonDisc, moonRing);
+moon.position.set(perch.x + .6, perch.y + 2.6, perch.z - 6.5);
+scene.add(moon);
+
+// 3D Web Strand Extrusion
+const WEB_SEGS = 900, RADIAL = 6;
+function buildWebCurve() {
+  const h = handWorld();
+  const pts = [
+    h,
+    h.clone().add(new THREE.Vector3(-3.2, 2.6, 1.2)),
+    new THREE.Vector3(3.5, 8, -1),
+    new THREE.Vector3(-1, 5, 2.5),
+    new THREE.Vector3(-6, 9, -2),
+    new THREE.Vector3(-11, 5.5, 3),
+    new THREE.Vector3(-16, 10, -3),
+    new THREE.Vector3(-21, 6.5, 2),
+    new THREE.Vector3(-27, 10.5, -4),
+    new THREE.Vector3(-33, 7.5, 1)
+  ];
+  return new THREE.CatmullRomCurve3(pts);
+}
+let webCurve = buildWebCurve();
+const webGeo = new THREE.TubeGeometry(webCurve, WEB_SEGS, .045, RADIAL, false);
+const web = new THREE.Mesh(webGeo, new THREE.MeshBasicMaterial({ color: INK }));
+web.geometry.setDrawRange(0, 0);
+scene.add(web);
+
+const web2 = new THREE.Mesh(new THREE.TubeGeometry(webCurve, WEB_SEGS, .016, RADIAL, false), new THREE.MeshBasicMaterial({ color: RED }));
+web2.position.y = .09;
+web2.geometry.setDrawRange(0, 0);
+scene.add(web2);
+
+const tip = new THREE.Mesh(new THREE.SphereGeometry(.14, 10, 10), new THREE.MeshBasicMaterial({ color: RED }));
+const tipRing = new THREE.Mesh(new THREE.TorusGeometry(.3, .02, 6, 24), new THREE.MeshBasicMaterial({ color: INK, transparent: true, opacity: .7 }));
+scene.add(tip, tipRing);
+
+let webProgress = 0, webTarget = 0;
+function setHud(p) {
+  document.getElementById('hudWeb').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
+}
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  webTarget = p;
+  document.getElementById('progFill').style.width = p * 100 + '%';
+  document.getElementById('hudScroll').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
+}, { passive: true });
+
+const camBase = { x: 0, y: 5, z: 14 };
+const mouse = { x: 0, y: 0 };
+addEventListener('pointermove', e => { mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5; });
+
+/* Click to shoot 3D webs + comic explosions */
+const shots = [];
+const WORDS = ['THWIP!', 'BAM!', 'DEBUGGED!', 'KAPOW!', 'DEPLOY!', 'POW!', '404 SOLVED!'];
+
+function comicBurst(x, y) {
+  const el = document.createElement('div');
+  el.className = 'burst';
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+  const col = Math.random() < .5 ? '#E0202F' : '#2342D6';
+  el.innerHTML = `<svg viewBox="0 0 100 100"><polygon points="50,2 58,30 88,12 70,38 98,46 70,56 86,84 56,68 50,98 42,68 14,86 30,56 2,48 30,40 12,12 42,30" fill="${col}" stroke="#15151C" stroke-width="3"/></svg><b>${word}</b>`;
+  document.body.appendChild(el);
+  gsap.fromTo(el, { scale: 0, rotate: -20 }, { scale: 1, rotate: 6, duration: .35, ease: 'back.out(3)' });
+  gsap.to(el, { scale: 0, opacity: 0, duration: .3, delay: .55, ease: 'back.in(2)', onComplete: () => el.remove() });
+}
+
+function webSplat(x, y) {
+  const el = document.createElement('div');
+  el.className = 'websplat';
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  let spokes = '', rings = '';
+  for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; spokes += `<line x1="60" y1="60" x2="${60 + Math.cos(a) * 56}" y2="${60 + Math.sin(a) * 56}"/>`; }
+  for (let r = 14; r <= 52; r += 13) {
+    let d = '';
+    for (let i = 0; i <= 10; i++) { const a = i / 10 * Math.PI * 2; d += (i === 0 ? 'M' : 'L') + (60 + Math.cos(a) * r) + ',' + (60 + Math.sin(a) * r); }
+    rings += `<path d="${d}Z" fill="none"/>`;
+  }
+  el.innerHTML = `<svg width="120" height="120" viewBox="0 0 120 120" stroke="#15151C" stroke-width="1.6" opacity=".75">${spokes}${rings}</svg>`;
+  document.body.appendChild(el);
+  gsap.fromTo(el, { scale: .2, opacity: 1, rotate: Math.random() * 40 - 20 }, { scale: 1, duration: .3, ease: 'back.out(2)' });
+  gsap.to(el, { opacity: 0, scale: 1.15, duration: .6, delay: .5, onComplete: () => el.remove() });
+}
+
+addEventListener('pointerdown', e => {
+  initAudio();
+  playThwipSound();
+  const v = new THREE.Vector3((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1, .5).unproject(camera);
+  const dir = v.sub(camera.position).normalize();
+  const target = camera.position.clone().add(dir.multiplyScalar(13));
+  const start = handWorld();
+  const mid = start.clone().lerp(target, .5).add(new THREE.Vector3(0, 1.2, 0));
+  const curve = new THREE.CatmullRomCurve3([start, mid, target]);
+  const SEG = 60;
+  const g = new THREE.TubeGeometry(curve, SEG, .03, 5, false);
+  g.setDrawRange(0, 0);
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: themes[currentThemeIdx].webCol }));
+  scene.add(m);
+  shots.push({ mesh: g, mInstance: m, seg: SEG, t: 0 });
+
+  gsap.fromTo(hero.rotation, { z: 0 }, { z: -.06, duration: .08, yoyo: true, repeat: 1 });
+  comicBurst(e.clientX, e.clientY);
+  webSplat(e.clientX, e.clientY);
+});
+
+/* Render Loop */
+const clock = new THREE.Clock();
+function tick() {
+  const dt = clock.getDelta(), t = clock.getElapsedTime();
+  hero.position.y = perch.y + Math.sin(t * 1.6) * .04;
+  hero.rotation.y = HERO_BASE_ROT + Math.sin(t * .5) * .05 + mouse.x * .15;
+  moon.lookAt(camera.position);
+
+  webProgress += (webTarget - webProgress) * .08;
+  const segsOn = Math.floor(webProgress * WEB_SEGS);
+  web.geometry.setDrawRange(0, Math.max(0, segsOn * RADIAL * 6));
+  web2.geometry.setDrawRange(0, Math.max(0, segsOn * RADIAL * 6));
+  setHud(webProgress);
+
+  const tp = webCurve.getPointAt(Math.max(.001, Math.min(.999, webProgress)));
+  tip.position.copy(tp);
+  tipRing.position.copy(tp);
+  tipRing.rotation.z = t * 3;
+
+  const followX = THREE.MathUtils.lerp(camBase.x, tp.x * .55, webProgress);
+  const followY = THREE.MathUtils.lerp(camBase.y, 2.5 + tp.y * .35, webProgress);
+  const followZ = THREE.MathUtils.lerp(camBase.z, 15.5, webProgress);
+  camera.position.x += ((followX + mouse.x * 1.6) - camera.position.x) * .05;
+  camera.position.y += ((followY - mouse.y * 1.0) - camera.position.y) * .05;
+  camera.position.z += ((followZ - camera.position.z) * .05);
+  const lookStart = new THREE.Vector3(perch.x - 4.6, perch.y - 2.2, perch.z);
+  const look = new THREE.Vector3().lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + .05));
+  camera.lookAt(look);
+
+  clouds.children.forEach(c => { c.position.x += c.userData.sp * dt; if (c.position.x > 22) c.position.x = -22; });
+
+  for (let i = shots.length - 1; i >= 0; i--) {
+    const s = shots[i];
+    s.t += dt * 3.2;
+    const on = Math.min(1, s.t);
+    s.mesh.setDrawRange(0, Math.floor(on * s.seg) * 5 * 6);
+    if (s.t > 1.4) {
+      s.mInstance.material.transparent = true;
+      s.mInstance.material.opacity = Math.max(0, 1 - (s.t - 1.4) * 2);
+      if (s.mInstance.material.opacity <= 0) {
+        scene.remove(s.mInstance); s.mesh.dispose(); shots.splice(i, 1);
+      }
+    }
+  }
+
+  renderer.render(scene, camera);
+  if (!reduceMotion) requestAnimationFrame(tick);
+}
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+/* ============================================================
+   2D CANVAS WEB TRAIL (SPRING-FOLLOW PHYSICS)
+============================================================ */
+const trailC = document.getElementById('webTrail'), tx = trailC.getContext('2d');
+function sizeTrail() { trailC.width = innerWidth; trailC.height = innerHeight; }
+sizeTrail(); addEventListener('resize', sizeTrail);
+const trail = [];
+addEventListener('pointermove', e => { trail.unshift({ x: e.clientX, y: e.clientY }); if (trail.length > 26) trail.pop(); });
+(function trailLoop() {
+  tx.clearRect(0, 0, trailC.width, trailC.height);
+  if (trail.length > 2 && !reduceMotion) {
+    for (let i = 1; i < trail.length; i++) {
+      const f = 1 - i / trail.length;
+      tx.strokeStyle = `rgba(224,32,47,${f * .5})`;
+      tx.lineWidth = f * 3;
+      tx.beginPath(); tx.moveTo(trail[i - 1].x, trail[i - 1].y); tx.lineTo(trail[i].x, trail[i].y); tx.stroke();
+      if (i % 5 === 0) {
+        tx.strokeStyle = `rgba(21,21,28,${f * .3})`; tx.lineWidth = 1;
+        const dx = trail[i].x - trail[i - 1].x, dy = trail[i].y - trail[i - 1].y, L = Math.hypot(dx, dy) || 1;
+        const nx = -dy / L * 7 * f, ny = dx / L * 7 * f;
+        tx.beginPath(); tx.moveTo(trail[i].x - nx, trail[i].y - ny); tx.lineTo(trail[i].x + nx, trail[i].y + ny); tx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(trailLoop);
+})();
+
+/* ============================================================
+   LOADER TIMELINE & LAUNCH
+============================================================ */
+const statuses = [
+  'BREWING CHAI IN KOCHI…',
+  'WEAVING RESILIENT ARCHITECTURE…',
+  'CALIBRATING WEB-SHOOTERS…',
+  'TRAINING ML MODELS…',
+  'READY TO FIRE!'
+];
+let progress = 0, si = 0;
+const loadFill = document.getElementById('loadFill'), loadStatus = document.getElementById('loadStatus');
+const loadInt = setInterval(() => {
+  progress = Math.min(100, progress + Math.random() * 15);
+  loadFill.style.width = progress + '%';
+  if (progress / 100 * statuses.length > si && si < statuses.length - 1) {
+    si++; loadStatus.textContent = statuses[si];
+  }
+  if (progress >= 100) {
+    clearInterval(loadInt);
+    loadStatus.textContent = statuses[statuses.length - 1];
+    setTimeout(launch, 350);
+  }
+}, 100);
+
+function launch() {
+  document.getElementById('loader').classList.add('done');
+  tick();
+  if (reduceMotion) { renderer.render(scene, camera); return; }
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  tl.to('.hero h1 .row span', { y: 0, rotateX: 0, duration: 1.4, stagger: .15, ease: 'back.out(1.4)' }, .2)
+    .to('.hero-tag', { opacity: 1, duration: 1 }, .5)
+    .to('.hero-sub', { opacity: 1, duration: 1 }, 1)
+    .to('.hero-actions', { opacity: 1, duration: 1 }, 1.2)
+    .to('.hero-meta', { opacity: 1, duration: 1 }, 1.4)
+    .from(camera.position, { z: 24, y: 8, duration: 2.6, ease: 'power3.out' }, 0);
+  scrambleText(document.getElementById('scrambleTag'));
+}
+
+/* 3D Hero Text Tilt */
+const h13d = document.getElementById('h13d');
+document.querySelectorAll('.hero h1 .row').forEach((r, i) => r.style.transform = `translateZ(${i * 38}px)`);
+addEventListener('pointermove', e => {
+  if (reduceMotion) return;
+  const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+  gsap.to(h13d, { rotateY: x * 14, rotateX: -y * 10, duration: .8, ease: 'power2.out', transformPerspective: 1100 });
+});
+gsap.to(h13d, { y: -8, duration: 2.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+/* Scramble Text */
+const CHARS = '!<>-_\\/[]{}—=+*^?#01';
+function scrambleText(el) {
+  const original = el.dataset.original || el.textContent;
+  el.dataset.original = original;
+  let frame = 0; const total = 40;
+  const timer = setInterval(() => {
+    frame++;
+    el.textContent = original.split('').map((ch, i) => {
+      if (ch === ' ') return ' ';
+      if (i < (frame / total) * original.length) return ch;
+      return CHARS[Math.floor(Math.random() * CHARS.length)];
+    }).join('');
+    if (frame >= total) { el.textContent = original; clearInterval(timer); }
+  }, 30);
+}
+
+/* Scroll FX */
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+});
+gsap.utils.toArray('.flip3d').forEach(el => {
+  gsap.to(el, { opacity: 1, rotateX: 0, y: 0, duration: 1.3, ease: 'back.out(1.5)', transformPerspective: 900, scrollTrigger: { trigger: el, start: 'top 86%' } });
+});
+gsap.utils.toArray('.num[data-count]').forEach(el => {
+  const target = +el.dataset.count;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 90%', once: true, onEnter: () => {
+      gsap.fromTo(el, { innerText: 0 }, {
+        innerText: target, duration: 2, ease: 'power2.out', snap: { innerText: 1 },
+        onUpdate() { el.textContent = Math.floor(+el.textContent) + (target === 100 ? '%' : '+'); },
+        onComplete() { el.textContent = target + (target === 100 ? '%' : '+'); }
+      });
+    }
+  });
+});
+const skewSet = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
+ScrollTrigger.create({
+  onUpdate(self) {
+    const v = Math.max(-4, Math.min(4, self.getVelocity() / -450));
+    skewSet(v);
+    gsap.to('.skew-wrap', { skewY: 0, duration: .7, ease: 'power3.out', overwrite: true });
+  }
+});
+
+/* Cursor & Spidey-Sense */
+const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring'), label = document.getElementById('cursorLabel');
+const spideySense = document.getElementById('spideySense');
+let rx = 0, ry = 0;
+
+addEventListener('pointermove', e => {
+  dot.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+  label.style.left = e.clientX + 'px'; label.style.top = e.clientY + 'px';
+  spideySense.style.left = e.clientX + 'px'; spideySense.style.top = (e.clientY - 40) + 'px';
+  rx = e.clientX; ry = e.clientY;
+});
+(function ringLoop() {
+  const cur = ring.getBoundingClientRect();
+  const cx = cur.left + cur.width / 2, cy = cur.top + cur.height / 2;
+  ring.style.transform = `translate(${cx + (rx - cx) * .18}px,${cy + (ry - cy) * .18}px) translate(-50%,-50%)`;
+  requestAnimationFrame(ringLoop);
+})();
+
+document.querySelectorAll('.hoverable,a,button').forEach(el => {
+  el.addEventListener('pointerenter', () => {
+    ring.classList.add('hovering');
+    spideySense.classList.add('active');
+    if (el.dataset.label) { label.textContent = el.dataset.label; label.style.opacity = 1; }
+  });
+  el.addEventListener('pointerleave', () => {
+    ring.classList.remove('hovering');
+    spideySense.classList.remove('active');
+    label.style.opacity = 0;
+  });
+});
+
+document.querySelectorAll('.magnetic').forEach(btn => {
+  btn.addEventListener('pointermove', e => {
+    const r = btn.getBoundingClientRect();
+    gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * .32, y: (e.clientY - r.top - r.height / 2) * .32, duration: .4 });
+  });
+  btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.4)' }));
+});
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    card.style.setProperty('--mx', px * 100 + '%'); card.style.setProperty('--my', py * 100 + '%');
+    gsap.to(card, { rotateY: (px - .5) * 14, rotateX: (.5 - py) * 14, duration: .5, ease: 'power2.out', transformPerspective: 1000 });
+  });
+  card.addEventListener('pointerleave', () => gsap.to(card, { rotateX: 0, rotateY: 0, duration: .8, ease: 'elastic.out(1,.5)' }));
+});
+</script>
+</body>
+</html>
