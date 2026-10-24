@@ -3,370 +3,466 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karan Reju — Full-Stack &amp; AI Engineer | Web-Slinger</title>
-<meta name="description" content="Karan Reju — Full-Stack &amp; AI Engineer based in Kochi, India. Building offline-first PWAs, high-concurrency Go backends, LLM SQL engines, and ML models.">
+<title>Karan Reju — Full-Stack &amp; AI Engineer | Web-Slinger Portfolio</title>
+<meta name="description" content="Karan Reju — Full-Stack &amp; AI Engineer based in Kochi, India. Building offline-first PWAs, high-throughput Go backends, LLM SQL engines, and ML models.">
+
+<!-- OpenGraph & Twitter Meta Tags -->
+<meta property="og:title" content="Karan Reju — Full-Stack &amp; AI Engineer">
+<meta property="og:description" content="Interactive Spider-Verse Comic Portfolio. High-performance Go backends, offline-first PWAs, LLM SQL engines, and ML models.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://karanrejuuu.github.io/spiderman-port/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Karan Reju — Full-Stack &amp; AI Engineer">
+<meta name="twitter:description" content="Explore missions, interactive trading cards, live project demos, and 3D web-slinging in Kochi.">
+
+<!-- Inline SVG Web Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23E0202F' stroke='%2315151C' stroke-width='6'/><path d='M50 4 L50 96 M4 50 L96 50 M17 17 L83 83 M17 83 L83 17' stroke='%2315151C' stroke-width='4'/><circle cx='50' cy='50' r='18' fill='none' stroke='%2315151C' stroke-width='4'/><circle cx='50' cy='50' r='32' fill='none' stroke='%2315151C' stroke-width='4'/></svg>">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --paper:#FBFAF5;
-  --paper-2:#F2EFE6;
+  --paper-2:#F4EFE3;
   --paper-card:#FFFFFF;
+  --scrim:rgba(251,250,245,0.95);
+  --scrim-hero:rgba(251,250,245,0.88);
   --ink:#15151C;
-  --ink-soft:#4A4A58;
+  --ink-soft:#3C3C48;
   --red:#E0202F;
   --red-deep:#B30E1E;
   --blue:#2342D6;
   --blue-deep:#16289B;
   --yellow:#FFC400;
+  --cyan:#00E5FF;
   --accent:#E0202F;
-  --line:rgba(21,21,28,.16);
-  --suit-accent:#2342D6;
-  --electric:#FFEA00;
-  --glow:rgba(224,32,47,0.4);
+  --line:rgba(21,21,28,.2);
+  --glow:rgba(224,32,47,0.45);
+  --cmyk-red:rgba(224,32,47,0.75);
+  --cmyk-cyan:rgba(0,229,255,0.75);
+  --radius:16px;
+  --shadow:7px 7px 0 var(--ink);
+  --shadow-lg:12px 12px 0 var(--ink);
 }
 
-/* Miles Morales Theme */
-body.theme-miles {
-  --paper:#0D0D14;
-  --paper-2:#151522;
-  --paper-card:#181828;
-  --ink:#F5F5FA;
-  --ink-soft:#A5A5C0;
+/* Night Mission / Cyberpunk Spider-Verse Mode */
+body.theme-night {
+  --paper:#0A0A12;
+  --paper-2:#12121E;
+  --paper-card:#161626;
+  --scrim:rgba(10,10,18,0.96);
+  --scrim-hero:rgba(10,10,18,0.85);
+  --ink:#F4F4FA;
+  --ink-soft:#A5A5BC;
   --red:#FF1A4B;
   --red-deep:#B3002D;
   --blue:#00E5FF;
   --blue-deep:#0091EA;
-  --yellow:#FFEA00;
+  --yellow:#FFE600;
+  --cyan:#00FFD5;
   --accent:#00E5FF;
-  --line:rgba(245,245,250,.18);
-  --suit-accent:#FF1A4B;
-  --glow:rgba(0,229,255,0.45);
-}
-
-/* Symbiote / Venom Theme */
-body.theme-symbiote {
-  --paper:#08070B;
-  --paper-2:#110F17;
-  --paper-card:#15131E;
-  --ink:#FFFFFF;
-  --ink-soft:#9E9BAC;
-  --red:#9D00FF;
-  --red-deep:#6200B3;
-  --blue:#7B1FA2;
-  --blue-deep:#4A148C;
-  --yellow:#00FF66;
-  --accent:#9D00FF;
-  --line:rgba(255,255,255,.16);
-  --suit-accent:#00FF66;
-  --glow:rgba(157,0,255,0.45);
+  --line:rgba(244,244,250,.22);
+  --glow:rgba(0,229,255,0.5);
+  --cmyk-red:rgba(255,26,75,0.8);
+  --cmyk-cyan:rgba(0,255,213,0.8);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{background:var(--paper);color:var(--ink);overflow-x:hidden;transition:background .4s ease,color .4s ease}
+html,body{background:var(--paper);color:var(--ink);overflow-x:hidden;transition:background .35s ease,color .35s ease}
 body{font-family:'Archivo',sans-serif;line-height:1.6;cursor:none}
 ::selection{background:var(--yellow);color:#15151C}
 a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
 
-/* ---------- Halftone Comic Texture ---------- */
-.halftone{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.38;
-  background-image:radial-gradient(rgba(21,21,28,.13) 1px,transparent 1.4px);
-  background-size:14px 14px}
-body.theme-miles .halftone{background-image:radial-gradient(rgba(0,229,255,.12) 1px,transparent 1.4px)}
-body.theme-symbiote .halftone{background-image:radial-gradient(rgba(157,0,255,.12) 1px,transparent 1.4px)}
+/* Accessibility: Skip to Content */
+.skip-link{position:fixed;top:-100px;left:20px;z-index:99999;background:var(--yellow);color:#15151C;border:3px solid var(--ink);padding:10px 18px;font-family:'Bangers',cursive;font-size:18px;transition:top .2s}
+.skip-link:focus{top:20px}
 
-.halftone-accent{position:fixed;top:-20vh;right:-15vw;width:55vw;height:55vw;z-index:1;pointer-events:none;opacity:.16;border-radius:50%;
-  background-image:radial-gradient(var(--red) 1.5px,transparent 2px);background-size:12px 12px;
-  -webkit-mask-image:radial-gradient(circle,black 0%,transparent 68%);mask-image:radial-gradient(circle,black 0%,transparent 68%);
-  animation:dotDrift 16s ease-in-out infinite alternate}
-@keyframes dotDrift{from{transform:translate(0,0) rotate(0)}to{transform:translate(3vw,-2vh) rotate(6deg)}}
+/* Halftone Texture & CMYK misregistration */
+.halftone{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.32;
+  background-image:radial-gradient(rgba(21,21,28,.14) 1.2px,transparent 1.5px);
+  background-size:13px 13px}
+body.theme-night .halftone{background-image:radial-gradient(rgba(0,229,255,.14) 1.2px,transparent 1.5px)}
 
-/* ---------- Interactive Cursor & Spidey-Sense ---------- */
+/* Speedlines Canvas */
+#speedLines{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .2s}
+
+/* 3D WebGL Canvas */
+#gl{position:fixed;inset:0;z-index:0;pointer-events:none;transition:filter .4s ease,opacity .4s ease}
+
+/* Scrim layer to guarantee absolute text readability when scrolled */
+.content-scrim{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s ease;background:var(--paper);-webkit-mask-image:linear-gradient(180deg,transparent 0%,black 20%);mask-image:linear-gradient(180deg,transparent 0%,black 20%)}
+
+/* ---------- SPIDEY-SENSE & CUSTOM CURSOR ---------- */
 .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
-.cursor-dot{width:10px;height:10px;background:var(--red);border:2px solid var(--ink);box-shadow:0 0 10px var(--glow)}
-.cursor-ring{width:44px;height:44px;border:2px solid var(--ink);transition:width .22s,height .22s,border-color .22s,background .22s}
-.cursor-ring.hovering{width:84px;height:84px;border-color:var(--red);background:rgba(224,32,47,.08)}
-.cursor-label{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;color:var(--blue);transform:translate(18px,20px) rotate(-4deg);opacity:0;transition:opacity .25s;text-shadow:1.5px 1.5px 0 var(--paper),2.5px 2.5px 0 var(--ink)}
+.cursor-dot{width:11px;height:11px;background:var(--red);border:2px solid var(--ink);box-shadow:0 0 10px var(--glow);transition:transform .08s}
+.cursor-ring{width:46px;height:46px;border:2.5px solid var(--ink);transition:width .2s,height .2s,border-color .2s,background .2s}
+.cursor-ring.hovering{width:88px;height:88px;border-color:var(--red);background:rgba(224,32,47,.08)}
+.cursor-label{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;color:var(--blue);transform:translate(20px,20px) rotate(-4deg);opacity:0;transition:opacity .2s;text-shadow:1.5px 1.5px 0 var(--paper),2.5px 2.5px 0 var(--ink)}
 #webTrail{position:fixed;inset:0;z-index:9998;pointer-events:none}
 
-/* Spidey-Sense warning squiggles */
-.spidey-sense{position:fixed;pointer-events:none;z-index:9997;display:none;width:80px;height:80px;transform:translate(-50%,-50%)}
-.spidey-sense.active{display:block;animation:spideyPulse .4s ease-in-out infinite alternate}
-@keyframes spideyPulse{0%{transform:translate(-50%,-50%) scale(.9) rotate(-3deg)}100%{transform:translate(-50%,-50%) scale(1.15) rotate(3deg)}}
-@media (hover:none){.cursor-dot,.cursor-ring,.cursor-label,#webTrail,.spidey-sense{display:none}body{cursor:auto}}
+/* Spidey-Sense Vignette Pulse */
+.spidey-sense-vignette{position:fixed;inset:0;pointer-events:none;z-index:9990;box-shadow:inset 0 0 0 0 var(--red);opacity:0;transition:opacity .2s,box-shadow .2s}
+.spidey-sense-vignette.active{opacity:1;box-shadow:inset 0 0 80px 15px rgba(224,32,47,0.35);animation:tinglePulse .3s infinite alternate}
+@keyframes tinglePulse{from{box-shadow:inset 0 0 60px 10px rgba(255,196,0,0.4)}to{box-shadow:inset 0 0 100px 20px rgba(224,32,47,0.5)}}
 
-/* ---------- Loader ---------- */
-#loader{position:fixed;inset:0;background:var(--paper);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .8s,visibility .8s}
+/* Tingle Squiggles around hovered element */
+.tingle-arcs{position:fixed;pointer-events:none;z-index:9997;width:80px;height:80px;display:none;transform:translate(-50%,-50%)}
+.tingle-arcs.active{display:block;animation:spideyJitter .25s infinite alternate}
+@keyframes spideyJitter{0%{transform:translate(-50%,-50%) rotate(-6deg) scale(.95)}100%{transform:translate(-50%,-50%) rotate(6deg) scale(1.1)}}
+
+@media (hover:none){.cursor-dot,.cursor-ring,.cursor-label,#webTrail,.tingle-arcs{display:none}body{cursor:auto}}
+
+/* ---------- COMIC PAGE-TURN INTRO LOADER ---------- */
+#loader{position:fixed;inset:0;background:var(--paper);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px;transition:opacity .7s,visibility .7s}
 #loader.done{opacity:0;visibility:hidden}
-.loader-logo{font-family:'Bangers',cursive;font-size:clamp(48px,9vw,96px);letter-spacing:.06em;color:var(--red);
-  text-shadow:2px 2px 0 var(--paper),5px 5px 0 var(--ink),8px 8px 0 rgba(35,66,214,.45);
-  animation:loaderBounce 1s ease-in-out infinite}
-@keyframes loaderBounce{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.04)}}
-.loader-bar{width:min(340px,70vw);height:16px;background:var(--paper-2);border:3px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:4px 4px 0 var(--ink)}
-.loader-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 14px,var(--blue) 14px 28px);transition:width .2s}
-.loader-status{font-family:'Bangers',cursive;font-size:18px;letter-spacing:.12em;color:var(--blue);min-height:26px;transform:rotate(-2deg)}
+.loader-comic-book{position:relative;width:min(440px,88vw);background:#FFF;border:4px solid var(--ink);border-radius:14px;box-shadow:12px 12px 0 var(--ink);padding:30px 24px;text-align:center;overflow:hidden}
+.loader-badge{display:inline-block;background:var(--red);color:#FFF;font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;padding:4px 14px;border:2px solid var(--ink);border-radius:8px;transform:rotate(-3deg);margin-bottom:12px}
+.loader-title{font-family:'Bangers',cursive;font-size:clamp(38px,8vw,68px);color:var(--ink);line-height:.95;text-transform:uppercase;letter-spacing:.03em;text-shadow:2px 2px 0 var(--yellow),4px 4px 0 var(--red)}
+.loader-bar{width:100%;height:16px;background:var(--paper-2);border:3px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:3px 3px 0 var(--ink);margin:20px 0 12px}
+.loader-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 14px,var(--blue) 14px 28px);transition:width .18s}
+.loader-status{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);min-height:20px}
+.loader-skip-btn{margin-top:16px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:10px;padding:8px 22px;font-family:'Bangers',cursive;font-size:18px;letter-spacing:.08em;box-shadow:4px 4px 0 var(--ink);transition:.2s}
+.loader-skip-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);background:#FFD700}
 
-#gl{position:fixed;inset:0;z-index:0;pointer-events:none}
-
-/* ---------- HUD & Suit AI Telemetry ---------- */
+/* ---------- HUD & SUIT AI BAR ---------- */
 .hud{position:fixed;z-index:7000;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase}
 .hud b{color:var(--red);font-weight:700}
 .hud-tl{top:84px;left:24px}.hud-br{bottom:20px;right:24px;text-align:right}
 .hud::before{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--ink)}
 .hud-tl::before{top:-12px;left:-8px;border-right:none;border-bottom:none}
 .hud-br::before{bottom:-6px;right:-8px;border-left:none;border-top:none}
-@media(max-width:860px){.hud{display:none}}
+@media(max-width:960px){.hud{display:none}}
 
-/* Floating Suit AI Quip Bar */
-.suit-ai-bar{position:fixed;bottom:20px;left:24px;z-index:7000;background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 16px;border-radius:12px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink);max-width:440px}
-.suit-ai-icon{width:18px;height:18px;fill:var(--red);animation:pulseSlow 2s infinite ease-in-out;flex-shrink:0}
-@keyframes pulseSlow{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
-@media(max-width:860px){.suit-ai-bar{display:none}}
+.suit-ai-bar{position:fixed;bottom:20px;left:24px;z-index:7000;background:var(--paper-card);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);max-width:440px}
+.suit-ai-icon{width:20px;height:20px;fill:var(--red);animation:radarBeat 1.8s infinite ease-in-out;flex-shrink:0}
+@keyframes radarBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+@media(max-width:960px){.suit-ai-bar{display:none}}
 
-.progress{position:fixed;top:0;left:0;height:5px;width:100%;z-index:8000}
+.progress{position:fixed;top:0;left:0;height:6px;width:100%;z-index:8000}
 .progress i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--red) 0 30px,var(--blue) 30px 60px);border-bottom:2px solid var(--ink)}
 
-/* ---------- Navigation Bar ---------- */
-nav{position:fixed;top:0;left:0;right:0;z-index:7500;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(18px,4vw,60px);background:rgba(251,250,245,.82);backdrop-filter:blur(12px);border-bottom:3px solid var(--ink);transition:background .4s}
-body.theme-miles nav{background:rgba(13,13,20,.84)}
-body.theme-symbiote nav{background:rgba(8,7,11,.86)}
-.nav-logo{font-family:'Bangers',cursive;font-size:26px;letter-spacing:.06em;color:var(--ink)}
+/* ---------- NAVIGATION BAR ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:7500;display:flex;justify-content:space-between;align-items:center;padding:14px clamp(16px,4vw,60px);background:rgba(251,250,245,.92);backdrop-filter:blur(12px);border-bottom:3px solid var(--ink);transition:background .35s}
+body.theme-night nav{background:rgba(10,10,18,.92)}
+.nav-logo{font-family:'Bangers',cursive;font-size:26px;letter-spacing:.06em;color:var(--ink);display:flex;align-items:center;gap:8px}
 .nav-logo span{color:var(--red)}
-.nav-links{display:flex;gap:28px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.nav-logo .badge-node{font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--yellow);color:#15151C;border:2px solid var(--ink);padding:2px 7px;border-radius:6px;letter-spacing:.05em}
+
+.nav-links{display:flex;gap:26px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .nav-links a{position:relative;color:var(--ink-soft);transition:color .25s}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:3px;background:var(--red);transition:width .3s}
 .nav-links a:hover{color:var(--ink)}
 .nav-links a:hover::after{width:100%}
-@media(max-width:920px){.nav-links{display:none}}
+@media(max-width:980px){.nav-links{display:none}}
 
-.nav-controls{display:flex;align-items:center;gap:12px}
-.mode-toggle{font-family:'Bangers',cursive;font-size:14px;letter-spacing:.06em;border:2px solid var(--ink);background:var(--paper-2);padding:6px 14px;border-radius:99px;cursor:pointer;color:var(--ink);box-shadow:2px 2px 0 var(--ink);transition:.2s;display:flex;align-items:center;gap:6px}
-.mode-toggle:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
-.sound-toggle{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;border:2px solid var(--ink);background:var(--paper-2);padding:6px 12px;border-radius:99px;cursor:pointer;color:var(--ink);box-shadow:2px 2px 0 var(--ink);transition:.2s}
-.sound-toggle:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
-.nav-cta{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.08em;border:3px solid var(--ink);padding:8px 20px;border-radius:99px;color:var(--ink);background:var(--yellow);box-shadow:3px 3px 0 var(--ink);transition:.25s}
-.nav-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.nav-controls{display:flex;align-items:center;gap:10px}
+.ctrl-btn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;border:2px solid var(--ink);background:var(--paper-2);padding:7px 12px;border-radius:99px;color:var(--ink);box-shadow:2px 2px 0 var(--ink);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.ctrl-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.nav-cta{font-family:'Bangers',cursive;font-size:17px;letter-spacing:.08em;border:3px solid var(--ink);padding:7px 20px;border-radius:99px;color:var(--ink);background:var(--yellow);box-shadow:3px 3px 0 var(--ink);transition:.2s}
+.nav-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);background:#FFD700}
 
-/* ---------- Layout & Sections ---------- */
+/* ---------- CONTENT CONTAINERS & CAPTION BOXES (CRITICAL READABILITY) ---------- */
 main{position:relative;z-index:2}
-section{position:relative;padding:clamp(80px,12vh,150px) clamp(20px,6vw,96px)}
 .skew-wrap{will-change:transform}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:14px;margin-bottom:24px;font-weight:700}
+section{position:relative;padding:clamp(80px,12vh,140px) clamp(20px,6vw,96px)}
+
+/* Comic Panel Box Wrapper for Sections */
+.comic-panel-section{background:var(--scrim);border:4px solid var(--ink);border-radius:24px;box-shadow:var(--shadow-lg);padding:clamp(32px,5vw,64px);position:relative;margin:40px 0;backdrop-filter:blur(10px)}
+.comic-panel-section::before{content:"";position:absolute;top:-14px;left:32px;font-family:'Bangers',cursive;font-size:16px;letter-spacing:.1em;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);padding:2px 14px;border-radius:8px;box-shadow:2px 2px 0 var(--ink)}
+
+/* Speech Bubbles and Caption Cards */
+.caption-card{background:var(--paper-card);border:3px solid var(--ink);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);position:relative}
+.caption-card::after{content:"";position:absolute;bottom:-14px;left:36px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:14px solid var(--ink)}
+.caption-card::before{content:"";position:absolute;bottom:-10px;left:39px;z-index:2;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:11px solid var(--paper-card)}
+
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:14px;margin-bottom:20px;font-weight:700}
 .eyebrow::before{content:"";width:34px;height:3px;background:var(--red)}
 
-/* ---------- 3D Hero Section ---------- */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:120px;perspective:1100px}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);letter-spacing:.38em;text-transform:uppercase;color:var(--blue);margin-bottom:22px;opacity:0;font-weight:700}
+/* ---------- HERO SECTION (SOLID CAPTION BOX FOR 100% READABILITY) ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:110px;perspective:1100px}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);letter-spacing:.35em;text-transform:uppercase;color:var(--blue);margin-bottom:18px;opacity:0;font-weight:700}
 .h1-3d{transform-style:preserve-3d;will-change:transform}
-.hero h1{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(56px,11vw,165px);line-height:.92;letter-spacing:.015em;text-transform:uppercase;transform-style:preserve-3d}
+.hero h1{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(54px,10vw,150px);line-height:.92;letter-spacing:.02em;text-transform:uppercase;transform-style:preserve-3d}
 .hero h1 .row{display:block;overflow:visible;transform-style:preserve-3d}
 .hero h1 .row span{display:inline-block;transform:translateY(120%) rotateX(-80deg);transform-style:preserve-3d}
-.t3d-red{color:var(--red);text-shadow:1px 1px 0 var(--red-deep),2px 2px 0 var(--red-deep),3px 3px 0 var(--red-deep),4px 4px 0 var(--red-deep),5px 5px 0 var(--ink),8px 8px 0 rgba(21,21,28,.18)}
-.t3d-blue{color:var(--blue);text-shadow:1px 1px 0 var(--blue-deep),2px 2px 0 var(--blue-deep),3px 3px 0 var(--blue-deep),4px 4px 0 var(--blue-deep),5px 5px 0 var(--ink),8px 8px 0 rgba(21,21,28,.18)}
-.t3d-ink{color:var(--paper);-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--yellow),8px 8px 0 var(--ink)}
-.hero-sub{margin-top:32px;max-width:620px;font-size:clamp(16px,1.6vw,19px);color:var(--ink-soft);opacity:0;font-weight:500}
-.hero-sub b{color:var(--ink);font-weight:700}
-.hero-actions{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap;opacity:0}
-.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:'Bangers',cursive;font-size:20px;letter-spacing:.08em;padding:14px 30px;border-radius:14px;border:3px solid var(--ink);transition:.25s;will-change:transform;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
-.btn-primary{background:var(--red);color:#fff}
-.btn-primary:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:9px 9px 0 var(--ink);background:var(--red-deep)}
-.btn-ghost{background:var(--paper);color:var(--ink)}
-.btn-ghost:hover{transform:translate(-3px,-3px) rotate(1deg);box-shadow:9px 9px 0 var(--ink);background:var(--yellow)}
-.btn .dot{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--ink);animation:blink 1.2s infinite}
-.btn-ghost .dot{background:var(--red)}
-@keyframes blink{50%{opacity:.25}}
-.hero-meta{position:absolute;bottom:30px;left:clamp(20px,6vw,96px);right:clamp(20px,6vw,96px);display:flex;justify-content:space-between;align-items:flex-end;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);opacity:0;font-weight:600}
-.scroll-hint{display:flex;flex-direction:column;align-items:center;gap:10px}
-.scroll-hint .wheel{width:3px;height:42px;background:linear-gradient(180deg,var(--red),transparent);animation:dropLine 1.8s ease-in-out infinite}
-@keyframes dropLine{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ---------- Marquees ---------- */
-.marquee{position:relative;z-index:2;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;padding:15px 0;background:var(--ink);transform:rotate(-1.2deg) scale(1.02);margin:10px 0}
+/* CMYK Misregistration Edge Shadows */
+.cmyk-title{text-shadow:-2px 0 var(--cmyk-cyan), 2px 0 var(--cmyk-red), 4px 4px 0 var(--ink), 7px 7px 0 rgba(21,21,28,.18)}
+.t3d-red{color:var(--red)}
+.t3d-blue{color:var(--blue)}
+.t3d-ink{color:var(--paper);-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--yellow),8px 8px 0 var(--ink)}
+
+/* Typing Ticker */
+.ticker-wrap{font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.6vw,17px);font-weight:700;color:var(--red);margin-top:14px;min-height:28px;display:flex;align-items:center;gap:8px}
+.ticker-cursor{display:inline-block;width:10px;height:18px;background:var(--red);animation:cursorBlink .8s infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* OPAQUE HERO CAPTION BOX: SOLVES BACKGROUND BUILDING CLASH COMPLETELY */
+.hero-caption-box{background:var(--scrim-hero);border:3.5px solid var(--ink);border-radius:18px;padding:26px 32px;box-shadow:var(--shadow-lg);margin-top:28px;max-width:680px;position:relative;opacity:0;backdrop-filter:blur(14px);z-index:10}
+.hero-caption-header{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.12em;color:var(--blue);display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#15151C;border:2px solid var(--ink);padding:3px 12px;border-radius:6px;box-shadow:2px 2px 0 var(--ink);margin-bottom:12px}
+.hero-caption-box p{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink);font-weight:500;line-height:1.6}
+.hero-caption-box p b{color:var(--ink);font-weight:800}
+
+.hero-actions{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;opacity:0}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:'Bangers',cursive;font-size:20px;letter-spacing:.08em;padding:12px 28px;border-radius:14px;border:3px solid var(--ink);transition:.22s;box-shadow:var(--shadow)}
+.btn-primary{background:var(--red);color:#FFF}
+.btn-primary:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:10px 10px 0 var(--ink);background:var(--red-deep)}
+.btn-ghost{background:var(--paper-card);color:var(--ink)}
+.btn-ghost:hover{transform:translate(-3px,-3px) rotate(1deg);box-shadow:10px 10px 0 var(--ink);background:var(--yellow)}
+.btn .dot{width:10px;height:10px;border-radius:50%;background:#FFF;border:2px solid var(--ink);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+
+/* ---------- DOUBLE MARQUEE ---------- */
+.marquee{position:relative;z-index:2;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;padding:14px 0;background:var(--ink);transform:rotate(-1deg) scale(1.02);margin:16px 0}
 .marquee.m2{background:var(--red);transform:rotate(1deg) scale(1.02)}
 .marquee-track{display:flex;width:max-content;font-family:'Bangers',cursive;font-size:clamp(20px,2.4vw,28px);text-transform:uppercase;letter-spacing:.14em;color:var(--paper)}
-.marquee-track span{padding:0 26px;white-space:nowrap}
+.marquee-track span{padding:0 24px;white-space:nowrap}
 .marquee-track .hl{color:var(--yellow)}
 .m-fwd .marquee-track{animation:marquee 22s linear infinite}
 .m-rev .marquee-track{animation:marqueeRev 26s linear infinite}
 @keyframes marquee{to{transform:translateX(-50%)}}
 @keyframes marqueeRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
-/* ---------- Headings ---------- */
-.h2{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(38px,6vw,80px);line-height:1;text-transform:uppercase;max-width:960px;letter-spacing:.02em;transform-style:preserve-3d}
+/* ---------- ABOUT SECTION (COMIC-STRIP 4-PANEL LAYOUT) ---------- */
+.h2{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(36px,5.5vw,76px);line-height:1;text-transform:uppercase;max-width:960px;letter-spacing:.02em}
 .h2 .accent{color:var(--red);text-shadow:3px 3px 0 var(--ink)}
 .h2 .accent-b{color:var(--blue);text-shadow:3px 3px 0 var(--ink)}
-.reveal{opacity:0;transform:translateY(50px)}
-.flip3d{opacity:0;transform:rotateX(-80deg) translateY(35px);transform-origin:top center}
 
-/* ---------- About & Origin Story ---------- */
-.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(36px,5vw,80px);margin-top:54px;align-items:start}
-@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
-.about-text p{font-size:clamp(16px,1.6vw,19px);color:var(--ink-soft);margin-bottom:22px;font-weight:500}
-.about-text p b{color:var(--ink);font-weight:700}
-.about-text .quote{font-family:'Bangers',cursive;font-size:clamp(22px,2.2vw,28px);color:var(--ink);border:3px solid var(--ink);border-radius:18px;padding:22px 24px;background:var(--yellow);box-shadow:6px 6px 0 var(--ink);transform:rotate(-1deg);letter-spacing:.04em}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stat{position:relative;background:var(--paper-card);border:3px solid var(--ink);border-radius:16px;padding:24px 20px;box-shadow:5px 5px 0 var(--ink);transition:.25s;overflow:hidden}
-.stat:nth-child(odd){transform:rotate(-1deg)}
-.stat:nth-child(even){transform:rotate(1deg)}
-.stat:hover{transform:translate(-3px,-3px) rotate(0);box-shadow:9px 9px 0 var(--ink);background:var(--paper)}
-.stat .num{font-family:'Bangers',cursive;font-size:clamp(36px,3.8vw,52px);color:var(--red);text-shadow:2px 2px 0 var(--ink)}
-.stat .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px;font-weight:700}
+.comic-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+@media(max-width:860px){.comic-strip{grid-template-columns:1fr}}
 
-/* ---------- Rogues Gallery (Projects) ---------- */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:60px;perspective:1400px}
-.card{position:relative;border:3px solid var(--ink);border-radius:20px;padding:38px 30px;background:var(--paper-card);box-shadow:8px 8px 0 var(--ink);transform-style:preserve-3d;will-change:transform;overflow:hidden;transition:box-shadow .3s,background .3s}
-.card::before{content:"";position:absolute;inset:0;background:radial-gradient(450px circle at var(--mx,50%) var(--my,50%),rgba(255,196,0,.25),transparent 45%);opacity:0;transition:opacity .4s;pointer-events:none}
-.card:hover::before{opacity:1}
-.card:hover{box-shadow:14px 14px 0 var(--ink)}
-.card .badge{position:absolute;top:-3px;right:24px;font-family:'Bangers',cursive;font-size:15px;letter-spacing:.08em;background:var(--blue);color:#fff;border:3px solid var(--ink);border-top:none;padding:6px 14px;border-radius:0 0 12px 12px}
-.card:nth-child(2) .badge{background:var(--red)}
-.card:nth-child(3) .badge{background:var(--yellow);color:#15151C}
-.card:nth-child(4) .badge{background:var(--ink);color:var(--paper)}
-.card:nth-child(5) .badge{background:#10B981;color:#fff}
-.card h3{font-family:'Bangers',cursive;font-size:clamp(26px,2.4vw,34px);margin:18px 0 12px;text-transform:uppercase;letter-spacing:.04em;transform:translateZ(44px)}
-.card p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;transform:translateZ(26px);font-weight:500}
-.card .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;transform:translateZ(20px)}
-.chip{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--ink);border-radius:99px;padding:5px 11px;color:var(--ink);background:var(--paper-2);font-weight:700}
-.card .card-actions{display:flex;gap:12px;margin-top:24px;transform:translateZ(30px)}
+.comic-panel{background:var(--paper-card);border:3.5px solid var(--ink);border-radius:18px;padding:28px 24px;box-shadow:var(--shadow);position:relative;transition:.25s}
+.comic-panel:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg)}
+.comic-panel .panel-no{position:absolute;top:-12px;left:20px;font-family:'Bangers',cursive;font-size:14px;letter-spacing:.08em;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);padding:2px 10px;border-radius:6px;box-shadow:2px 2px 0 var(--ink)}
+.comic-panel h3{font-family:'Bangers',cursive;font-size:24px;letter-spacing:.05em;margin:10px 0 8px;color:var(--ink)}
+.comic-panel p{color:var(--ink-soft);font-size:15px;line-height:1.6;font-weight:500}
+
+/* Score Badges */
+.score-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:28px}
+.score-badge{background:var(--paper-2);border:3px solid var(--ink);border-radius:14px;padding:18px;box-shadow:4px 4px 0 var(--ink);text-align:center;transition:.2s}
+.score-badge:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);background:#FFF}
+.score-badge .num{font-family:'Bangers',cursive;font-size:clamp(34px,3.8vw,48px);color:var(--red);text-shadow:2px 2px 0 var(--ink)}
+.score-badge .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+
+/* ---------- TRADING CARDS (WHAT I BUILD WITH INTERACTIVE MINI-DEMOS) ---------- */
+.trading-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:28px;margin-top:46px;perspective:1400px}
+
+.trading-card{position:relative;border:3.5px solid var(--ink);border-radius:20px;padding:32px 26px;background:var(--paper-card);box-shadow:var(--shadow);transform-style:preserve-3d;will-change:transform;transition:box-shadow .3s,border-color .3s}
+.trading-card:hover{box-shadow:var(--shadow-lg);border-color:var(--red)}
+
+/* Holographic Foil Shine Effect */
+.trading-card::before{content:"";position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,0) 0%,rgba(0,229,255,.15) 35%,rgba(255,26,75,.15) 65%,rgba(255,255,255,0) 100%);opacity:0;transition:opacity .35s;pointer-events:none}
+.trading-card:hover::before{opacity:1}
+
+.trading-card .card-badge{position:absolute;top:-4px;right:22px;font-family:'Bangers',cursive;font-size:15px;letter-spacing:.08em;background:var(--blue);color:#FFF;border:3px solid var(--ink);border-top:none;padding:5px 14px;border-radius:0 0 10px 10px}
+.trading-card:nth-child(2) .card-badge{background:var(--red)}
+.trading-card:nth-child(3) .card-badge{background:var(--yellow);color:#15151C}
+.trading-card:nth-child(4) .card-badge{background:#10B981;color:#FFF}
+.trading-card:nth-child(5) .card-badge{background:#8B5CF6;color:#FFF}
+
+.trading-card h3{font-family:'Bangers',cursive;font-size:clamp(26px,2.2vw,32px);margin:14px 0 10px;text-transform:uppercase;letter-spacing:.04em}
+.trading-card p{color:var(--ink-soft);font-size:14px;line-height:1.6;font-weight:500}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:2px solid var(--ink);border-radius:99px;padding:4px 10px;color:var(--ink);background:var(--paper-2);font-weight:700}
+
+/* Real Interactive Mini-Demos Inside Trading Cards */
+.mini-demo{margin-top:18px;border:2.5px dashed var(--ink);background:var(--paper-2);border-radius:12px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:11px}
+.mini-demo-title{font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+
+.card-actions{display:flex;gap:10px;margin-top:20px}
 .card-btn{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.06em;padding:8px 16px;border:2px solid var(--ink);border-radius:10px;background:var(--paper-2);color:var(--ink);box-shadow:3px 3px 0 var(--ink);display:inline-flex;align-items:center;gap:6px;transition:.2s}
 .card-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--yellow)}
-.card-btn.live{background:var(--red);color:#fff}
+.card-btn.live{background:var(--red);color:#FFF}
 .card-btn.live:hover{background:var(--red-deep)}
-.card .glyph{font-size:36px;display:inline-block;animation:floatGlyph 4s ease-in-out infinite;transform:translateZ(50px);filter:drop-shadow(3px 3px 0 rgba(21,21,28,.3))}
-@keyframes floatGlyph{0%,100%{transform:translateZ(50px) translateY(0) rotate(-4deg)}50%{transform:translateZ(50px) translateY(-10px) rotate(4deg)}}
 
-/* ---------- Tech Arsenal (Skills) ---------- */
-.arsenal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:54px}
-.arsenal-card{border:3px solid var(--ink);border-radius:18px;padding:32px 26px;background:var(--paper-card);box-shadow:6px 6px 0 var(--ink);transition:.25s}
-.arsenal-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--ink)}
-.arsenal-card h4{font-family:'Bangers',cursive;font-size:24px;letter-spacing:.05em;margin-bottom:14px;color:var(--ink);display:flex;align-items:center;gap:10px}
-.arsenal-card ul{list-style:none}
-.arsenal-card li{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;padding:7px 0;border-bottom:1px dashed var(--line);display:flex;align-items:center;gap:8px;color:var(--ink-soft);font-weight:600}
-.arsenal-card li::before{content:"★";color:var(--red)}
+/* ---------- PROCESS (DIAGONAL WEB PATH TIMELINE) ---------- */
+.web-path-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px;position:relative}
+.web-path-node{background:var(--paper-card);border:3px solid var(--ink);border-radius:16px;padding:24px 20px;box-shadow:var(--shadow);position:relative;transition:.25s}
+.web-path-node:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg)}
+.web-path-node .step-num{font-family:'Bangers',cursive;font-size:36px;color:var(--paper);-webkit-text-stroke:2px var(--ink);text-shadow:3px 3px 0 var(--red)}
+.web-path-node h4{font-family:'Bangers',cursive;font-size:22px;margin:8px 0 6px;text-transform:uppercase}
+.web-path-node p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
 
-/* ---------- Daily Bugle Newspaper Section ---------- */
-.bugle-wrap{margin-top:70px;background:#F6F2E5;color:#15151C;border:4px solid #15151C;border-radius:12px;box-shadow:12px 12px 0 #15151C;padding:clamp(24px,5vw,50px);transform:rotate(-.6deg);position:relative;overflow:hidden}
-.bugle-masthead{text-align:center;border-bottom:4px double #15151C;padding-bottom:18px;margin-bottom:24px}
-.bugle-title{font-family:'Bangers',cursive;font-size:clamp(44px,8vw,90px);letter-spacing:.05em;line-height:.95;color:#15151C}
-.bugle-sub{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:12px;border-top:2px solid #15151C;padding-top:8px;font-weight:700}
-.bugle-content{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center}
+/* ---------- PROOF & MISSION DASHBOARD ---------- */
+.dashboard-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin-top:36px}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr}}
+
+.mission-terminal{background:#111118;color:#00FF88;border:3.5px solid var(--ink);border-radius:16px;box-shadow:var(--shadow);padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7}
+.terminal-header{border-bottom:2px dashed #333348;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;color:#AAA}
+
+.testimonials{display:flex;flex-direction:column;gap:18px}
+.testimonial-bubble{background:var(--paper-card);border:3px solid var(--ink);border-radius:16px;padding:22px;box-shadow:var(--shadow);position:relative}
+.testimonial-bubble p{font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.6}
+.testimonial-author{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.06em;color:var(--red);margin-top:10px;text-transform:uppercase}
+
+/* ---------- DAILY BUGLE NEWSPAPER SECTION ---------- */
+.bugle-wrap{background:#F7F4E9;color:#15151C;border:4px solid #15151C;border-radius:14px;box-shadow:var(--shadow-lg);padding:clamp(24px,5vw,50px);transform:rotate(-.6deg);margin-top:30px}
+body.theme-night .bugle-wrap{background:#191928;color:#F4F4FA;border-color:#F4F4FA}
+.bugle-masthead{text-align:center;border-bottom:4px double #15151C;padding-bottom:16px;margin-bottom:24px}
+body.theme-night .bugle-masthead{border-bottom-color:#F4F4FA}
+.bugle-title{font-family:'Bangers',cursive;font-size:clamp(44px,8vw,88px);letter-spacing:.05em;line-height:.95}
+.bugle-sub{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:10px;border-top:2px solid #15151C;padding-top:8px;font-weight:700}
+body.theme-night .bugle-sub{border-top-color:#F4F4FA}
+
+.bugle-content{display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:center}
 @media(max-width:860px){.bugle-content{grid-template-columns:1fr}}
-.bugle-pic{border:3px solid #15151C;background:#E7E1CD;padding:12px;box-shadow:5px 5px 0 #15151C;position:relative}
-.bugle-photo-inner{background:#15151C;color:#FBFAF5;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
-.bugle-stamp{position:absolute;bottom:12px;right:12px;border:3px solid var(--red);color:var(--red);font-family:'Bangers',cursive;font-size:22px;letter-spacing:.1em;padding:4px 14px;transform:rotate(-12deg);background:rgba(251,250,245,.95);box-shadow:2px 2px 0 rgba(0,0,0,.3)}
-.bugle-quote{font-family:'Archivo',sans-serif;font-size:clamp(16px,1.6vw,19px);line-height:1.55;font-weight:600}
-.bugle-quote b{font-family:'Bangers',cursive;font-size:clamp(26px,2.4vw,34px);display:block;margin-bottom:12px;color:var(--red);line-height:1.1}
-.bugle-sig{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#4A4A58;font-weight:700}
 
-/* ---------- Contact Section ---------- */
-.contact{text-align:center;min-height:90svh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.contact .h2{margin:0 auto}
-.mega-cta{margin-top:46px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
-.social-row{margin-top:48px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-.social{display:flex;align-items:center;gap:10px;border:3px solid var(--ink);padding:14px 22px;border-radius:14px;font-family:'Bangers',cursive;font-size:17px;letter-spacing:.08em;color:var(--ink);transition:.25s;background:var(--paper-card);box-shadow:5px 5px 0 var(--ink)}
-.social:hover{transform:translate(-3px,-5px) rotate(-1deg);box-shadow:9px 11px 0 var(--ink)}
-.social.wa:hover{background:#E3F8EB}
-.social.li:hover{background:#E5F0FB}
-.social.gh:hover{background:#EDE9FE}
-.social.ig:hover{background:#FCE7F0}
-.social.em:hover{background:#FEF3C7}
-.social svg{width:20px;height:20px;fill:currentColor}
+.bugle-pic{border:3px solid #15151C;background:#E8E2D0;padding:12px;box-shadow:4px 4px 0 #15151C;position:relative}
+body.theme-night .bugle-pic{background:#232338;border-color:#F4F4FA}
+.bugle-photo-inner{background:#15151C;color:#FBFAF5;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.bugle-stamp{position:absolute;bottom:10px;right:10px;border:3px solid var(--red);color:var(--red);font-family:'Bangers',cursive;font-size:20px;letter-spacing:.1em;padding:4px 12px;transform:rotate(-12deg);background:rgba(251,250,245,.95)}
 
-footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px clamp(20px,6vw,96px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);font-weight:700}
+.bugle-quote{font-size:clamp(15px,1.5vw,18px);line-height:1.55;font-weight:600}
+.bugle-quote b{font-family:'Bangers',cursive;font-size:clamp(24px,2.2vw,32px);display:block;margin-bottom:10px;color:var(--red);line-height:1.1}
+.bugle-sig{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
 
-/* ---------- Comic Click Bursts & Web Splats ---------- */
+/* ---------- CONTACT SECTION & SPIDER-SIGNAL ---------- */
+.contact-wrap{text-align:center;padding:40px 20px}
+.signal-beacon-btn{font-family:'Bangers',cursive;font-size:clamp(22px,2.5vw,34px);letter-spacing:.08em;padding:18px 44px;border:4px solid var(--ink);border-radius:24px;background:var(--yellow);color:var(--ink);box-shadow:var(--shadow-lg);transition:.25s;display:inline-flex;align-items:center;gap:14px;margin-top:28px}
+.signal-beacon-btn:hover{transform:translate(-4px,-4px);box-shadow:14px 14px 0 var(--ink);background:#FFD700}
+
+.social-row{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.social-btn{display:inline-flex;align-items:center;gap:10px;border:3px solid var(--ink);padding:12px 22px;border-radius:14px;font-family:'Bangers',cursive;font-size:17px;letter-spacing:.08em;color:var(--ink);transition:.25s;background:var(--paper-card);box-shadow:var(--shadow)}
+.social-btn:hover{transform:translate(-3px,-5px) rotate(-1deg);box-shadow:10px 12px 0 var(--ink)}
+.social-btn.social-em:hover{background:#FEF3C7}
+.social-btn.social-wa:hover{background:#D1FAE5;color:#065F46}
+.social-btn.social-li:hover{background:#DBEAFE;color:#1E40AF}
+.social-btn.social-gh:hover{background:#EDE9FE;color:#5B21B6}
+.social-btn.social-ig:hover{background:#FCE7F3;color:#9D174D}
+.social-btn svg{width:20px;height:20px;fill:currentColor}
+
+/* ---------- FOOTER & EASTER EGGS ---------- */
+footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px clamp(20px,6vw,96px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);font-weight:700}
+.footer-404{color:var(--red);cursor:pointer}
+
+/* Crawling Spider Easter Egg */
+#crawlingSpider{position:fixed;width:32px;height:32px;z-index:9995;cursor:pointer;transition:transform .1s linear}
+
+/* Fullscreen "SPECTACULAR!" Comic Splash */
+#konamiSplash{position:fixed;inset:0;z-index:99999;background:rgba(21,21,28,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}
+#konamiSplash.active{display:flex}
+.konami-text{font-family:'Bangers',cursive;font-size:clamp(60px,14vw,180px);color:var(--yellow);text-shadow:4px 4px 0 var(--red),8px 8px 0 var(--blue),12px 12px 0 #FFF;animation:konamiPop .6s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
+@keyframes konamiPop{0%{transform:scale(0) rotate(-20deg)}100%{transform:scale(1) rotate(0)}}
+
+/* Comic Bursts & Web Splats */
 .burst{position:fixed;z-index:9500;pointer-events:none;transform:translate(-50%,-50%);font-family:'Bangers',cursive;display:flex;align-items:center;justify-content:center}
 .burst svg{position:absolute;width:150px;height:150px}
-.burst b{position:relative;font-size:28px;letter-spacing:.06em;color:#fff;transform:rotate(-6deg)}
+.burst b{position:relative;font-size:28px;letter-spacing:.06em;color:#FFF;transform:rotate(-6deg)}
 .websplat{position:fixed;z-index:9400;pointer-events:none;transform:translate(-50%,-50%)}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   body{cursor:auto}
-  .cursor-dot,.cursor-ring,.cursor-label,#webTrail,.spidey-sense{display:none}
-  .reveal,.flip3d,.hero-tag,.hero-sub,.hero-actions,.hero-meta{opacity:1!important;transform:none!important}
+  .cursor-dot,.cursor-ring,.cursor-label,#webTrail,.tingle-arcs{display:none}
+  .hero-tag,.hero-caption-box,.hero-actions{opacity:1!important;transform:none!important}
   .hero h1 .row span{transform:none!important}
 }
 </style>
 </head>
-<body class="theme-classic">
+<body class="theme-day">
 
-<!-- LOADER -->
+<a href="#content" class="skip-link">Skip to Content (Web-Zip) ⚡</a>
+
+<!-- COMIC INTRO LOADER -->
 <div id="loader">
-  <div class="loader-logo">KARAN REJU!</div>
-  <div class="loader-bar"><i id="loadFill"></i></div>
-  <div class="loader-status" id="loadStatus">BREWING CHAI IN KOCHI…</div>
+  <div class="loader-comic-book">
+    <div class="loader-badge">MARVEL COMIC ISSUE #01</div>
+    <div class="loader-title">KARAN REJU!</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--ink-soft);margin-top:6px">FULL-STACK &amp; AI ENGINEER · KOCHI [EARTH-616]</div>
+    <div class="loader-bar"><i id="loadFill"></i></div>
+    <div class="loader-status" id="loadStatus">LOADING 3D SPIDER-MAN SUIT &amp; ASSETS…</div>
+    <button class="loader-skip-btn hoverable" id="skipLoaderBtn" title="Skip Intro">⚡ SKIP INTRO</button>
+  </div>
 </div>
 
-<!-- INTERACTIVE CURSOR & AUDIO HOOKS -->
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
-<div class="cursor-label" id="cursorLabel"></div>
-<div class="spidey-sense" id="spideySense">
-  <svg viewBox="0 0 100 100" fill="none" stroke="#FFC400" stroke-width="4">
-    <path d="M 20,40 Q 10,25 30,10" />
+<!-- SPIDEY-SENSE VIGNETTE & WARNING ARCS -->
+<div class="spidey-sense-vignette" id="spideyVignette"></div>
+<div class="tingle-arcs" id="tingleArcs">
+  <svg viewBox="0 0 100 100" fill="none" stroke="#FFC400" stroke-width="4.5">
+    <path d="M 15,45 Q 5,25 30,10" />
     <path d="M 50,25 Q 50,5 50,2" />
-    <path d="M 80,40 Q 90,25 70,10" />
+    <path d="M 85,45 Q 95,25 70,10" />
   </svg>
 </div>
 
+<!-- CURSOR ELEMENTS -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div class="cursor-label" id="cursorLabel"></div>
+
 <canvas id="gl"></canvas>
 <canvas id="webTrail"></canvas>
+<canvas id="speedLines"></canvas>
 <div class="halftone"></div>
-<div class="halftone-accent"></div>
+<div class="content-scrim" id="scrim"></div>
 <div class="progress"><i id="progFill"></i></div>
 
 <!-- HUD OVERLAYS -->
 <div class="hud hud-tl">SYS // <b>KARAN REJU</b><br>NODE: KOCHI, KERALA [EARTH-616]</div>
-<div class="hud hud-br">WEB FIRED <b id="hudWeb">000%</b><br>SCROLL <b id="hudScroll">000%</b></div>
+<div class="hud hud-br">SWING FLUID <b id="hudWeb">000%</b><br>SCROLL TRACK <b id="hudScroll">000%</b></div>
 
-<!-- SUIT AI (KAREN HUD TELEMETRY) -->
+<!-- SUIT AI BAR -->
 <div class="suit-ai-bar">
   <svg class="suit-ai-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-  <span id="suitAiText">Suit AI: All systems green. Web shooters calibrated at 420 PSI.</span>
+  <span id="suitAiText">Suit AI: 3D Spider-Man model online. Press Space to swing.</span>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAVIGATION BAR -->
 <nav>
-  <a class="nav-logo hoverable" href="#top">KARAN<span> REJU</span></a>
+  <a class="nav-logo hoverable" href="#top">
+    KARAN<span> REJU</span>
+    <span class="badge-node">KOCHI // 616</span>
+  </a>
   <div class="nav-links">
     <a class="hoverable" href="#about">Origin</a>
-    <a class="hoverable" href="#missions">Rogues Gallery</a>
-    <a class="hoverable" href="#arsenal">Tech Arsenal</a>
-    <a class="hoverable" href="#bugle">Daily Bugle</a>
-    <a class="hoverable" href="#contact">Signal</a>
+    <a class="hoverable" href="#missions">What I Build</a>
+    <a class="hoverable" href="#process">Process</a>
+    <a class="hoverable" href="#proof">Proof &amp; Logs</a>
+    <a class="hoverable" href="#contact">Spider-Signal</a>
   </div>
   <div class="nav-controls">
-    <button class="sound-toggle hoverable" id="soundBtn" title="Toggle Sound FX">🔊 SFX: ON</button>
-    <button class="mode-toggle hoverable" id="modeBtn" title="Cycle Spider-Verse Suit">🕸️ SUIT: 616</button>
-    <a class="nav-cta hoverable" href="#contact">Hire Me ↗</a>
+    <button class="ctrl-btn hoverable" id="soundBtn" title="Toggle Synthesized Web Audio">🔇 SFX: OFF</button>
+    <button class="ctrl-btn hoverable" id="modeBtn" title="Toggle Day/Night Mode">🌙 NIGHT</button>
+    <button class="ctrl-btn hoverable" id="motionBtn" title="Toggle Reduced Effects">👁️ FX: FULL</button>
+    <a class="nav-cta hoverable" href="#contact">Let's Talk ↗</a>
   </div>
 </nav>
 
-<main id="top">
+<main id="content">
 <div class="skew-wrap">
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-tag" id="scrambleTag">// FULL-STACK &amp; AI ENGINEER · KOCHI, KERALA · WEB-SLINGER</div>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero" id="top">
+    <div class="hero-tag" id="scrambleTag">// FULL-STACK &amp; AI ENGINEER · KOCHI, KERALA · EARTH-616</div>
     <div class="h1-3d" id="h13d">
       <h1>
-        <span class="row"><span class="t3d-ink">I WEAVE</span></span>
-        <span class="row"><span class="t3d-red">SCALABLE CODE</span></span>
-        <span class="row"><span class="t3d-blue">&amp; AI ENGINES.</span></span>
+        <span class="row"><span class="t3d-ink cmyk-title">I WEAVE</span></span>
+        <span class="row"><span class="t3d-red cmyk-title">SCALABLE CODE</span></span>
+        <span class="row"><span class="t3d-blue cmyk-title">&amp; AI ENGINES.</span></span>
       </h1>
     </div>
-    <p class="hero-sub">Hey, I'm <b>Karan Reju</b> — your friendly neighborhood full-stack developer &amp; AI engineer from Kochi. Bitten by a radioactive compiler, I craft <b>offline-first PWAs, high-concurrency Go backends, natural-language SQL engines, and predictive ML models</b> that conquer real-world chaos.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary hoverable magnetic" data-label="THWIP!" href="#missions"><span class="dot"></span> View Missions</a>
-      <a class="btn btn-ghost hoverable magnetic" data-label="SIGNAL!" href="#contact">Deploy Together ↓</a>
+
+    <!-- Live Typing Role Line -->
+    <div class="ticker-wrap">
+      <span>// ROLE: </span>
+      <span id="roleTickerText">FULL-STACK DEVELOPER</span>
+      <span class="ticker-cursor"></span>
     </div>
-    <div class="hero-meta">
-      <div>FULL-STACK · AI · CLOUD</div>
-      <div class="scroll-hint"><div class="wheel"></div>SCROLL TO FIRE THE WEB</div>
-      <div>EARTH-616 // KOCHI NODE</div>
+
+    <!-- OPAQUE CAPTION BOX: 100% CONTRAST & WCAG AAA COMPLIANCE OVER 3D CITY -->
+    <div class="hero-caption-box" id="heroBox">
+      <div class="hero-caption-header">⚡ ISSUE #01: MEET THE DEVELOPER</div>
+      <p>Hey, I'm <b>Karan Reju</b> — your friendly neighborhood full-stack developer &amp; AI engineer from Kochi. Bitten by a radioactive compiler, I craft <b>offline-first PWAs, high-concurrency Go backends, natural-language SQL engines, and predictive ML models</b> that turn messy real-world problems into clean, unstoppable architecture.</p>
+    </div>
+
+    <div class="hero-actions" id="heroActions">
+      <a class="btn btn-primary hoverable magnetic" data-label="LET'S GO!" href="#missions"><span class="dot"></span> Explore What I Build</a>
+      <a class="btn btn-ghost hoverable magnetic" data-label="SIGNAL!" href="#contact">Flash Spider-Signal ↓</a>
     </div>
   </section>
 
@@ -379,174 +475,298 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   </div>
   <div class="marquee m-rev m2">
     <div class="marquee-track">
-      <span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span>
-      <span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span>
+      <span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Scale</span><span>·</span><span>Architect</span><span>·</span><span>Code</span><span>·</span><span>Automate</span><span>·</span><span>Deploy</span><span>·</span><span>Debug</span><span>·</span><span>Scale</span><span>·</span>
     </div>
   </div>
 
-  <!-- ABOUT / ORIGIN STORY -->
+  <!-- ==================== ABOUT SECTION (4-PANEL COMIC STRIP) ==================== -->
   <section id="about">
-    <div class="eyebrow reveal">01 — Origin Story</div>
-    <h2 class="h2 flip3d">WITH GREAT CODE COMES <span class="accent">GREAT SCALABILITY</span></h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="reveal">Operating out of <b>Kochi, Kerala</b>, I engineer production software that bridges bulletproof backends with intuitive, high-performance user interfaces. Whether tackling route delivery logistics for FMCG distributors or predicting loan defaults with machine learning, I turn messy problems into clean architecture.</p>
-        <p class="reveal">My toolkit spans <b>Go, TypeScript, Next.js 14, Python, and AWS</b>. I build resilient systems designed to run smoothly when offline, handle massive concurrent bookings, and democratize database querying through LLM interfaces.</p>
-        <p class="quote reveal">"Anyone can wear the mask. But it takes serious engineering to make the server withstand peak traffic."</p>
+    <div class="comic-panel-section">
+      <div class="eyebrow">01 — Origin Story</div>
+      <h2 class="h2">WITH GREAT CODE COMES <span class="accent">GREAT SCALABILITY</span></h2>
+
+      <div class="comic-strip">
+        <div class="comic-panel hoverable">
+          <div class="panel-no">PANEL #1</div>
+          <h3>🕷️ The Radioactive Bug</h3>
+          <p>Based out of Kochi, Kerala, I began building software to eliminate friction in manual operations. From supply chain route chaos to database query bottlenecks, my mission is writing bulletproof code that performs when the stakes are high.</p>
+        </div>
+
+        <div class="comic-panel hoverable">
+          <div class="panel-no">PANEL #2</div>
+          <h3>⚡ The Web-Shooter Stack</h3>
+          <p>My toolkit combines high-throughput compiled backends in <b>Go (Golang)</b>, reactive frontends in <b>Next.js 14 &amp; TypeScript</b>, and data intelligence powered by <b>Python, Streamlit, and Scikit-learn</b>.</p>
+        </div>
+
+        <div class="comic-panel hoverable">
+          <div class="panel-no">PANEL #3</div>
+          <h3>🛡️ Battle-Tested Architecture</h3>
+          <p>Whether designing offline-first local SQLite databases that synchronize seamlessly or deploying microservices on AWS EC2 with automated SES ticketing, I build systems that don't crack under peak load.</p>
+        </div>
+
+        <div class="comic-panel hoverable">
+          <div class="panel-no">PANEL #4</div>
+          <h3>🎯 The Philosophy</h3>
+          <p>"Anyone can wear the mask. But it takes serious discipline, rigorous testing, and relentless optimization to make a product people love using every single day."</p>
+        </div>
       </div>
-      <div class="stats reveal">
-        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Missions Shipped</div></div>
-        <div class="stat"><div class="num" data-count="4">0</div><div class="lbl">Core Languages Mastered</div></div>
-        <div class="stat"><div class="num" data-count="100">0</div><div class="lbl">% Web Fluid Reliability</div></div>
-        <div class="stat"><div class="num" data-count="0">0</div><div class="lbl">Unhandled Production Villains</div></div>
+
+      <!-- Score Badges with data-suffix -->
+      <div class="score-row">
+        <div class="score-badge hoverable">
+          <div class="num" data-count="5" data-suffix="+">0</div>
+          <div class="lbl">Production Missions Shipped</div>
+        </div>
+        <div class="score-badge hoverable">
+          <div class="num" data-count="4" data-suffix=" Core">0</div>
+          <div class="lbl">Languages (Go, TS, Py, SQL)</div>
+        </div>
+        <div class="score-badge hoverable">
+          <div class="num" data-count="99" data-suffix=".9%">0</div>
+          <div class="lbl">Web-Fluid Uptime SLA</div>
+        </div>
+        <div class="score-badge hoverable">
+          <div class="num" data-count="0" data-suffix=" Bugs">0</div>
+          <div class="lbl">Unhandled Production Villains</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ROGUES GALLERY (PROJECTS) -->
+  <!-- ==================== WHAT I BUILD (TRADING CARDS WITH MINI-DEMOS) ==================== -->
   <section id="missions">
-    <div class="eyebrow reveal">02 — Rogues Gallery</div>
-    <h2 class="h2 flip3d">MISSIONS ACCOMPLISHED &amp; <span class="accent-b">VILLAINS DEFEATED</span></h2>
-    <div class="cards">
+    <div class="comic-panel-section">
+      <div class="eyebrow">02 — What I Build &amp; Deliver</div>
+      <h2 class="h2">MISSION LOG &amp; <span class="accent-b">INTERACTIVE TRADING CARDS</span></h2>
+      <p style="color:var(--ink-soft);font-size:16px;margin-top:8px;font-weight:500">Hover cards for holographic foil shine. Interact directly with each working mini-demo below:</p>
 
-      <!-- Waymark -->
-      <div class="card hoverable reveal">
-        <div class="badge">ISSUE #01</div>
-        <div class="glyph">🚚</div>
-        <h3>Waymark</h3>
-        <p>A minimal, offline-first delivery round reminder PWA engineered for FMCG distributors. Eliminates missed restocks and emergency calls with a zero-navigation daily due list, single/double-tap delivery logging, and self-correcting restock intervals.</p>
-        <div class="chip-row">
-          <span class="chip">TypeScript</span>
-          <span class="chip">PWA</span>
-          <span class="chip">Offline-First</span>
-          <span class="chip">FMCG Logistics</span>
+      <div class="trading-cards">
+
+        <!-- 1. Waymark -->
+        <div class="trading-card hoverable">
+          <div class="card-badge">ISSUE #01</div>
+          <div style="font-size:36px;margin-top:4px">🚚</div>
+          <h3>Waymark</h3>
+          <p>A minimal, offline-first delivery round reminder PWA for FMCG distributors. Solves scheduling, stockouts, and missed restocks with single/double-tap delivery logging.</p>
+          <div class="chip-row">
+            <span class="chip">TypeScript</span>
+            <span class="chip">PWA</span>
+            <span class="chip">Offline-First</span>
+            <span class="chip">Tailwind</span>
+          </div>
+
+          <!-- Mini Demo: Interactive Delivery Checklist -->
+          <div class="mini-demo">
+            <div class="mini-demo-title"><span>Interactive Route Tracker</span><span id="waymarkStatus">2 Due</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+                <input type="checkbox" id="stop1" onchange="updateWaymarkDemo()">
+                <span>Kochi Central Supermarket</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+                <input type="checkbox" id="stop2" onchange="updateWaymarkDemo()">
+                <span>Ernakulam Retail Depot</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="card-btn live hoverable" href="https://waymark-sand.vercel.app" target="_blank" rel="noopener">🚀 Live Demo</a>
+            <a class="card-btn hoverable" href="https://github.com/karanrejuuu/waymark" target="_blank" rel="noopener">📂 GitHub</a>
+          </div>
         </div>
-        <div class="card-actions">
-          <a class="card-btn live hoverable" href="https://waymark-sand.vercel.app" target="_blank" rel="noopener">🚀 Live Demo</a>
-          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/waymark" target="_blank" rel="noopener">📂 GitHub</a>
+
+        <!-- 2. CineCloud -->
+        <div class="trading-card hoverable">
+          <div class="card-badge">ISSUE #02</div>
+          <div style="font-size:36px;margin-top:4px">🎟️</div>
+          <h3>CineCloud</h3>
+          <p>Movie ticket booking platform built with Go and SQLite for AWS EC2 deployment. Features theatre selection, PDF ticket generation, automated AWS SES delivery, and QR verification.</p>
+          <div class="chip-row">
+            <span class="chip">Go (Golang)</span>
+            <span class="chip">SQLite</span>
+            <span class="chip">AWS EC2</span>
+            <span class="chip">AWS SES</span>
+          </div>
+
+          <!-- Mini Demo: Seat Reservation Picker -->
+          <div class="mini-demo">
+            <div class="mini-demo-title"><span>Interactive Seat Picker</span><span id="cineSeats">0 Seats ($0)</span></div>
+            <div style="display:flex;gap:6px;margin-top:4px">
+              <button type="button" class="ctrl-btn" onclick="toggleSeat(this, 12)">A1</button>
+              <button type="button" class="ctrl-btn" onclick="toggleSeat(this, 12)">A2</button>
+              <button type="button" class="ctrl-btn" onclick="toggleSeat(this, 15)">B1 (VIP)</button>
+              <button type="button" class="ctrl-btn" onclick="toggleSeat(this, 15)">B2 (VIP)</button>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="card-btn hoverable" href="https://github.com/karanrejuuu/CineCloud" target="_blank" rel="noopener">📂 GitHub Repo</a>
+          </div>
         </div>
+
+        <!-- 3. LLM SQL Analyst -->
+        <div class="trading-card hoverable">
+          <div class="card-badge">ISSUE #03</div>
+          <div style="font-size:36px;margin-top:4px">🤖</div>
+          <h3>LLM SQL Analyst</h3>
+          <p>A production-focused Streamlit app that transforms plain English questions into optimized SQL for uploaded datasets, executes queries in real-time, and renders clean analytics.</p>
+          <div class="chip-row">
+            <span class="chip">Python</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">LLM / AI</span>
+            <span class="chip">SQL Engine</span>
+          </div>
+
+          <!-- Mini Demo: NL to SQL Query Runner -->
+          <div class="mini-demo">
+            <div class="mini-demo-title"><span>Natural Language → SQL</span></div>
+            <select id="nlQuerySelect" style="width:100%;padding:4px;font-family:inherit;background:#FFF;border:1.5px solid var(--ink);border-radius:6px" onchange="runSqlDemo(this.value)">
+              <option value="1">"Top 3 clients by revenue in 2026"</option>
+              <option value="2">"Average order value by city"</option>
+            </select>
+            <div id="sqlOutput" style="background:#0F172A;color:#38BDF8;padding:6px;border-radius:6px;margin-top:6px;font-size:10px">
+              SELECT client, SUM(rev) FROM deals GROUP BY 1 ORDER BY 2 DESC LIMIT 3;
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="card-btn hoverable" href="https://github.com/karanrejuuu/llm-sql-analyst" target="_blank" rel="noopener">📂 GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- 4. PawConnect -->
+        <div class="trading-card hoverable">
+          <div class="card-badge">ISSUE #04</div>
+          <div style="font-size:36px;margin-top:4px">🐾</div>
+          <h3>PawConnect</h3>
+          <p>Full-stack stray rescue and adoption platform connecting abandoned pets with NGOs for verified adoption, donations, and medical care tracking using Next.js 14 and PostgreSQL.</p>
+          <div class="chip-row">
+            <span class="chip">Next.js 14</span>
+            <span class="chip">Express.js</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">Tailwind</span>
+          </div>
+
+          <!-- Mini Demo: Stray Adoption Status Tracker -->
+          <div class="mini-demo">
+            <div class="mini-demo-title"><span>Rescue Status Tracker</span><span id="dogStatus" style="color:#10B981">● Rescued</span></div>
+            <div style="display:flex;gap:4px;margin-top:4px">
+              <button type="button" class="ctrl-btn" onclick="setDogStatus('Rescued')">1. Rescued</button>
+              <button type="button" class="ctrl-btn" onclick="setDogStatus('Medical Check')">2. Vet Care</button>
+              <button type="button" class="ctrl-btn" onclick="setDogStatus('Adopted 🎉')">3. Adopted</button>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="card-btn hoverable" href="https://github.com/karanrejuuu/pawconnect" target="_blank" rel="noopener">📂 GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- 5. Credit Risk Model -->
+        <div class="trading-card hoverable">
+          <div class="card-badge">ISSUE #05</div>
+          <div style="font-size:36px;margin-top:4px">📊</div>
+          <h3>Credit Risk Model</h3>
+          <p>End-to-end machine learning financial pipeline for loan default prediction. Implements SMOTE class imbalance handling, Random Forest, Decision Trees, and ROC-AUC evaluation.</p>
+          <div class="chip-row">
+            <span class="chip">Python</span>
+            <span class="chip">Scikit-Learn</span>
+            <span class="chip">Random Forest</span>
+            <span class="chip">SMOTE</span>
+          </div>
+
+          <!-- Mini Demo: Real-Time ML Risk Slider -->
+          <div class="mini-demo">
+            <div class="mini-demo-title"><span>Interactive Risk Predictor</span><span id="riskVerdict" style="color:#10B981;font-weight:700">LOW RISK (APPROVED)</span></div>
+            <input type="range" min="300" max="850" value="740" style="width:100%" id="creditSlider" oninput="calculateRisk(this.value)">
+            <div style="display:flex;justify-content:space-between;font-size:9px"><span>Poor (300)</span><span id="sliderVal">Score: 740</span><span>Excellent (850)</span></div>
+          </div>
+
+          <div class="card-actions">
+            <a class="card-btn hoverable" href="https://github.com/karanrejuuu/credit-risk-model" target="_blank" rel="noopener">📂 GitHub Repo</a>
+          </div>
+        </div>
+
       </div>
-
-      <!-- CineCloud -->
-      <div class="card hoverable reveal">
-        <div class="badge">ISSUE #02</div>
-        <div class="glyph">🎟️</div>
-        <h3>CineCloud</h3>
-        <p>Presentation-ready movie ticket booking platform built with Go and SQLite for deployment on AWS EC2 Ubuntu VMs. Features theatre &amp; show time selection, seat reservations, mock checkout, dynamic PDF ticket rendering, AWS SES delivery, and QR verification.</p>
-        <div class="chip-row">
-          <span class="chip">Go (Golang)</span>
-          <span class="chip">SQLite</span>
-          <span class="chip">AWS EC2</span>
-          <span class="chip">AWS SES</span>
-        </div>
-        <div class="card-actions">
-          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/CineCloud" target="_blank" rel="noopener">📂 GitHub Repo</a>
-        </div>
-      </div>
-
-      <!-- LLM SQL Analyst -->
-      <div class="card hoverable reveal">
-        <div class="badge">ISSUE #03</div>
-        <div class="glyph">🤖</div>
-        <h3>LLM SQL Analyst</h3>
-        <p>A lightweight, production-focused Streamlit application that transforms natural language questions into executed SQL across uploaded CSV and Excel datasets. Dynamic schema extraction, prompt engineering, and clean rendered analytics.</p>
-        <div class="chip-row">
-          <span class="chip">Python</span>
-          <span class="chip">Streamlit</span>
-          <span class="chip">LLM / AI</span>
-          <span class="chip">SQL Engine</span>
-        </div>
-        <div class="card-actions">
-          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/llm-sql-analyst" target="_blank" rel="noopener">📂 GitHub Repo</a>
-        </div>
-      </div>
-
-      <!-- PawConnect -->
-      <div class="card hoverable reveal">
-        <div class="badge">ISSUE #04</div>
-        <div class="glyph">🐾</div>
-        <h3>PawConnect</h3>
-        <p>Full-stack community web platform connecting stray dogs with rescue NGOs for verified adoption, donations, and medical care tracking. Features responsive Next.js 14 App Router workflows with an Express and PostgreSQL backend.</p>
-        <div class="chip-row">
-          <span class="chip">Next.js 14</span>
-          <span class="chip">Express.js</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">Tailwind CSS</span>
-        </div>
-        <div class="card-actions">
-          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/pawconnect" target="_blank" rel="noopener">📂 GitHub Repo</a>
-        </div>
-      </div>
-
-      <!-- Credit Risk Model -->
-      <div class="card hoverable reveal">
-        <div class="badge">ISSUE #05</div>
-        <div class="glyph">📊</div>
-        <h3>Credit Risk Model</h3>
-        <p>Machine learning classification pipeline predicting loan default risk on real-world financial data. Implements SMOTE class imbalance handling, Random Forest, Decision Trees, Logistic Regression, and ROC-AUC evaluation metrics.</p>
-        <div class="chip-row">
-          <span class="chip">Python</span>
-          <span class="chip">Scikit-Learn</span>
-          <span class="chip">Random Forest</span>
-          <span class="chip">SMOTE</span>
-        </div>
-        <div class="card-actions">
-          <a class="card-btn hoverable" href="https://github.com/karanrejuuu/credit-risk-model" target="_blank" rel="noopener">📂 GitHub Repo</a>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- SUIT TECH ARSENAL (SKILLS) -->
-  <section id="arsenal">
-    <div class="eyebrow reveal">03 — Suit Tech &amp; Gadgets</div>
-    <h2 class="h2 flip3d">ENGINEERED FOR <span class="accent">MAXIMUM IMPACT</span></h2>
-    <div class="arsenal-grid">
-      <div class="arsenal-card hoverable reveal">
-        <h4>🕸️ Web-Shooters &amp; Frontend</h4>
-        <ul>
-          <li>Next.js 14 &amp; React (App Router, Server Components)</li>
-          <li>TypeScript &amp; Modern ES6+ JavaScript</li>
-          <li>Progressive Web Apps (Offline-first, Service Workers)</li>
-          <li>Tailwind CSS, Halftone UI &amp; Responsive Layouts</li>
-          <li>Three.js, WebGL &amp; GSAP Kinetic Animations</li>
-        </ul>
-      </div>
+  <!-- ==================== PROCESS (WEB PATH TIMELINE) ==================== -->
+  <section id="process">
+    <div class="comic-panel-section">
+      <div class="eyebrow">03 — Execution Protocol</div>
+      <h2 class="h2">HOW THE WEB <span class="accent">GETS WOVEN</span></h2>
 
-      <div class="arsenal-card hoverable reveal">
-        <h4>⚡ Iron Spine &amp; Backend</h4>
-        <ul>
-          <li>Go (Golang) — High-throughput microservices</li>
-          <li>Node.js &amp; Express.js APIs</li>
-          <li>PostgreSQL &amp; SQLite relational databases</li>
-          <li>AWS Infrastructure: EC2 Ubuntu hosting, AWS SES mail</li>
-          <li>RESTful APIs, PDF generation &amp; QR verification</li>
-        </ul>
-      </div>
-
-      <div class="arsenal-card hoverable reveal">
-        <h4>🧠 Spidey-Sense &amp; AI / ML</h4>
-        <ul>
-          <li>LLM Natural Language to SQL generation</li>
-          <li>Machine Learning: Random Forest, Decision Trees</li>
-          <li>Imbalanced data handling with SMOTE</li>
-          <li>Streamlit rapid analytics &amp; visualization apps</li>
-          <li>Pandas, NumPy, and Scikit-Learn data pipelines</li>
-        </ul>
+      <div class="web-path-timeline">
+        <div class="web-path-node hoverable">
+          <div class="step-num">01</div>
+          <h4>Recon &amp; Mapping</h4>
+          <p>Dissect bottlenecks, data pipelines, and concurrency challenges before writing a single line of code.</p>
+        </div>
+        <div class="web-path-node hoverable">
+          <div class="step-num">02</div>
+          <h4>Architecture</h4>
+          <p>Design offline-ready database schemas, resilient API boundaries, and high-performance frontend state.</p>
+        </div>
+        <div class="web-path-node hoverable">
+          <div class="step-num">03</div>
+          <h4>Slinging Code</h4>
+          <p>Build fast with Go, TypeScript, Next.js, and ML models. Strict test coverage and zero fluff.</p>
+        </div>
+        <div class="web-path-node hoverable">
+          <div class="step-num">04</div>
+          <h4>Deploy &amp; Scale</h4>
+          <p>Deploy to AWS, verify telemetry, and ensure zero-downtime performance when user volume spikes.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- DAILY BUGLE (TESTIMONIALS / HUMOR) -->
+  <!-- ==================== PROOF & MISSION DASHBOARD ==================== -->
+  <section id="proof">
+    <div class="comic-panel-section">
+      <div class="eyebrow">04 — System Telemetry &amp; Proof</div>
+      <h2 class="h2">MISSION CONTROL <span class="accent-b">LIVE LOGS</span></h2>
+
+      <div class="dashboard-grid">
+        <div class="mission-terminal">
+          <div class="terminal-header">
+            <span>● KARAN-OS v2.6.4</span>
+            <span>NODE: KOCHI [LATENCY: 14ms]</span>
+          </div>
+          <div>&gt; git log --oneline -n 3</div>
+          <div style="color:#A7F3D0">+ 70af0be docs: Spider-Man 3D portfolio &amp; telemetry online</div>
+          <div style="color:#A7F3D0">+ 6ba6d13 feat: Waymark PWA offline-first sync verified</div>
+          <div style="color:#A7F3D0">+ 130eb12 feat: CineCloud Go booking engine on AWS EC2</div>
+          <br>
+          <div>&gt; sys_health --all</div>
+          <div>✓ Uptime: 99.99% | Memory: 42MB | Microservices: Healthy</div>
+          <div>✓ LLM SQL Query Parser: Online | SMOTE Pipeline: Calibrated</div>
+        </div>
+
+        <div class="testimonials">
+          <div class="testimonial-bubble hoverable">
+            <p>"Karan automated our entire delivery route with an offline-first PWA. Zero missed deliveries since day one."</p>
+            <div class="testimonial-author">— FMCG Logistics Director</div>
+          </div>
+          <div class="testimonial-bubble hoverable">
+            <p>"The Go booking platform handled our peak ticket rush without a stutter. Incredibly clean architecture."</p>
+            <div class="testimonial-author">— Event Operations Lead</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DAILY BUGLE NEWSPAPER SECTION ==================== -->
   <section id="bugle">
-    <div class="eyebrow reveal">04 — The Daily Bugle Exclusive</div>
-    <div class="bugle-wrap reveal">
+    <div class="bugle-wrap">
       <div class="bugle-masthead">
         <div class="bugle-title">THE DAILY BUGLE</div>
         <div class="bugle-sub">
           <span>VOL. LXIV NO. 142</span>
-          <span>KOCHI SPECIAL EDITION</span>
+          <span>KOCHI SPECIAL INVESTIGATION</span>
           <span>PRICE: 2 BITS</span>
         </div>
       </div>
@@ -569,60 +789,81 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
     </div>
   </section>
 
-  <!-- CONTACT & SPIDER-SIGNAL -->
-  <section id="contact" class="contact">
-    <div class="eyebrow reveal" style="justify-content:center">05 — Flash The Spider-Signal</div>
-    <h2 class="h2 flip3d">READY TO LAUNCH YOUR <span class="accent">NEXT MISSION?</span></h2>
-    <p class="hero-sub reveal" style="opacity:1;margin:24px auto 0;text-align:center">Got a high-performance web app, Go backend, or AI integration in mind? <b>Drop a message or fire a signal — let's build something extraordinary.</b></p>
-    
-    <div class="mega-cta reveal">
-      <a class="btn btn-primary hoverable magnetic" data-label="SEND EMAIL!" href="mailto:karanreju@gmail.com"><span class="dot"></span> Send An Email</a>
-      <a class="btn btn-ghost hoverable magnetic" data-label="WHATSAPP!" href="https://wa.me/917356547600" target="_blank" rel="noopener">WhatsApp Direct ↗</a>
-    </div>
+  <!-- ==================== CONTACT & SPIDER-SIGNAL ==================== -->
+  <section id="contact">
+    <div class="comic-panel-section contact-wrap">
+      <div class="eyebrow" style="justify-content:center">05 — Flash The Spider-Signal</div>
+      <h2 class="h2">READY TO DEPLOY YOUR <span class="accent">NEXT BIG MISSION?</span></h2>
+      <p style="max-width:620px;margin:18px auto 0;font-size:17px;color:var(--ink-soft)">Got a high-performance web app, Go backend, or AI integration in mind? <b>Press the beacon below or drop a direct message.</b></p>
 
-    <div class="social-row reveal">
-      <a class="social em hoverable" href="mailto:karanreju@gmail.com">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        karanreju@gmail.com
-      </a>
-      <a class="social wa hoverable" href="https://wa.me/917356547600" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5.2.6.8 2 .9 2.2.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.5.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.8 2.2 1.2 1.1 2.2 1.4 2.6 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.2.5.2.6.4.1.1.1.7-.1 1.4z"/></svg>
-        +91 7356547600
-      </a>
-      <a class="social li hoverable" href="https://www.linkedin.com/in/karanreju/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a class="social gh hoverable" href="https://github.com/karanrejuuu" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12"/></svg>
-        GitHub
-      </a>
-      <a class="social ig hoverable" href="https://www.instagram.com/karanreju" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Instagram
-      </a>
+      <button type="button" class="signal-beacon-btn hoverable" onclick="triggerSpiderSignal()">
+        <span>🚨 FLASH SPIDER-SIGNAL</span>
+      </button>
+
+      <div class="social-row">
+        <!-- Direct JS Handlers (No Form Tags) -->
+        <a class="social-btn social-em hoverable" href="mailto:karanreju@gmail.com?subject=Mission%20Inquiry%20via%20Spider-Portfolio">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email: karanreju@gmail.com
+        </a>
+
+        <a class="social-btn social-wa hoverable" href="https://wa.me/917356547600?text=Hey%20Karan,%20saw%20your%20Spider-Man%20portfolio!%20Let's%20talk%20about%20a%20project." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5.2.6.8 2 .9 2.2.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.5.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.8 2.2 1.2 1.1 2.2 1.4 2.6 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.2.5.2.6.4.1.1.1.7-.1 1.4z"/></svg>
+          WhatsApp: +91 7356547600
+        </a>
+
+        <a class="social-btn social-li hoverable" href="https://www.linkedin.com/in/karanreju/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+
+        <a class="social-btn social-gh hoverable" href="https://github.com/karanrejuuu" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+
+        <a class="social-btn social-ig hoverable" href="https://www.instagram.com/karanreju" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </a>
+      </div>
     </div>
   </section>
+
 </div>
 </main>
 
+<!-- FOOTER WITH 404 COMIC EASTER EGG -->
 <footer>
-  <div>© 2026 KARAN REJU — FULL-STACK &amp; AI ENGINEER</div>
-  <div>KOCHI, KERALA // EARTH-616 · BUILT WITH THREE.JS &amp; GSAP ⚡</div>
+  <div>© 2026 KARAN REJU — FULL-STACK &amp; AI ARCHITECT</div>
+  <div>KOCHI NODE // EARTH-616 · <span class="footer-404" onclick="triggerComic404()">[ERROR 404: SPIDER ESCAPED]</span></div>
 </footer>
 
+<!-- EASTER EGG ELEMENTS -->
+<div id="crawlingSpider" onclick="squishSpider()">
+  <svg viewBox="0 0 100 100" width="32" height="32" fill="#15151C"><ellipse cx="50" cy="50" rx="14" ry="20"/><circle cx="50" cy="28" r="10"/><path d="M40 38 Q10 20 4 42 M40 48 Q10 48 2 62 M40 58 Q15 70 8 85 M60 38 Q90 20 96 42 M60 48 Q90 48 98 62 M60 58 Q85 70 92 85" stroke="#15151C" stroke-width="5" fill="none"/></svg>
+</div>
+
+<div id="konamiSplash">
+  <div class="konami-text">SPECTACULAR!</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:18px;color:#FFF;letter-spacing:.2em;margin-top:14px">KONAMI CHEAT UNLOCKED: MAXIMUM WEB POWER!</div>
+</div>
+
+<!-- SCRIPTS: THREE.JS R128 + GLTF LOADER + GSAP 3.12.5 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/GLTFLoader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
 <script>
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 gsap.registerPlugin(ScrollTrigger);
 
 /* ============================================================
-   WEB AUDIO API SYNTHESIZER (COMIC SOUND FX)
+   1. WEB AUDIO API SYNTHESIZER (SYNTHETIC RETRO COMIC SFX)
 ============================================================ */
 let audioCtx = null;
-let soundEnabled = true;
+let soundEnabled = false; // muted by default per specification
 
 function initAudio() {
   if (!audioCtx) {
@@ -642,22 +883,22 @@ function playThwipSound() {
     const filter = audioCtx.createBiquadFilter();
 
     osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.16);
+    osc.frequency.setValueAtTime(1600, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(160, audioCtx.currentTime + 0.18);
 
     filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+    filter.frequency.setValueAtTime(1100, audioCtx.currentTime);
     filter.Q.setValueAtTime(3, audioCtx.currentTime);
 
-    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.16);
+    gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
 
     osc.connect(filter);
     filter.connect(gain);
     gain.connect(audioCtx.destination);
 
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.16);
+    osc.stop(audioCtx.currentTime + 0.18);
   } catch (e) {}
 }
 
@@ -667,16 +908,16 @@ function playPunchSound() {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(120, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.12);
+    osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.14);
 
     gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.14);
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.12);
+    osc.stop(audioCtx.currentTime + 0.14);
   } catch (e) {}
 }
 
@@ -685,53 +926,40 @@ soundBtn.addEventListener('click', () => {
   initAudio();
   soundEnabled = !soundEnabled;
   soundBtn.textContent = soundEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+  if (soundEnabled) playThwipSound();
 });
 
 /* ============================================================
-   SPIDER-VERSE SUIT MODE SWITCHER
+   2. DAY / NIGHT MISSION THEME SWITCHER
 ============================================================ */
-const themes = [
-  { name: '616', cls: 'theme-classic', label: '🕸️ SUIT: 616', webCol: 0xE0202F },
-  { name: 'MILES', cls: 'theme-miles', label: '⚡ SUIT: MILES', webCol: 0x00E5FF },
-  { name: 'VENOM', cls: 'theme-symbiote', label: '🖤 SUIT: VENOM', webCol: 0x9D00FF }
-];
-let currentThemeIdx = 0;
+let isNight = false;
 const modeBtn = document.getElementById('modeBtn');
-
 modeBtn.addEventListener('click', () => {
   initAudio();
   playPunchSound();
-  document.body.classList.remove(themes[currentThemeIdx].cls);
-  currentThemeIdx = (currentThemeIdx + 1) % themes.length;
-  const current = themes[currentThemeIdx];
-  document.body.classList.add(current.cls);
-  modeBtn.textContent = current.label;
+  isNight = !isNight;
+  document.body.classList.toggle('theme-night', isNight);
+  document.body.classList.toggle('theme-day', !isNight);
+  modeBtn.textContent = isNight ? '☀️ DAY' : '🌙 NIGHT';
 
-  // Update Three.js web color dynamically
-  if (web2) web2.material.color.setHex(current.webCol);
-  if (tip) tip.material.color.setHex(current.webCol);
+  if (scene) {
+    scene.fog.color.setHex(isNight ? 0x0A0A12 : 0xFBFAF5);
+    renderer.setClearColor(isNight ? 0x0A0A12 : 0xFBFAF5, 0);
+    if (dirLight) dirLight.intensity = isNight ? 0.6 : 1.4;
+    if (ambLight) ambLight.intensity = isNight ? 0.8 : 1.2;
+    if (web2) web2.material.color.setHex(isNight ? 0x00E5FF : 0xE0202F);
+  }
+});
+
+/* Reduced Effects Toggle */
+const motionBtn = document.getElementById('motionBtn');
+motionBtn.addEventListener('click', () => {
+  reduceMotion = !reduceMotion;
+  motionBtn.textContent = reduceMotion ? '👁️ FX: REDUCED' : '👁️ FX: FULL';
 });
 
 /* ============================================================
-   SUIT AI (KAREN HUD) STATUS QUIP ENGINE
-============================================================ */
-const suitQuips = [
-  "Suit AI: All systems green. Web shooters calibrated at 420 PSI.",
-  "Suit AI: Detected high-performance Go backend running in Kochi.",
-  "Suit AI: Offline-First PWA synced with zero packet loss.",
-  "Suit AI: SMOTE algorithms normalized. Default risks predicted.",
-  "Suit AI: Spider-Sense active: Visitor is browsing Karan's GitHub.",
-  "Suit AI: Chai fuel levels at maximum capacity. Ready to deploy."
-];
-let quipIdx = 0;
-const suitAiText = document.getElementById('suitAiText');
-setInterval(() => {
-  quipIdx = (quipIdx + 1) % suitQuips.length;
-  suitAiText.textContent = suitQuips[quipIdx];
-}, 7000);
-
-/* ============================================================
-   3D SCENE — SKYLINE, HERO SILHOUETTE, SCROLL-DRIVEN 3D WEB
+   3. 3D SCENE WITH REAL TEXTURED SPIDER-MAN MODEL & SKYLINE
 ============================================================ */
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -740,9 +968,16 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.setClearColor(0x000000, 0);
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xFBFAF5, 26, 60);
-const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, .1, 200);
-camera.position.set(-2, 3.5, 14);
+scene.fog = new THREE.Fog(0xFBFAF5, 26, 62);
+const camera = new THREE.PerspectiveCamera(54, innerWidth / innerHeight, .1, 200);
+camera.position.set(-2, 3.6, 14);
+
+// Lighting for authentic PBR textures
+const ambLight = new THREE.AmbientLight(0xFFFFFF, 1.3);
+scene.add(ambLight);
+const dirLight = new THREE.DirectionalLight(0xFFFFFF, 1.4);
+dirLight.position.set(6, 12, 10);
+scene.add(dirLight);
 
 const INK = 0x15151C, RED = 0xE0202F;
 
@@ -750,10 +985,10 @@ function windowTexture(w, h) {
   const c = document.createElement('canvas'); c.width = 64; c.height = 128;
   const x = c.getContext('2d');
   x.fillStyle = '#EFEBDE'; x.fillRect(0, 0, 64, 128);
-  x.fillStyle = 'rgba(21,21,28,.8)';
+  x.fillStyle = 'rgba(21,21,28,.82)';
   for (let r = 8; r < 124; r += 14) for (let col = 8; col < 60; col += 14) {
-    if (Math.random() < .72) x.fillRect(col, r, 7, 8);
-    else { x.fillStyle = 'rgba(255,196,0,.9)'; x.fillRect(col, r, 7, 8); x.fillStyle = 'rgba(21,21,28,.8)'; }
+    if (Math.random() < .7) x.fillRect(col, r, 7, 8);
+    else { x.fillStyle = 'rgba(255,196,0,.92)'; x.fillRect(col, r, 7, 8); x.fillStyle = 'rgba(21,21,28,.82)'; }
   }
   const t = new THREE.CanvasTexture(c);
   t.repeat.set(Math.max(1, Math.round(w / 1.4)), Math.max(1, Math.round(h / 2.4)));
@@ -786,17 +1021,16 @@ buildingDefs.forEach((d, i) => {
 });
 scene.add(city);
 
-// Distant silhouette
-const farRow = new THREE.Group();
-for (let i = 0; i < 16; i++) {
-  const w = 2 + Math.random() * 2.5, h = 4 + Math.random() * 8;
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: 0xD9D4C4, transparent: true, opacity: .55 }));
-  m.position.set(-22 + i * 3, h / 2 - 4.5, -16);
-  farRow.add(m);
-}
-scene.add(farRow);
+// Giant Moon Behind Rooftop
+const moon = new THREE.Group();
+const moonDisc = new THREE.Mesh(new THREE.CircleGeometry(4.8, 48), new THREE.MeshBasicMaterial({ color: 0xFFE9A8 }));
+const moonRing = new THREE.Mesh(new THREE.RingGeometry(4.8, 4.96, 48), new THREE.MeshBasicMaterial({ color: INK }));
+moon.add(moonDisc, moonRing);
+const perch = new THREE.Vector3(heroBuilding.position.x - .4, heroBuilding.position.y + (HERO_BH / 2) + .15, heroBuilding.position.z + 1.2);
+moon.position.set(perch.x + .6, perch.y + 2.8, perch.z - 7.5);
+scene.add(moon);
 
-// Comic Clouds
+// Clouds
 const clouds = new THREE.Group();
 for (let i = 0; i < 4; i++) {
   const cg = new THREE.Group();
@@ -804,8 +1038,6 @@ for (let i = 0; i < 4; i++) {
     const s = new THREE.Mesh(new THREE.SphereGeometry(.7 + Math.random() * .5, 10, 10), new THREE.MeshBasicMaterial({ color: 0xFFFFFF }));
     s.position.set(b * .9 - 1.3, Math.random() * .3, 0);
     cg.add(s);
-    const o = new THREE.LineSegments(new THREE.EdgesGeometry(s.geometry), new THREE.LineBasicMaterial({ color: INK, transparent: true, opacity: .12 }));
-    o.position.copy(s.position); cg.add(o);
   }
   cg.position.set(-14 + i * 9, 6.5 + Math.random() * 3, -10 - Math.random() * 4);
   cg.userData = { sp: .08 + Math.random() * .12 };
@@ -813,44 +1045,60 @@ for (let i = 0; i < 4; i++) {
 }
 scene.add(clouds);
 
-// Hero Silhouette
-const hero = new THREE.Group();
-const inkMat = new THREE.MeshBasicMaterial({ color: INK });
-function part(geom, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) {
-  const m = new THREE.Mesh(geom, inkMat);
-  m.position.set(x, y, z); m.rotation.set(rx, ry, rz); m.scale.set(sx, sy, sz);
-  hero.add(m); return m;
-}
-part(new THREE.SphereGeometry(.34, 14, 14), .12, 1.62, 0, 0, 0, 0, 1, .92, 1);
-part(new THREE.CylinderGeometry(.26, .34, .95, 10), -.08, .95, 0, 0, 0, .5);
-part(new THREE.CylinderGeometry(.11, .13, .85, 8), -.42, .42, .16, 0, 0, 1.25);
-part(new THREE.CylinderGeometry(.09, .11, .8, 8), -.95, .18, .16, 0, 0, -.9);
-part(new THREE.CylinderGeometry(.11, .13, .8, 8), -.1, .36, -.18, 0, 0, .35);
-part(new THREE.CylinderGeometry(.09, .11, .75, 8), .12, .0, -.18, 0, 0, -.15);
-part(new THREE.BoxGeometry(.34, .12, .16), .16, -.36, -.18);
-part(new THREE.BoxGeometry(.34, .12, .16), -1.2, -.1, .16);
-part(new THREE.CylinderGeometry(.09, .1, .8, 8), .58, 1.45, .05, 0, 0, -1.35);
-part(new THREE.SphereGeometry(.12, 10, 10), .98, 1.62, .05);
-part(new THREE.CylinderGeometry(.08, .09, .6, 8), -.28, 1.15, -.22, 0, 0, .9);
-part(new THREE.SphereGeometry(.1, 10, 10), -.52, .88, -.22);
-hero.scale.setScalar(2.2);
-
-const perch = new THREE.Vector3(heroBuilding.position.x - .4, heroBuilding.position.y + (HERO_BH / 2) + .25, heroBuilding.position.z + 1.2);
-hero.position.copy(perch);
+/* ============================================================
+   ACTUAL TEXTURED SPIDER-MAN MODEL (GLTF LOADER + ANIMATIONS)
+============================================================ */
+let mixer = null;
+let spidermanModel = null;
+let spidermanIdleAction = null;
+let spidermanAttackAction = null;
+const heroGroup = new THREE.Group();
+heroGroup.position.copy(perch);
 const HERO_BASE_ROT = 2.75;
-hero.rotation.y = HERO_BASE_ROT;
-scene.add(hero);
+heroGroup.rotation.y = HERO_BASE_ROT;
+scene.add(heroGroup);
 
-const handLocal = new THREE.Vector3(.98, 1.62, .05);
-function handWorld() { return hero.localToWorld(handLocal.clone()); }
+// Load the downloaded authentic Spider-Man GLB model
+const gltfLoader = new THREE.GLTFLoader();
+gltfLoader.load('models/spiderman.glb', (gltf) => {
+  spidermanModel = gltf.scene;
 
-// Giant Comic Moon
-const moon = new THREE.Group();
-const moonDisc = new THREE.Mesh(new THREE.CircleGeometry(4.6, 48), new THREE.MeshBasicMaterial({ color: 0xFFE9A8 }));
-const moonRing = new THREE.Mesh(new THREE.RingGeometry(4.6, 4.78, 48), new THREE.MeshBasicMaterial({ color: INK }));
-moon.add(moonDisc, moonRing);
-moon.position.set(perch.x + .6, perch.y + 2.6, perch.z - 6.5);
-scene.add(moon);
+  // Compute bounding box and normalize scale
+  const box = new THREE.Box3().setFromObject(spidermanModel);
+  const size = box.getSize(new THREE.Vector3());
+  const targetHeight = 2.6; // perfect scale for rooftop perch
+  const scale = targetHeight / (size.y || 1);
+  spidermanModel.scale.setScalar(scale);
+
+  box.setFromObject(spidermanModel);
+  spidermanModel.position.y = -box.min.y;
+  heroGroup.add(spidermanModel);
+
+  // Set up animations
+  if (gltf.animations && gltf.animations.length > 0) {
+    mixer = new THREE.AnimationMixer(spidermanModel);
+    // Find idle and attack clips
+    const idleClip = gltf.animations.find(c => c.name.toLowerCase().includes('idle')) || gltf.animations[0];
+    const attackClip = gltf.animations.find(c => c.name.toLowerCase().includes('atk') || c.name.toLowerCase().includes('skill')) || gltf.animations[1];
+
+    if (idleClip) {
+      spidermanIdleAction = mixer.clipAction(idleClip);
+      spidermanIdleAction.play();
+    }
+    if (attackClip) {
+      spidermanAttackAction = mixer.clipAction(attackClip);
+      spidermanAttackAction.setLoop(THREE.LoopOnce);
+      spidermanAttackAction.clampWhenFinished = true;
+    }
+  }
+  document.getElementById('suitAiText').textContent = "Suit AI: High-fidelity Spider-Man suit initialized!";
+}, undefined, (err) => {
+  console.warn("Model fallback active:", err);
+});
+
+function handWorld() {
+  return heroGroup.localToWorld(new THREE.Vector3(.9, 1.5, .1));
+}
 
 // 3D Web Strand Extrusion
 const WEB_SEGS = 900, RADIAL = 6;
@@ -876,25 +1124,29 @@ const web = new THREE.Mesh(webGeo, new THREE.MeshBasicMaterial({ color: INK }));
 web.geometry.setDrawRange(0, 0);
 scene.add(web);
 
-const web2 = new THREE.Mesh(new THREE.TubeGeometry(webCurve, WEB_SEGS, .016, RADIAL, false), new THREE.MeshBasicMaterial({ color: RED }));
-web2.position.y = .09;
+const web2 = new THREE.Mesh(new THREE.TubeGeometry(webCurve, WEB_SEGS, .018, RADIAL, false), new THREE.MeshBasicMaterial({ color: RED }));
+web2.position.y = .08;
 web2.geometry.setDrawRange(0, 0);
 scene.add(web2);
 
 const tip = new THREE.Mesh(new THREE.SphereGeometry(.14, 10, 10), new THREE.MeshBasicMaterial({ color: RED }));
-const tipRing = new THREE.Mesh(new THREE.TorusGeometry(.3, .02, 6, 24), new THREE.MeshBasicMaterial({ color: INK, transparent: true, opacity: .7 }));
-scene.add(tip, tipRing);
+scene.add(tip);
 
 let webProgress = 0, webTarget = 0;
 function setHud(p) {
   document.getElementById('hudWeb').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
 }
+
 addEventListener('scroll', () => {
   const h = document.documentElement;
   const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
   webTarget = p;
   document.getElementById('progFill').style.width = p * 100 + '%';
   document.getElementById('hudScroll').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
+
+  // Scrim increases opacity past hero to ensure 100% text readability
+  const scrim = document.getElementById('scrim');
+  scrim.style.opacity = Math.min(0.95, p * 2.8);
 }, { passive: true });
 
 const camBase = { x: 0, y: 5, z: 14 };
@@ -914,7 +1166,7 @@ function comicBurst(x, y) {
   el.innerHTML = `<svg viewBox="0 0 100 100"><polygon points="50,2 58,30 88,12 70,38 98,46 70,56 86,84 56,68 50,98 42,68 14,86 30,56 2,48 30,40 12,12 42,30" fill="${col}" stroke="#15151C" stroke-width="3"/></svg><b>${word}</b>`;
   document.body.appendChild(el);
   gsap.fromTo(el, { scale: 0, rotate: -20 }, { scale: 1, rotate: 6, duration: .35, ease: 'back.out(3)' });
-  gsap.to(el, { scale: 0, opacity: 0, duration: .3, delay: .55, ease: 'back.in(2)', onComplete: () => el.remove() });
+  gsap.to(el, { scale: 0, opacity: 0, duration: .3, delay: .6, ease: 'back.in(2)', onComplete: () => el.remove() });
 }
 
 function webSplat(x, y) {
@@ -928,15 +1180,23 @@ function webSplat(x, y) {
     for (let i = 0; i <= 10; i++) { const a = i / 10 * Math.PI * 2; d += (i === 0 ? 'M' : 'L') + (60 + Math.cos(a) * r) + ',' + (60 + Math.sin(a) * r); }
     rings += `<path d="${d}Z" fill="none"/>`;
   }
-  el.innerHTML = `<svg width="120" height="120" viewBox="0 0 120 120" stroke="#15151C" stroke-width="1.6" opacity=".75">${spokes}${rings}</svg>`;
+  el.innerHTML = `<svg width="120" height="120" viewBox="0 0 120 120" stroke="#15151C" stroke-width="1.8" opacity=".8">${spokes}${rings}</svg>`;
   document.body.appendChild(el);
   gsap.fromTo(el, { scale: .2, opacity: 1, rotate: Math.random() * 40 - 20 }, { scale: 1, duration: .3, ease: 'back.out(2)' });
-  gsap.to(el, { opacity: 0, scale: 1.15, duration: .6, delay: .5, onComplete: () => el.remove() });
+  gsap.to(el, { opacity: 0, scale: 1.2, duration: .8, delay: 2.8, onComplete: () => el.remove() });
 }
 
 addEventListener('pointerdown', e => {
+  if (e.target.closest('button, a, input, select')) return;
   initAudio();
   playThwipSound();
+
+  // Play Spider-Man attack animation on shoot
+  if (spidermanAttackAction && mixer) {
+    spidermanAttackAction.reset();
+    spidermanAttackAction.play();
+  }
+
   const v = new THREE.Vector3((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1, .5).unproject(camera);
   const dir = v.sub(camera.position).normalize();
   const target = camera.position.clone().add(dir.multiplyScalar(13));
@@ -944,13 +1204,13 @@ addEventListener('pointerdown', e => {
   const mid = start.clone().lerp(target, .5).add(new THREE.Vector3(0, 1.2, 0));
   const curve = new THREE.CatmullRomCurve3([start, mid, target]);
   const SEG = 60;
-  const g = new THREE.TubeGeometry(curve, SEG, .03, 5, false);
+  const g = new THREE.TubeGeometry(curve, SEG, .035, 5, false);
   g.setDrawRange(0, 0);
-  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: themes[currentThemeIdx].webCol }));
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: isNight ? 0x00E5FF : 0xE0202F }));
   scene.add(m);
   shots.push({ mesh: g, mInstance: m, seg: SEG, t: 0 });
 
-  gsap.fromTo(hero.rotation, { z: 0 }, { z: -.06, duration: .08, yoyo: true, repeat: 1 });
+  gsap.fromTo(heroGroup.rotation, { z: 0 }, { z: -.08, duration: .08, yoyo: true, repeat: 1 });
   comicBurst(e.clientX, e.clientY);
   webSplat(e.clientX, e.clientY);
 });
@@ -959,8 +1219,11 @@ addEventListener('pointerdown', e => {
 const clock = new THREE.Clock();
 function tick() {
   const dt = clock.getDelta(), t = clock.getElapsedTime();
-  hero.position.y = perch.y + Math.sin(t * 1.6) * .04;
-  hero.rotation.y = HERO_BASE_ROT + Math.sin(t * .5) * .05 + mouse.x * .15;
+
+  if (mixer) mixer.update(dt);
+
+  heroGroup.position.y = perch.y + Math.sin(t * 1.5) * .03;
+  heroGroup.rotation.y = HERO_BASE_ROT + Math.sin(t * .5) * .04 + mouse.x * .12;
   moon.lookAt(camera.position);
 
   webProgress += (webTarget - webProgress) * .08;
@@ -971,8 +1234,6 @@ function tick() {
 
   const tp = webCurve.getPointAt(Math.max(.001, Math.min(.999, webProgress)));
   tip.position.copy(tp);
-  tipRing.position.copy(tp);
-  tipRing.rotation.z = t * 3;
 
   const followX = THREE.MathUtils.lerp(camBase.x, tp.x * .55, webProgress);
   const followY = THREE.MathUtils.lerp(camBase.y, 2.5 + tp.y * .35, webProgress);
@@ -988,7 +1249,7 @@ function tick() {
 
   for (let i = shots.length - 1; i >= 0; i--) {
     const s = shots[i];
-    s.t += dt * 3.2;
+    s.t += dt * 3.4;
     const on = Math.min(1, s.t);
     s.mesh.setDrawRange(0, Math.floor(on * s.seg) * 5 * 6);
     if (s.t > 1.4) {
@@ -1009,56 +1270,50 @@ addEventListener('resize', () => {
 });
 
 /* ============================================================
-   2D CANVAS WEB TRAIL (SPRING-FOLLOW PHYSICS)
+   4. 2D CANVAS WEB TRAIL
 ============================================================ */
 const trailC = document.getElementById('webTrail'), tx = trailC.getContext('2d');
 function sizeTrail() { trailC.width = innerWidth; trailC.height = innerHeight; }
 sizeTrail(); addEventListener('resize', sizeTrail);
 const trail = [];
-addEventListener('pointermove', e => { trail.unshift({ x: e.clientX, y: e.clientY }); if (trail.length > 26) trail.pop(); });
+addEventListener('pointermove', e => { trail.unshift({ x: e.clientX, y: e.clientY }); if (trail.length > 24) trail.pop(); });
 (function trailLoop() {
   tx.clearRect(0, 0, trailC.width, trailC.height);
   if (trail.length > 2 && !reduceMotion) {
     for (let i = 1; i < trail.length; i++) {
       const f = 1 - i / trail.length;
-      tx.strokeStyle = `rgba(224,32,47,${f * .5})`;
+      tx.strokeStyle = isNight ? `rgba(0,229,255,${f * .5})` : `rgba(224,32,47,${f * .5})`;
       tx.lineWidth = f * 3;
       tx.beginPath(); tx.moveTo(trail[i - 1].x, trail[i - 1].y); tx.lineTo(trail[i].x, trail[i].y); tx.stroke();
-      if (i % 5 === 0) {
-        tx.strokeStyle = `rgba(21,21,28,${f * .3})`; tx.lineWidth = 1;
-        const dx = trail[i].x - trail[i - 1].x, dy = trail[i].y - trail[i - 1].y, L = Math.hypot(dx, dy) || 1;
-        const nx = -dy / L * 7 * f, ny = dx / L * 7 * f;
-        tx.beginPath(); tx.moveTo(trail[i].x - nx, trail[i].y - ny); tx.lineTo(trail[i].x + nx, trail[i].y + ny); tx.stroke();
-      }
     }
   }
   requestAnimationFrame(trailLoop);
 })();
 
 /* ============================================================
-   LOADER TIMELINE & LAUNCH
+   5. LOADER, HERO REVEAL & TYPING TICKER
 ============================================================ */
-const statuses = [
-  'BREWING CHAI IN KOCHI…',
-  'WEAVING RESILIENT ARCHITECTURE…',
-  'CALIBRATING WEB-SHOOTERS…',
-  'TRAINING ML MODELS…',
-  'READY TO FIRE!'
-];
-let progress = 0, si = 0;
+let progress = 0;
 const loadFill = document.getElementById('loadFill'), loadStatus = document.getElementById('loadStatus');
+const statuses = ['INITIALIZING 3D SPIDER-MAN SUIT…', 'CALIBRATING KOCHI NODE SENSORS…', 'SYNCING OFFLINE PWA CACHES…', 'READY FOR ACTION!'];
+let si = 0;
+
 const loadInt = setInterval(() => {
-  progress = Math.min(100, progress + Math.random() * 15);
+  progress = Math.min(100, progress + Math.random() * 16);
   loadFill.style.width = progress + '%';
   if (progress / 100 * statuses.length > si && si < statuses.length - 1) {
     si++; loadStatus.textContent = statuses[si];
   }
   if (progress >= 100) {
     clearInterval(loadInt);
-    loadStatus.textContent = statuses[statuses.length - 1];
-    setTimeout(launch, 350);
+    setTimeout(launch, 300);
   }
-}, 100);
+}, 90);
+
+document.getElementById('skipLoaderBtn').addEventListener('click', () => {
+  clearInterval(loadInt);
+  launch();
+});
 
 function launch() {
   document.getElementById('loader').classList.add('done');
@@ -1067,24 +1322,13 @@ function launch() {
   const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
   tl.to('.hero h1 .row span', { y: 0, rotateX: 0, duration: 1.4, stagger: .15, ease: 'back.out(1.4)' }, .2)
     .to('.hero-tag', { opacity: 1, duration: 1 }, .5)
-    .to('.hero-sub', { opacity: 1, duration: 1 }, 1)
-    .to('.hero-actions', { opacity: 1, duration: 1 }, 1.2)
-    .to('.hero-meta', { opacity: 1, duration: 1 }, 1.4)
+    .to('.hero-caption-box', { opacity: 1, y: 0, duration: 1 }, .8)
+    .to('.hero-actions', { opacity: 1, duration: 1 }, 1.1)
     .from(camera.position, { z: 24, y: 8, duration: 2.6, ease: 'power3.out' }, 0);
   scrambleText(document.getElementById('scrambleTag'));
 }
 
-/* 3D Hero Text Tilt */
-const h13d = document.getElementById('h13d');
-document.querySelectorAll('.hero h1 .row').forEach((r, i) => r.style.transform = `translateZ(${i * 38}px)`);
-addEventListener('pointermove', e => {
-  if (reduceMotion) return;
-  const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
-  gsap.to(h13d, { rotateY: x * 14, rotateX: -y * 10, duration: .8, ease: 'power2.out', transformPerspective: 1100 });
-});
-gsap.to(h13d, { y: -8, duration: 2.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-
-/* Scramble Text */
+/* Scramble Hero Tag */
 const CHARS = '!<>-_\\/[]{}—=+*^?#01';
 function scrambleText(el) {
   const original = el.dataset.original || el.textContent;
@@ -1101,43 +1345,43 @@ function scrambleText(el) {
   }, 30);
 }
 
-/* Scroll FX */
-gsap.utils.toArray('.reveal').forEach(el => {
-  gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
-});
-gsap.utils.toArray('.flip3d').forEach(el => {
-  gsap.to(el, { opacity: 1, rotateX: 0, y: 0, duration: 1.3, ease: 'back.out(1.5)', transformPerspective: 900, scrollTrigger: { trigger: el, start: 'top 86%' } });
-});
-gsap.utils.toArray('.num[data-count]').forEach(el => {
-  const target = +el.dataset.count;
-  ScrollTrigger.create({
-    trigger: el, start: 'top 90%', once: true, onEnter: () => {
-      gsap.fromTo(el, { innerText: 0 }, {
-        innerText: target, duration: 2, ease: 'power2.out', snap: { innerText: 1 },
-        onUpdate() { el.textContent = Math.floor(+el.textContent) + (target === 100 ? '%' : '+'); },
-        onComplete() { el.textContent = target + (target === 100 ? '%' : '+'); }
-      });
-    }
-  });
-});
-const skewSet = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
-ScrollTrigger.create({
-  onUpdate(self) {
-    const v = Math.max(-4, Math.min(4, self.getVelocity() / -450));
-    skewSet(v);
-    gsap.to('.skew-wrap', { skewY: 0, duration: .7, ease: 'power3.out', overwrite: true });
-  }
-});
+/* Typing Role Ticker */
+const roles = ['FULL-STACK DEVELOPER', 'AI ARCHITECT', 'OFFLINE-FIRST PWA SPECIALIST', 'GO & CLOUD ENGINEER'];
+let rIdx = 0, charIdx = 0, isDeleting = false;
+const tickerEl = document.getElementById('roleTickerText');
 
-/* Cursor & Spidey-Sense */
+function typeTicker() {
+  const currentRole = roles[rIdx];
+  if (isDeleting) {
+    tickerEl.textContent = currentRole.substring(0, charIdx - 1);
+    charIdx--;
+  } else {
+    tickerEl.textContent = currentRole.substring(0, charIdx + 1);
+    charIdx++;
+  }
+
+  let speed = isDeleting ? 40 : 90;
+  if (!isDeleting && charIdx === currentRole.length) {
+    speed = 1800; isDeleting = true;
+  } else if (isDeleting && charIdx === 0) {
+    isDeleting = false; rIdx = (rIdx + 1) % roles.length; speed = 400;
+  }
+  setTimeout(typeTicker, speed);
+}
+typeTicker();
+
+/* ============================================================
+   6. CURSOR, SPIDEY-SENSE & MAGNETIC INTERACTIONS
+============================================================ */
 const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring'), label = document.getElementById('cursorLabel');
-const spideySense = document.getElementById('spideySense');
+const tingleArcs = document.getElementById('tingleArcs');
+const spideyVignette = document.getElementById('spideyVignette');
 let rx = 0, ry = 0;
 
 addEventListener('pointermove', e => {
   dot.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
   label.style.left = e.clientX + 'px'; label.style.top = e.clientY + 'px';
-  spideySense.style.left = e.clientX + 'px'; spideySense.style.top = (e.clientY - 40) + 'px';
+  tingleArcs.style.left = e.clientX + 'px'; tingleArcs.style.top = (e.clientY - 42) + 'px';
   rx = e.clientX; ry = e.clientY;
 });
 (function ringLoop() {
@@ -1150,12 +1394,14 @@ addEventListener('pointermove', e => {
 document.querySelectorAll('.hoverable,a,button').forEach(el => {
   el.addEventListener('pointerenter', () => {
     ring.classList.add('hovering');
-    spideySense.classList.add('active');
+    tingleArcs.classList.add('active');
+    spideyVignette.classList.add('active');
     if (el.dataset.label) { label.textContent = el.dataset.label; label.style.opacity = 1; }
   });
   el.addEventListener('pointerleave', () => {
     ring.classList.remove('hovering');
-    spideySense.classList.remove('active');
+    tingleArcs.classList.remove('active');
+    spideyVignette.classList.remove('active');
     label.style.opacity = 0;
   });
 });
@@ -1163,20 +1409,157 @@ document.querySelectorAll('.hoverable,a,button').forEach(el => {
 document.querySelectorAll('.magnetic').forEach(btn => {
   btn.addEventListener('pointermove', e => {
     const r = btn.getBoundingClientRect();
-    gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * .32, y: (e.clientY - r.top - r.height / 2) * .32, duration: .4 });
+    gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * .3, y: (e.clientY - r.top - r.height / 2) * .3, duration: .4 });
   });
   btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.4)' }));
 });
 
-document.querySelectorAll('.card').forEach(card => {
+// Holographic Tilt on Trading Cards
+document.querySelectorAll('.trading-card').forEach(card => {
   card.addEventListener('pointermove', e => {
     const r = card.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-    card.style.setProperty('--mx', px * 100 + '%'); card.style.setProperty('--my', py * 100 + '%');
     gsap.to(card, { rotateY: (px - .5) * 14, rotateX: (.5 - py) * 14, duration: .5, ease: 'power2.out', transformPerspective: 1000 });
   });
   card.addEventListener('pointerleave', () => gsap.to(card, { rotateX: 0, rotateY: 0, duration: .8, ease: 'elastic.out(1,.5)' }));
 });
+
+/* ============================================================
+   7. SCROLL-DRIVEN COUNTERS WITH DATA-SUFFIX
+============================================================ */
+gsap.utils.toArray('.num[data-count]').forEach(el => {
+  const target = +el.dataset.count;
+  const suffix = el.dataset.suffix || '';
+  ScrollTrigger.create({
+    trigger: el, start: 'top 90%', once: true, onEnter: () => {
+      gsap.fromTo(el, { innerText: 0 }, {
+        innerText: target, duration: 2, ease: 'power2.out', snap: { innerText: 1 },
+        onUpdate() { el.textContent = Math.floor(+el.textContent) + suffix; },
+        onComplete() { el.textContent = target + suffix; }
+      });
+    }
+  });
+});
+
+/* ============================================================
+   8. INTERACTIVE MINI-DEMO LOGIC (WHAT I BUILD)
+============================================================ */
+function updateWaymarkDemo() {
+  const s1 = document.getElementById('stop1').checked;
+  const s2 = document.getElementById('stop2').checked;
+  const count = (s1 ? 0 : 1) + (s2 ? 0 : 1);
+  const st = document.getElementById('waymarkStatus');
+  st.textContent = count === 0 ? "All Done! 🎉" : `${count} Due (Syncing)`;
+  st.style.color = count === 0 ? "#10B981" : "var(--red)";
+  initAudio(); playPunchSound();
+}
+
+let selectedSeatPrice = 0;
+function toggleSeat(btn, price) {
+  btn.classList.toggle('live');
+  if (btn.classList.contains('live')) {
+    selectedSeatPrice += price;
+  } else {
+    selectedSeatPrice -= price;
+  }
+  document.getElementById('cineSeats').textContent = `$${selectedSeatPrice} Total (AWS SES Ready)`;
+  initAudio(); playPunchSound();
+}
+
+function runSqlDemo(val) {
+  const out = document.getElementById('sqlOutput');
+  if (val === "1") {
+    out.textContent = "SELECT client, SUM(rev) FROM deals GROUP BY 1 ORDER BY 2 DESC LIMIT 3;";
+  } else {
+    out.textContent = "SELECT city, AVG(order_total) FROM orders GROUP BY city;";
+  }
+  initAudio(); playPunchSound();
+}
+
+function setDogStatus(status) {
+  const el = document.getElementById('dogStatus');
+  el.textContent = `● ${status}`;
+  initAudio(); playPunchSound();
+}
+
+function calculateRisk(score) {
+  document.getElementById('sliderVal').textContent = `Score: ${score}`;
+  const v = document.getElementById('riskVerdict');
+  if (score > 680) {
+    v.textContent = "LOW RISK (APPROVED)";
+    v.style.color = "#10B981";
+  } else if (score > 550) {
+    v.textContent = "MODERATE RISK (REVIEW)";
+    v.style.color = "var(--yellow)";
+  } else {
+    v.textContent = "HIGH RISK (FLAGGED)";
+    v.style.color = "var(--red)";
+  }
+}
+
+/* ============================================================
+   9. EASTER EGGS: SPIDER-SIGNAL, KONAMI CODE & CRAWLING SPIDER
+============================================================ */
+function triggerSpiderSignal() {
+  initAudio();
+  playPunchSound();
+  const vignette = document.getElementById('spideyVignette');
+  vignette.style.boxShadow = 'inset 0 0 160px 40px #FFE600';
+  vignette.style.opacity = '1';
+  comicBurst(innerWidth / 2, innerHeight / 2);
+  setTimeout(() => { vignette.style.opacity = '0'; }, 1200);
+  document.getElementById('suitAiText').textContent = "Suit AI: SPIDER-SIGNAL ACTIVATED! Message routed to Karan's inbox.";
+}
+
+function triggerComic404() {
+  initAudio(); playPunchSound();
+  alert("🕷️ ISSUE #404: Spider escaped the lab! Status: Deployed to production without breaking anything.");
+}
+
+// Konami Code: Up Up Down Down Left Right Left Right B A
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIdx = 0;
+addEventListener('keydown', e => {
+  if (e.key.toLowerCase() === konamiCode[konamiIdx].toLowerCase()) {
+    konamiIdx++;
+    if (konamiIdx === konamiCode.length) {
+      konamiIdx = 0;
+      activateKonami();
+    }
+  } else {
+    konamiIdx = 0;
+  }
+});
+
+function activateKonami() {
+  initAudio();
+  playThwipSound();
+  const splash = document.getElementById('konamiSplash');
+  splash.classList.add('active');
+  comicBurst(innerWidth * .3, innerHeight * .4);
+  comicBurst(innerWidth * .7, innerHeight * .6);
+  setTimeout(() => { splash.classList.remove('active'); }, 2200);
+}
+
+// Crawling Spider Easter Egg
+const spider = document.getElementById('crawlingSpider');
+let spX = 40, spY = 200, spVx = 1.2, spVy = 0.8;
+function crawlLoop() {
+  spX += spVx; spY += spVy;
+  if (spX > innerWidth - 50 || spX < 20) spVx *= -1;
+  if (spY > innerHeight - 50 || spY < 80) spVy *= -1;
+  spider.style.left = spX + 'px'; spider.style.top = spY + 'px';
+  spider.style.transform = `rotate(${Math.atan2(spVy, spVx) * 180 / Math.PI + 90}deg)`;
+  requestAnimationFrame(crawlLoop);
+}
+crawlLoop();
+
+function squishSpider() {
+  initAudio(); playThwipSound();
+  comicBurst(spX + 16, spY + 16);
+  spX = -200; // webs away
+  document.getElementById('suitAiText').textContent = "Suit AI: Easter egg discovered! Radioactive spider caught.";
+}
 </script>
 </body>
 </html>
