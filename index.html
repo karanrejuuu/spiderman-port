@@ -107,6 +107,8 @@ body.theme-symbiote .halftone{background-image:radial-gradient(rgba(157,0,255,.1
 .loader-bar{width:min(340px,70vw);height:16px;background:var(--paper-2);border:3px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:4px 4px 0 var(--ink)}
 .loader-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 14px,var(--blue) 14px 28px);transition:width .2s}
 .loader-status{font-family:'Bangers',cursive;font-size:18px;letter-spacing:.12em;color:var(--blue);min-height:26px;transform:rotate(-2deg)}
+.loader-skip{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 18px;font-family:'Bangers',cursive;font-size:17px;letter-spacing:.08em;cursor:pointer;border-radius:4px;transition:transform .12s,background .12s}
+.loader-skip:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);background:var(--yellow)}
 
 #gl{position:fixed;inset:0;z-index:0;pointer-events:none}
 
@@ -120,7 +122,7 @@ body.theme-symbiote .halftone{background-image:radial-gradient(rgba(157,0,255,.1
 @media(max-width:860px){.hud{display:none}}
 
 /* Floating Suit AI Quip Bar */
-.suit-ai-bar{position:fixed;bottom:20px;left:24px;z-index:7000;background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 16px;border-radius:12px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink);max-width:440px}
+.suit-ai-bar{position:fixed;bottom:18px;right:180px;z-index:7000;background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 18px;border-radius:12px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink);max-width:min(440px,45vw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .suit-ai-icon{width:18px;height:18px;fill:var(--red);animation:pulseSlow 2s infinite ease-in-out;flex-shrink:0}
 @keyframes pulseSlow{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 @media(max-width:860px){.suit-ai-bar{display:none}}
@@ -301,13 +303,14 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   .mobile-ctrl-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
 
   /* Mobile Hero Section */
-  .hero{padding-top:40px!important;padding-bottom:30px!important;min-height:auto}
-  .hero-tag{margin-left:0!important;font-size:10px!important;letter-spacing:.22em!important;margin-bottom:12px!important}
+  .hero{padding-top:46px!important;padding-bottom:30px!important;min-height:auto}
+  .hero-tag{margin-left:0!important;font-size:10px!important;letter-spacing:.22em!important;margin-bottom:10px!important}
   .h1-3d{margin-left:0!important;padding-right:0!important;max-width:100%!important}
-  .hero h1{font-size:clamp(32px,10vw,48px)!important;line-height:.95!important}
+  .hero h1{font-size:clamp(30px,8.5vw,42px)!important;line-height:.92!important}
   .hero h1 .row span{transform:none!important}
-  .hero-sub{margin-left:0!important;margin-top:16px!important;font-size:14.5px!important;padding:16px 18px!important;border-radius:14px!important;box-shadow:5px 5px 0 var(--ink)!important}
-  .hero-actions{margin-left:0!important;margin-top:20px!important;flex-direction:column!important;gap:10px!important;width:100%!important}
+  /* Generous opening so Spider-Man, the moon, and the 3D skyline are fully visible */
+  .hero-sub{margin-left:0!important;margin-top:clamp(170px,28vh,240px)!important;font-size:14.5px!important;padding:16px 18px!important;border-radius:14px!important;box-shadow:5px 5px 0 var(--ink)!important}
+  .hero-actions{margin-left:0!important;margin-top:16px!important;flex-direction:column!important;gap:10px!important;width:100%!important}
   .hero-actions .btn{width:100%!important;justify-content:center!important;font-size:18px!important;padding:12px 20px!important}
   .hero-meta{display:none!important}
 
@@ -369,6 +372,7 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   <div class="loader-logo">KARAN REJU!</div>
   <div class="loader-bar"><i id="loadFill"></i></div>
   <div class="loader-status" id="loadStatus">BREWING CHAI IN KOCHI…</div>
+  <button class="loader-skip" onclick="launch();event.stopPropagation();" aria-label="Skip intro loader">SKIP INTRO ⏩</button>
 </div>
 
 <!-- INTERACTIVE CURSOR & AUDIO HOOKS -->
@@ -975,27 +979,41 @@ hero.rotation.y = HERO_BASE_ROT;
 scene.add(hero);
 
 // Dedicated lighting on Spider-Man so he pops brightly on all devices
-const spideyLight = new THREE.PointLight(0xFFFFFF, 1.5, 20);
-spideyLight.position.set(perch.x - 1, perch.y + 3, perch.z + 2.5);
+const spideyLight = new THREE.PointLight(0xFFFFFF, 2.2, 25);
+spideyLight.position.set(perch.x - 1.2, perch.y + 3.5, perch.z + 4.5);
 scene.add(spideyLight);
 
+const spideyFrontLight = new THREE.DirectionalLight(0xFFFFFF, 1.3);
+spideyFrontLight.position.set(perch.x - 3, perch.y + 5, perch.z + 10);
+scene.add(spideyFrontLight);
+
+let spideyGltfLoaded = false;
 // User's Spider-Man Miniature 3D Model Loader
 if (window.THREE && window.THREE.GLTFLoader) {
   const gltfLoader = new THREE.GLTFLoader();
   gltfLoader.load('models/spiderman.glb', (gltf) => {
     while (hero.children.length > 0) hero.remove(hero.children[0]);
     const m = gltf.scene;
+    spideyGltfLoaded = true;
+
+    // Reset hero group scale so targetHeight is exact world height
+    hero.scale.set(1, 1, 1);
 
     // Center and scale onto rooftop ledge
     const box = new THREE.Box3().setFromObject(m);
     const size = box.getSize(new THREE.Vector3());
-    const targetHeight = 2.5;
+    const targetHeight = 3.4;
     m.scale.setScalar(targetHeight / (size.y || 1.5));
+    m.updateMatrixWorld(true);
 
-    const center = box.getCenter(new THREE.Vector3());
+    const updatedBox = new THREE.Box3().setFromObject(m);
+    const center = updatedBox.getCenter(new THREE.Vector3());
     m.position.x = -center.x;
-    m.position.y = -box.min.y;
+    m.position.y = -updatedBox.min.y;
     m.position.z = -center.z;
+
+    // Turn 180 degrees so Spider-Man faces forward towards the camera and viewer
+    m.rotation.y = Math.PI - 0.35;
 
     // Enhance comic materials
     m.traverse((child) => {
@@ -1003,7 +1021,10 @@ if (window.THREE && window.THREE.GLTFLoader) {
         child.material.side = THREE.DoubleSide;
         if (child.material.isMeshStandardMaterial) {
           child.material.roughness = 0.35;
-          child.material.metalness = 0.08;
+          child.material.metalness = 0.05;
+          if (child.material.name === 'SpiderEyeLenses') {
+            child.material.emissive = new THREE.Color(0x666666);
+          }
         }
       }
     });
@@ -1015,7 +1036,10 @@ if (window.THREE && window.THREE.GLTFLoader) {
 }
 
 const handLocal = new THREE.Vector3(.98, 1.62, .05);
-function handWorld() { return hero.localToWorld(handLocal.clone()); }
+function handWorld() {
+  if (spideyGltfLoaded) return hero.localToWorld(new THREE.Vector3(0.4, 2.0, 0.5));
+  return hero.localToWorld(handLocal.clone());
+}
 
 // Giant Comic Moon
 const moon = new THREE.Group();
@@ -1148,15 +1172,15 @@ function tick() {
   tipRing.rotation.z = t * 3;
 
   const isMob = isMobileMode();
-  const curCamBase = isMob ? { x: 3.2, y: 5.6, z: 18.5 } : camBase;
+  const curCamBase = isMob ? { x: 4.2, y: 5.6, z: 19.5 } : camBase;
   const followX = THREE.MathUtils.lerp(curCamBase.x, tp.x * .55, webProgress);
   const followY = THREE.MathUtils.lerp(curCamBase.y, 2.5 + tp.y * .35, webProgress);
-  const followZ = THREE.MathUtils.lerp(curCamBase.z, isMob ? 19.5 : 15.5, webProgress);
+  const followZ = THREE.MathUtils.lerp(curCamBase.z, isMob ? 20.5 : 15.5, webProgress);
   camera.position.x += ((followX + mouse.x * 1.4) - camera.position.x) * .05;
   camera.position.y += ((followY - mouse.y * 0.8) - camera.position.y) * .05;
   camera.position.z += ((followZ - camera.position.z) * .05);
-  const lookOffsetX = isMob ? 1.4 : 4.6;
-  const lookOffsetY = isMob ? 1.6 : 2.2;
+  const lookOffsetX = isMob ? 0.6 : 4.4;
+  const lookOffsetY = isMob ? 0.95 : 1.8;
   const lookStart = new THREE.Vector3(perch.x - lookOffsetX, perch.y - lookOffsetY, perch.z);
   const look = new THREE.Vector3().lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + .05));
   camera.lookAt(look);
@@ -1234,8 +1258,28 @@ const loadInt = setInterval(() => {
   }
 }, 100);
 
+// Instant skip via URL param, click, or keyboard (Esc / Space)
+if (new URLSearchParams(location.search).has('skip')) {
+  clearInterval(loadInt);
+  launch();
+}
+document.getElementById('loader')?.addEventListener('click', () => {
+  clearInterval(loadInt);
+  launch();
+});
+window.addEventListener('keydown', (e) => {
+  if ((e.key === 'Escape' || e.key === ' ') && !document.getElementById('loader').classList.contains('done')) {
+    clearInterval(loadInt);
+    launch();
+  }
+});
+
 function launch() {
-  document.getElementById('loader').classList.add('done');
+  const l = document.getElementById('loader');
+  if (l) {
+    if (new URLSearchParams(location.search).has('skip')) l.style.display = 'none';
+    l.classList.add('done');
+  }
   tick();
   if (reduceMotion) { renderer.render(scene, camera); return; }
   const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
