@@ -182,12 +182,13 @@ section{position:relative;padding:clamp(80px,12vh,140px) clamp(20px,6vw,96px)}
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:14px;margin-bottom:20px;font-weight:700}
 .eyebrow::before{content:"";width:34px;height:3px;background:var(--red)}
 
-/* ---------- HERO SECTION (SOLID CAPTION BOX FOR 100% READABILITY) ---------- */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:110px;perspective:1100px}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);letter-spacing:.35em;text-transform:uppercase;color:var(--blue);margin-bottom:18px;opacity:0;font-weight:700}
-.h1-3d{transform-style:preserve-3d;will-change:transform}
-.hero h1{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(54px,10vw,150px);line-height:.92;letter-spacing:.02em;text-transform:uppercase;transform-style:preserve-3d}
-.hero h1 .row{display:block;overflow:visible;transform-style:preserve-3d}
+/* ---------- HERO SECTION (CENTERED & 100% VISIBILITY) ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:110px;padding-bottom:50px;perspective:1100px;text-align:center}
+.hero-container{width:100%;max-width:920px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:5}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);letter-spacing:.32em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;opacity:0;font-weight:700;text-align:center}
+.h1-3d{transform-style:preserve-3d;will-change:transform;width:100%;max-width:860px;margin:0 auto;text-align:center}
+.hero h1{font-family:'Bangers',cursive;font-weight:400;font-size:clamp(44px,7vw,102px);line-height:.96;letter-spacing:.02em;text-transform:uppercase;transform-style:preserve-3d;text-align:center;margin:0 auto}
+.hero h1 .row{display:block;overflow:visible;transform-style:preserve-3d;text-align:center}
 .hero h1 .row span{display:inline-block;transform:translateY(120%) rotateX(-80deg);transform-style:preserve-3d}
 
 /* CMYK Misregistration Edge Shadows */
@@ -197,17 +198,17 @@ section{position:relative;padding:clamp(80px,12vh,140px) clamp(20px,6vw,96px)}
 .t3d-ink{color:var(--paper);-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--yellow),8px 8px 0 var(--ink)}
 
 /* Typing Ticker */
-.ticker-wrap{font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.6vw,17px);font-weight:700;color:var(--red);margin-top:14px;min-height:28px;display:flex;align-items:center;gap:8px}
+.ticker-wrap{font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.6vw,17px);font-weight:700;color:var(--red);margin-top:16px;min-height:28px;display:flex;align-items:center;justify-content:center;text-align:center}
 .ticker-cursor{display:inline-block;width:10px;height:18px;background:var(--red);animation:cursorBlink .8s infinite}
 @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 
 /* OPAQUE HERO CAPTION BOX: SOLVES BACKGROUND BUILDING CLASH COMPLETELY */
-.hero-caption-box{background:var(--scrim-hero);border:3.5px solid var(--ink);border-radius:18px;padding:26px 32px;box-shadow:var(--shadow-lg);margin-top:28px;max-width:680px;position:relative;opacity:0;backdrop-filter:blur(14px);z-index:10}
+.hero-caption-box{background:var(--scrim-hero);border:3.5px solid var(--ink);border-radius:18px;padding:24px 30px;box-shadow:var(--shadow-lg);margin-top:24px;margin-left:auto;margin-right:auto;max-width:660px;position:relative;opacity:0;backdrop-filter:blur(14px);z-index:10;text-align:left}
 .hero-caption-header{font-family:'Bangers',cursive;font-size:16px;letter-spacing:.12em;color:var(--blue);display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#15151C;border:2px solid var(--ink);padding:3px 12px;border-radius:6px;box-shadow:2px 2px 0 var(--ink);margin-bottom:12px}
-.hero-caption-box p{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink);font-weight:500;line-height:1.6}
+.hero-caption-box p{font-size:clamp(15.5px,1.5vw,18px);color:var(--ink);font-weight:500;line-height:1.6}
 .hero-caption-box p b{color:var(--ink);font-weight:800}
 
-.hero-actions{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;opacity:0}
+.hero-actions{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;justify-content:center;opacity:0}
 .btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:'Bangers',cursive;font-size:20px;letter-spacing:.08em;padding:12px 28px;border-radius:14px;border:3px solid var(--ink);transition:.22s;box-shadow:var(--shadow)}
 .btn-primary{background:var(--red);color:#FFF}
 .btn-primary:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:10px 10px 0 var(--ink);background:var(--red-deep)}
@@ -438,31 +439,33 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
 
   <!-- ==================== HERO SECTION ==================== -->
   <section class="hero" id="top">
-    <div class="hero-tag" id="scrambleTag">// FULL-STACK &amp; AI ENGINEER · KOCHI, KERALA · EARTH-616</div>
-    <div class="h1-3d" id="h13d">
-      <h1>
-        <span class="row"><span class="t3d-ink cmyk-title">I WEAVE</span></span>
-        <span class="row"><span class="t3d-red cmyk-title">SCALABLE CODE</span></span>
-        <span class="row"><span class="t3d-blue cmyk-title">&amp; AI ENGINES.</span></span>
-      </h1>
-    </div>
+    <div class="hero-container">
+      <div class="hero-tag" id="scrambleTag">// FULL-STACK &amp; AI ENGINEER · KOCHI, KERALA · EARTH-616</div>
+      <div class="h1-3d" id="h13d">
+        <h1>
+          <span class="row"><span class="t3d-ink cmyk-title">I WEAVE</span></span>
+          <span class="row"><span class="t3d-red cmyk-title">SCALABLE CODE</span></span>
+          <span class="row"><span class="t3d-blue cmyk-title">&amp; AI ENGINES.</span></span>
+        </h1>
+      </div>
 
-    <!-- Live Typing Role Line -->
-    <div class="ticker-wrap">
-      <span>// ROLE: </span>
-      <span id="roleTickerText">FULL-STACK DEVELOPER</span>
-      <span class="ticker-cursor"></span>
-    </div>
+      <!-- Live Typing Role Line -->
+      <div class="ticker-wrap">
+        <span>// ROLE: </span>
+        <span id="roleTickerText">FULL-STACK DEVELOPER</span>
+        <span class="ticker-cursor"></span>
+      </div>
 
-    <!-- OPAQUE CAPTION BOX: 100% CONTRAST & WCAG AAA COMPLIANCE OVER 3D CITY -->
-    <div class="hero-caption-box" id="heroBox">
-      <div class="hero-caption-header">⚡ ISSUE #01: MEET THE DEVELOPER</div>
-      <p>Hey, I'm <b>Karan Reju</b> — your friendly neighborhood full-stack developer &amp; AI engineer from Kochi. Bitten by a radioactive compiler, I craft <b>offline-first PWAs, high-concurrency Go backends, natural-language SQL engines, and predictive ML models</b> that turn messy real-world problems into clean, unstoppable architecture.</p>
-    </div>
+      <!-- OPAQUE CAPTION BOX: 100% CONTRAST & WCAG AAA COMPLIANCE OVER 3D CITY -->
+      <div class="hero-caption-box" id="heroBox">
+        <div class="hero-caption-header">⚡ ISSUE #01: MEET THE DEVELOPER</div>
+        <p>Hey, I'm <b>Karan Reju</b> — your friendly neighborhood full-stack developer &amp; AI engineer from Kochi. Bitten by a radioactive compiler, I craft <b>offline-first PWAs, high-concurrency Go backends, natural-language SQL engines, and predictive ML models</b> that turn messy real-world problems into clean, unstoppable architecture.</p>
+      </div>
 
-    <div class="hero-actions" id="heroActions">
-      <a class="btn btn-primary hoverable magnetic" data-label="LET'S GO!" href="#missions"><span class="dot"></span> Explore What I Build</a>
-      <a class="btn btn-ghost hoverable magnetic" data-label="SIGNAL!" href="#contact">Flash Spider-Signal ↓</a>
+      <div class="hero-actions" id="heroActions">
+        <a class="btn btn-primary hoverable magnetic" data-label="LET'S GO!" href="#missions"><span class="dot"></span> Explore What I Build</a>
+        <a class="btn btn-ghost hoverable magnetic" data-label="SIGNAL!" href="#contact">Flash Spider-Signal ↓</a>
+      </div>
     </div>
   </section>
 
@@ -1326,6 +1329,16 @@ function launch() {
     .to('.hero-actions', { opacity: 1, duration: 1 }, 1.1)
     .from(camera.position, { z: 24, y: 8, duration: 2.6, ease: 'power3.out' }, 0);
   scrambleText(document.getElementById('scrambleTag'));
+
+  /* 3D Hero Title Gentle Mouse Tilt */
+  const h13d = document.getElementById('h13d');
+  document.querySelectorAll('.hero h1 .row').forEach((r, i) => r.style.transform = `translateZ(${i * 22}px)`);
+  addEventListener('pointermove', e => {
+    if (reduceMotion || !h13d) return;
+    const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+    gsap.to(h13d, { rotateY: x * 6, rotateX: -y * 4, duration: .6, ease: 'power2.out', transformPerspective: 1200 });
+  });
+  gsap.to(h13d, { y: -6, duration: 2.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 }
 
 /* Scramble Hero Tag */
