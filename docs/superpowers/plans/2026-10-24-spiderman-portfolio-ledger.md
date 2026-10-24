@@ -16,3 +16,8 @@
   - Self-contained web-shooter audio synth (`thwip` sweep & impact punch), Mute/Unmute toggle, comic burst labels (`THWIP!`, `DEBUGGED!`, `KAPOW!`), and 2D canvas web trail.
 - [x] Task 5: Suit AI Quips, Mode Switching Logic & GSAP Scroll Interactions
   - Rotating Suit AI telemetry quips, 3-mode Spider-Verse suit switcher (Classic 616, Miles Morales, Symbiote Venom), and 3D card tilt on hover.
+- [x] Task 6: 3D Spider-Man Miniature Model & Mobile Framing
+  - Integrated user's 3D Spider-Man GLB miniature (`spiderman_miniature.glb`) with DoubleSide PBR materials, glossy white eye lenses, and dedicated spotlights.
+  - Aligned model orientation to face forward towards the camera and track cursor movements.
+  - Engineered mobile viewport framing with dedicated viewing window between title and caption card, making Spider-Man and the 3D skyline 100% visible in portrait.
+  - Added loader skip controls (button, click, Esc/Space key).
