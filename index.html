@@ -979,19 +979,39 @@ const spideyLight = new THREE.PointLight(0xFFFFFF, 1.5, 20);
 spideyLight.position.set(perch.x - 1, perch.y + 3, perch.z + 2.5);
 scene.add(spideyLight);
 
-// GLTF Auto-Loader Hook: When you paste/send your .glb file, it automatically swaps in!
+// User's Spider-Man Miniature 3D Model Loader
 if (window.THREE && window.THREE.GLTFLoader) {
   const gltfLoader = new THREE.GLTFLoader();
   gltfLoader.load('models/spiderman.glb', (gltf) => {
     while (hero.children.length > 0) hero.remove(hero.children[0]);
     const m = gltf.scene;
+
+    // Center and scale onto rooftop ledge
     const box = new THREE.Box3().setFromObject(m);
     const size = box.getSize(new THREE.Vector3());
-    m.scale.setScalar(2.6 / (size.y || 1));
-    box.setFromObject(m);
+    const targetHeight = 2.5;
+    m.scale.setScalar(targetHeight / (size.y || 1.5));
+
+    const center = box.getCenter(new THREE.Vector3());
+    m.position.x = -center.x;
     m.position.y = -box.min.y;
+    m.position.z = -center.z;
+
+    // Enhance comic materials
+    m.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.side = THREE.DoubleSide;
+        if (child.material.isMeshStandardMaterial) {
+          child.material.roughness = 0.35;
+          child.material.metalness = 0.08;
+        }
+      }
+    });
+
     hero.add(m);
-  }, undefined, () => {});
+  }, undefined, (err) => {
+    console.warn("GLTF Load notice:", err);
+  });
 }
 
 const handLocal = new THREE.Vector3(.98, 1.62, .05);
