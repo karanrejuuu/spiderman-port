@@ -320,7 +320,7 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   .eyebrow{font-size:11px!important;margin-bottom:14px!important}
 
   /* About on mobile */
-  .about-grid{grid-template-columns:1fr!important;gap:18px!important;margin-top:24px!important}
+  .about-grid{grid-template-columns:1fr!important;gap:18px!important;margin-top:clamp(90px,18vh,140px)!important}
   .about-text{padding:22px 18px!important;box-shadow:5px 5px 0 var(--ink)!important}
   .about-text p{font-size:14px!important;line-height:1.6!important;margin-bottom:14px!important}
   .about-text .quote{font-size:17px!important;padding:14px 16px!important}
@@ -330,7 +330,7 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   .stat .lbl{font-size:9px!important}
 
   /* Projects / Cards on mobile */
-  .cards{grid-template-columns:1fr!important;gap:16px!important;margin-top:24px!important}
+  .cards{grid-template-columns:1fr!important;gap:16px!important;margin-top:clamp(90px,18vh,140px)!important}
   .card{padding:26px 18px!important;box-shadow:5px 5px 0 var(--ink)!important}
   .card h3{font-size:24px!important}
   .card p{font-size:13.5px!important}
@@ -338,7 +338,7 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
   .card-btn{width:100%!important;justify-content:center!important}
 
   /* Arsenal on mobile */
-  .arsenal-grid{grid-template-columns:1fr!important;gap:14px!important;margin-top:20px!important}
+  .arsenal-grid{grid-template-columns:1fr!important;gap:14px!important;margin-top:clamp(80px,16vh,120px)!important}
   .arsenal-card{padding:20px 16px!important}
 
   /* Daily Bugle on mobile */
@@ -1049,6 +1049,74 @@ moon.add(moonDisc, moonRing);
 moon.position.set(perch.x + .6, perch.y + 2.6, perch.z - 6.5);
 scene.add(moon);
 
+// Dynamic Swing Web line for mid-air acrobatic leaps
+const swingWebGeo = new THREE.BufferGeometry();
+swingWebGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+const swingWebMat = new THREE.LineBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.9, linewidth: 2 });
+const swingWeb = new THREE.Line(swingWebGeo, swingWebMat);
+swingWeb.visible = false;
+scene.add(swingWeb);
+
+// Perch system & Advanced Acrobatic Vectors
+const PERCHES = [
+  // 0: Hero rooftop (Building #6)
+  { id: 'top', p: 0.00, pos: new THREE.Vector3(7.8, 8.25, -1.4), rotY: Math.PI - 0.35 },
+  // 1: About Dossier (Building #4/5 rooftop overlooking origin story)
+  { id: 'about', p: 0.20, pos: new THREE.Vector3(3.2, 5.8, 1.8), rotY: Math.PI + 0.35 },
+  // 2: Rogues Gallery (Left building rooftop perched over project trading cards)
+  { id: 'missions', p: 0.42, pos: new THREE.Vector3(-3.2, 4.6, 2.2), rotY: Math.PI - 0.5 },
+  // 3: Tech Arsenal (Right girder/antenna rooftop overlooking skills)
+  { id: 'arsenal', p: 0.65, pos: new THREE.Vector3(4.2, 3.8, 1.6), rotY: Math.PI + 0.3 },
+  // 4: Daily Bugle (Banner rooftop ledge)
+  { id: 'bugle', p: 0.82, pos: new THREE.Vector3(-1.6, 2.8, 2.5), rotY: Math.PI - 0.2 },
+  // 5: Spider-Signal (Contact launch pad)
+  { id: 'contact', p: 1.00, pos: new THREE.Vector3(2.2, 1.8, 2.8), rotY: Math.PI + 0.15 }
+];
+
+function updatePerchProgress() {
+  const h = document.documentElement;
+  const maxScroll = h.scrollHeight - h.clientHeight;
+  if (maxScroll <= 0) return;
+  PERCHES.forEach((perch, i) => {
+    if (i === 0) { perch.p = 0; return; }
+    if (i === PERCHES.length - 1) { perch.p = 1.0; return; }
+    const el = document.getElementById(perch.id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      perch.p = Math.max(0.05, Math.min(0.98, top / maxScroll));
+    }
+  });
+}
+
+function getPerch(idx) {
+  const isMob = isMobileMode();
+  const def = PERCHES[idx];
+  const p = def.pos.clone();
+  if (isMob) {
+    p.x *= 0.45;
+    p.y += (idx === 0 ? 0.4 : 1.6);
+    p.z += 0.8;
+  }
+  return { pos: p, rotY: def.rotY };
+}
+
+const heroBasePos = perch.clone();
+const heroBaseRot = { x: 0, y: Math.PI - 0.35, z: 0 };
+const heroRecoilOffset = new THREE.Vector3();
+const heroRecoilRot = new THREE.Vector3();
+const heroScaleImpulse = new THREE.Vector3(1, 1, 1);
+const heroTileLook = new THREE.Vector2();
+let currentPerchRotY = Math.PI - 0.35;
+let wasJumping = false;
+
+function comicLandImpact(pos) {
+  const v = pos.clone().project(camera);
+  const sx = (v.x * 0.5 + 0.5) * innerWidth;
+  const sy = (-(v.y * 0.5) + 0.5) * innerHeight;
+  comicBurst(sx, sy);
+  webSplat(sx, sy);
+}
+
 // 3D Web Strand Extrusion
 const WEB_SEGS = 900, RADIAL = 6;
 function buildWebCurve() {
@@ -1132,11 +1200,14 @@ function webSplat(x, y) {
 }
 
 addEventListener('pointerdown', e => {
+  if (e.target && typeof e.target.closest === 'function' && e.target.closest('input, textarea')) return;
   initAudio();
   playThwipSound();
+  playPunchSound();
+
   const v = new THREE.Vector3((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1, .5).unproject(camera);
   const dir = v.sub(camera.position).normalize();
-  const target = camera.position.clone().add(dir.multiplyScalar(13));
+  const target = camera.position.clone().add(dir.multiplyScalar(14));
   const start = handWorld();
   const mid = start.clone().lerp(target, .5).add(new THREE.Vector3(0, 1.2, 0));
   const curve = new THREE.CatmullRomCurve3([start, mid, target]);
@@ -1147,18 +1218,98 @@ addEventListener('pointerdown', e => {
   scene.add(m);
   shots.push({ mesh: g, mInstance: m, seg: SEG, t: 0 });
 
-  gsap.fromTo(hero.rotation, { z: 0 }, { z: -.06, duration: .08, yoyo: true, repeat: 1 });
+  // Advanced Spider-Man Aiming, Explosive Lunge & Snappy Comic Recoil
+  const toTarget = target.clone().sub(hero.position).normalize();
+  const aimYaw = Math.atan2(toTarget.x, toTarget.z);
+  const aimPitch = -Math.asin(Math.max(-0.85, Math.min(0.85, toTarget.y)));
+
+  if (window.spideyShootTl) window.spideyShootTl.kill();
+  window.spideyShootTl = gsap.timeline();
+
+  // Step 1: Explosive lunge toward the target (arm thrust & spring forward)
+  window.spideyShootTl.to(heroRecoilOffset, {
+    x: toTarget.x * 0.42,
+    y: toTarget.y * 0.42 + 0.12,
+    z: toTarget.z * 0.42,
+    duration: 0.06,
+    ease: 'power3.out'
+  }, 0)
+  .to(heroRecoilRot, {
+    y: (aimYaw - currentPerchRotY) * 0.65,
+    x: aimPitch * 0.45,
+    z: toTarget.x > 0 ? -0.25 : 0.25,
+    duration: 0.06,
+    ease: 'power3.out'
+  }, 0)
+  // Step 2: Heavy comic recoil kickback with elastic spring
+  .to(heroRecoilOffset, {
+    x: -toTarget.x * 0.24,
+    y: -toTarget.y * 0.24 - 0.08,
+    z: -toTarget.z * 0.24,
+    duration: 0.15,
+    ease: 'power2.in'
+  })
+  .to(heroRecoilRot, {
+    y: -(aimYaw - currentPerchRotY) * 0.2,
+    x: -aimPitch * 0.2,
+    z: toTarget.x > 0 ? 0.12 : -0.12,
+    duration: 0.15,
+    ease: 'power2.in'
+  }, '<')
+  // Step 3: Elastic settle back to current stance
+  .to(heroRecoilOffset, {
+    x: 0, y: 0, z: 0,
+    duration: 0.45,
+    ease: 'elastic.out(1.2, 0.4)'
+  })
+  .to(heroRecoilRot, {
+    x: 0, y: 0, z: 0,
+    duration: 0.45,
+    ease: 'elastic.out(1.2, 0.4)'
+  }, '<');
+
+  // Squash & Stretch impulse on hero scale
+  gsap.timeline()
+    .to(heroScaleImpulse, { x: 1.12, y: 0.82, z: 1.12, duration: 0.06, ease: 'power2.out' })
+    .to(heroScaleImpulse, { x: 0.90, y: 1.15, z: 0.90, duration: 0.14, ease: 'power2.in' })
+    .to(heroScaleImpulse, { x: 1.0, y: 1.0, z: 1.0, duration: 0.38, ease: 'elastic.out(1.2, 0.35)' });
+
+  // Spotlight flash at Spider-Man
+  gsap.fromTo(spideyLight, { intensity: 5.2 }, { intensity: 2.2, duration: 0.28, ease: 'power2.out' });
+
+  // Comic screen shake
+  gsap.fromTo('main', 
+    { x: (Math.random() - .5) * 5, y: (Math.random() - .5) * 5 },
+    { x: 0, y: 0, duration: 0.18, ease: 'power2.out' }
+  );
+
   comicBurst(e.clientX, e.clientY);
   webSplat(e.clientX, e.clientY);
+});
+
+// Interactive Tile Tracking: Spider-Man turns his gaze towards hovered project cards & dossier tiles
+document.querySelectorAll('.card, .about-text, .arsenal-card, .bugle-wrap').forEach(el => {
+  el.addEventListener('pointerenter', () => {
+    const rect = el.getBoundingClientRect();
+    const cx = (rect.left + rect.width / 2) / innerWidth - 0.5;
+    const cy = (rect.top + rect.height / 2) / innerHeight - 0.5;
+    gsap.to(heroTileLook, {
+      x: cx * 0.75,
+      y: -cy * 0.45,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
+  });
+  el.addEventListener('pointerleave', () => {
+    gsap.to(heroTileLook, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
+  });
 });
 
 /* Render Loop */
 const clock = new THREE.Clock();
 function tick() {
   const dt = clock.getDelta(), t = clock.getElapsedTime();
-  hero.position.y = perch.y + Math.sin(t * 1.6) * .04;
-  hero.rotation.y = HERO_BASE_ROT + Math.sin(t * .5) * .05 + mouse.x * .15;
-  moon.lookAt(camera.position);
+  const isMob = isMobileMode();
 
   webProgress += (webTarget - webProgress) * .08;
   const segsOn = Math.floor(webProgress * WEB_SEGS);
@@ -1171,19 +1322,115 @@ function tick() {
   tipRing.position.copy(tp);
   tipRing.rotation.z = t * 3;
 
-  const isMob = isMobileMode();
-  const curCamBase = isMob ? { x: 4.2, y: 5.6, z: 19.5 } : camBase;
-  const followX = THREE.MathUtils.lerp(curCamBase.x, tp.x * .55, webProgress);
-  const followY = THREE.MathUtils.lerp(curCamBase.y, 2.5 + tp.y * .35, webProgress);
-  const followZ = THREE.MathUtils.lerp(curCamBase.z, isMob ? 20.5 : 15.5, webProgress);
-  camera.position.x += ((followX + mouse.x * 1.4) - camera.position.x) * .05;
-  camera.position.y += ((followY - mouse.y * 0.8) - camera.position.y) * .05;
-  camera.position.z += ((followZ - camera.position.z) * .05);
-  const lookOffsetX = isMob ? 0.6 : 4.4;
-  const lookOffsetY = isMob ? 0.95 : 1.8;
-  const lookStart = new THREE.Vector3(perch.x - lookOffsetX, perch.y - lookOffsetY, perch.z);
-  const look = new THREE.Vector3().lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + .05));
-  camera.lookAt(look);
+  // 1. Scroll-driven Leaping & Perching between comic milestones
+  let currentSeg = 0;
+  for (let i = 0; i < PERCHES.length - 1; i++) {
+    if (webProgress >= PERCHES[i].p && webProgress <= PERCHES[i + 1].p) {
+      currentSeg = i;
+      break;
+    }
+  }
+
+  const p0 = getPerch(currentSeg);
+  const p1 = getPerch(currentSeg + 1);
+  const segSpan = PERCHES[currentSeg + 1].p - PERCHES[currentSeg].p;
+  const segProgress = THREE.MathUtils.clamp((webProgress - PERCHES[currentSeg].p) / (segSpan || 0.01), 0, 1);
+
+  let isJumping = false;
+
+  if (segProgress < 0.15) {
+    heroBasePos.copy(p0.pos);
+    heroBaseRot.x = 0;
+    heroBaseRot.y = p0.rotY;
+    heroBaseRot.z = 0;
+    currentPerchRotY = p0.rotY;
+  } else if (segProgress > 0.85) {
+    heroBasePos.copy(p1.pos);
+    heroBaseRot.x = 0;
+    heroBaseRot.y = p1.rotY;
+    heroBaseRot.z = 0;
+    currentPerchRotY = p1.rotY;
+  } else {
+    isJumping = true;
+    const w = (segProgress - 0.15) / 0.70;
+    const s = w * w * (3 - 2 * w);
+
+    heroBasePos.x = THREE.MathUtils.lerp(p0.pos.x, p1.pos.x, s);
+    heroBasePos.z = THREE.MathUtils.lerp(p0.pos.z, p1.pos.z, s);
+
+    const arcHeight = isMob ? 3.0 : 4.4;
+    heroBasePos.y = THREE.MathUtils.lerp(p0.pos.y, p1.pos.y, s) + arcHeight * Math.sin(Math.PI * w);
+
+    // Acrobatic mid-air somersault!
+    heroBaseRot.x = Math.sin(Math.PI * w) * Math.PI * 2;
+    heroBaseRot.y = THREE.MathUtils.lerp(p0.rotY, p1.rotY, s);
+    heroBaseRot.z = Math.sin(Math.PI * w) * 0.35;
+    currentPerchRotY = heroBaseRot.y;
+  }
+
+  // Detect superhero landing impact
+  if (wasJumping && !isJumping) {
+    playPunchSound();
+    comicLandImpact(heroBasePos);
+    gsap.timeline()
+      .to(heroScaleImpulse, { x: 1.15, y: 0.76, z: 1.15, duration: 0.08, ease: 'power2.out' })
+      .to(heroScaleImpulse, { x: 1.0, y: 1.0, z: 1.0, duration: 0.38, ease: 'elastic.out(1.2, 0.4)' });
+  }
+  wasJumping = isJumping;
+
+  // Dynamic Swing Web line in mid-air
+  if (isJumping) {
+    swingWeb.visible = true;
+    const hand = handWorld();
+    const anchor = new THREE.Vector3(
+      (p0.pos.x + p1.pos.x) * 0.5,
+      Math.max(p0.pos.y, p1.pos.y) + 7.5,
+      (p0.pos.z + p1.pos.z) * 0.5 - 1.2
+    );
+    const posAttr = swingWeb.geometry.attributes.position;
+    posAttr.setXYZ(0, hand.x, hand.y, hand.z);
+    posAttr.setXYZ(1, anchor.x, anchor.y, anchor.z);
+    posAttr.needsUpdate = true;
+  } else {
+    swingWeb.visible = false;
+  }
+
+  // Idle breathing (only when resting on perch)
+  const idleBob = Math.sin(t * 1.8) * (isJumping ? 0 : 0.035);
+
+  hero.position.copy(heroBasePos).add(heroRecoilOffset);
+  hero.position.y += idleBob;
+
+  hero.rotation.x = heroBaseRot.x + heroRecoilRot.x + heroTileLook.y;
+  hero.rotation.y = heroBaseRot.y + heroRecoilRot.y + heroTileLook.x + Math.sin(t * 0.5) * 0.04 + mouse.x * 0.12;
+  hero.rotation.z = heroBaseRot.z + heroRecoilRot.z;
+
+  hero.scale.set(
+    heroScaleImpulse.x,
+    heroScaleImpulse.y,
+    heroScaleImpulse.z
+  );
+
+  // Spotlights dynamically track Spider-Man across all perches
+  spideyLight.position.set(hero.position.x - 1.2, hero.position.y + 3.5, hero.position.z + 4.5);
+  spideyFrontLight.position.set(hero.position.x - 3, hero.position.y + 5, hero.position.z + 10);
+  moon.lookAt(camera.position);
+
+  // Dynamic cinematic camera rail following Spider-Man
+  const camTargetX = hero.position.x - (isMob ? 1.8 : 4.4);
+  const camTargetY = Math.max(2.4, hero.position.y - (isMob ? 1.0 : 2.5));
+  const camTargetZ = isMob ? 20.0 : 15.2;
+
+  camera.position.x += ((camTargetX + mouse.x * 1.2) - camera.position.x) * 0.06;
+  camera.position.y += ((camTargetY - mouse.y * 0.6) - camera.position.y) * 0.06;
+  camera.position.z += ((camTargetZ - camera.position.z) * 0.06);
+
+  const lookTarget = new THREE.Vector3(
+    hero.position.x - (isMob ? 0.6 : 3.8),
+    hero.position.y - (isMob ? 0.7 : 1.6),
+    hero.position.z
+  );
+  camera.lookAt(lookTarget);
 
   clouds.children.forEach(c => { c.position.x += c.userData.sp * dt; if (c.position.x > 22) c.position.x = -22; });
 
@@ -1204,7 +1451,12 @@ function tick() {
   renderer.render(scene, camera);
   if (!reduceMotion) requestAnimationFrame(tick);
 }
-addEventListener('resize', updateCamProjection);
+function onResize() {
+  updateCamProjection();
+  updatePerchProgress();
+}
+addEventListener('resize', onResize);
+setTimeout(updatePerchProgress, 500);
 
 /* ============================================================
    2D CANVAS WEB TRAIL (SPRING-FOLLOW PHYSICS)

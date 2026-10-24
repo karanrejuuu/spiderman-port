@@ -21,3 +21,9 @@
   - Aligned model orientation to face forward towards the camera and track cursor movements.
   - Engineered mobile viewport framing with dedicated viewing window between title and caption card, making Spider-Man and the 3D skyline 100% visible in portrait.
   - Added loader skip controls (button, click, Esc/Space key).
+- [x] Task 7: Advanced Spider-Man Movement (Web Shooting Recoil & Scroll-Driven Leaping)
+  - Engineered advanced web-shooting recoil: 3D raycast aiming, forward lunge with arm thrust, elastic comic kickback, squash-and-stretch scale impulse, screen jolt, and spotlight flash.
+  - Implemented dynamic scroll-driven leaping system: Spider-Man leaps off the hero rooftop and performs 360 somersaults with a dynamic swing web line in mid-air.
+  - Added perching on rooftop ledges and tile tops across all sections (About Dossier, Rogues Gallery project cards, Tech Arsenal, Daily Bugle, and Spider-Signal).
+  - Built superhero landing impacts with comic sound thud and "BAM!"/"KAPOW!" bursts.
+  - Added interactive tile tracking: Spider-Man rotates and shifts his stance to examine any hovered project card or dossier panel.
