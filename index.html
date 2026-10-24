@@ -287,6 +287,72 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
 .burst b{position:relative;font-size:28px;letter-spacing:.06em;color:#fff;transform:rotate(-6deg)}
 .websplat{position:fixed;z-index:9400;pointer-events:none;transform:translate(-50%,-50%)}
 
+.mobile-quick-ctrls{display:none}
+
+/* ---------- MOBILE OPTIMIZATION (<768px) ---------- */
+@media (max-width:768px){
+  nav{display:none!important}
+  .hud{display:none!important}
+  .suit-ai-bar{display:none!important}
+
+  /* Unobtrusive floating controls on mobile */
+  .mobile-quick-ctrls{position:fixed;top:12px;right:12px;z-index:9000;display:flex;gap:8px}
+  .mobile-ctrl-btn{width:40px;height:40px;border-radius:50%;border:2.5px solid var(--ink);background:var(--paper-card);color:var(--ink);font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:2.5px 2.5px 0 var(--ink);cursor:pointer;font-family:inherit}
+  .mobile-ctrl-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+
+  /* Mobile Hero Section */
+  .hero{padding-top:40px!important;padding-bottom:30px!important;min-height:auto}
+  .hero-tag{margin-left:0!important;font-size:10px!important;letter-spacing:.22em!important;margin-bottom:12px!important}
+  .h1-3d{margin-left:0!important;padding-right:0!important;max-width:100%!important}
+  .hero h1{font-size:clamp(32px,10vw,48px)!important;line-height:.95!important}
+  .hero h1 .row span{transform:none!important}
+  .hero-sub{margin-left:0!important;margin-top:16px!important;font-size:14.5px!important;padding:16px 18px!important;border-radius:14px!important;box-shadow:5px 5px 0 var(--ink)!important}
+  .hero-actions{margin-left:0!important;margin-top:20px!important;flex-direction:column!important;gap:10px!important;width:100%!important}
+  .hero-actions .btn{width:100%!important;justify-content:center!important;font-size:18px!important;padding:12px 20px!important}
+  .hero-meta{display:none!important}
+
+  /* Mobile Section Spacing & Sizing */
+  section{padding:45px 16px!important}
+  .h2{font-size:clamp(28px,8.5vw,42px)!important}
+  .eyebrow{font-size:11px!important;margin-bottom:14px!important}
+
+  /* About on mobile */
+  .about-grid{grid-template-columns:1fr!important;gap:18px!important;margin-top:24px!important}
+  .about-text{padding:22px 18px!important;box-shadow:5px 5px 0 var(--ink)!important}
+  .about-text p{font-size:14px!important;line-height:1.6!important;margin-bottom:14px!important}
+  .about-text .quote{font-size:17px!important;padding:14px 16px!important}
+  .stats{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .stat{padding:14px 10px!important}
+  .stat .num{font-size:28px!important}
+  .stat .lbl{font-size:9px!important}
+
+  /* Projects / Cards on mobile */
+  .cards{grid-template-columns:1fr!important;gap:16px!important;margin-top:24px!important}
+  .card{padding:26px 18px!important;box-shadow:5px 5px 0 var(--ink)!important}
+  .card h3{font-size:24px!important}
+  .card p{font-size:13.5px!important}
+  .card-actions{flex-direction:column!important;gap:8px!important}
+  .card-btn{width:100%!important;justify-content:center!important}
+
+  /* Arsenal on mobile */
+  .arsenal-grid{grid-template-columns:1fr!important;gap:14px!important;margin-top:20px!important}
+  .arsenal-card{padding:20px 16px!important}
+
+  /* Daily Bugle on mobile */
+  .bugle-wrap{padding:20px 16px!important;margin-top:20px!important;transform:none!important;box-shadow:6px 6px 0 var(--ink)!important}
+  .bugle-pic{display:none!important}
+
+  /* Contact & Socials on mobile */
+  .contact{min-height:auto!important;padding-top:40px!important;padding-bottom:40px!important}
+  .mega-cta{width:100%!important;margin-top:22px!important}
+  .mega-cta .btn{width:100%!important;justify-content:center!important}
+  .social-row{flex-direction:column!important;width:100%!important;gap:10px!important;margin-top:22px!important}
+  .social{width:100%!important;justify-content:center!important}
+
+  /* Footer on mobile */
+  footer{flex-direction:column!important;text-align:center!important;gap:8px!important;font-size:10px!important;padding:20px 16px!important}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   body{cursor:auto}
@@ -315,6 +381,12 @@ footer{position:relative;z-index:2;border-top:3px solid var(--ink);padding:28px 
     <path d="M 50,25 Q 50,5 50,2" />
     <path d="M 80,40 Q 90,25 70,10" />
   </svg>
+</div>
+
+<div class="mobile-quick-ctrls">
+  <button class="mobile-ctrl-btn" id="mobileSoundBtn" title="Toggle Sound">🔊</button>
+  <button class="mobile-ctrl-btn" id="mobileModeBtn" title="Cycle Suit">🕸️</button>
+  <a class="mobile-ctrl-btn" href="#contact" title="Contact" style="text-decoration:none">⚡</a>
 </div>
 
 <canvas id="gl"></canvas>
@@ -718,6 +790,21 @@ modeBtn.addEventListener('click', () => {
   if (tip) tip.material.color.setHex(current.webCol);
 });
 
+// Mobile Quick Control Buttons
+const mobSoundBtn = document.getElementById('mobileSoundBtn');
+if (mobSoundBtn) {
+  mobSoundBtn.addEventListener('click', () => {
+    soundBtn.click();
+    mobSoundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+  });
+}
+const mobModeBtn = document.getElementById('mobileModeBtn');
+if (mobModeBtn) {
+  mobModeBtn.addEventListener('click', () => {
+    modeBtn.click();
+  });
+}
+
 /* ============================================================
    SUIT AI (KAREN HUD) STATUS QUIP ENGINE
 ============================================================ */
@@ -749,6 +836,19 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0xFBFAF5, 26, 60);
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, .1, 200);
 camera.position.set(-2, 3.5, 14);
+
+function isMobileMode() {
+  return innerWidth < 768 || (innerWidth / innerHeight) < 1.0;
+}
+function updateCamProjection() {
+  const aspect = innerWidth / innerHeight;
+  const isMob = isMobileMode();
+  camera.fov = isMob ? Math.min(76, 55 / Math.max(0.55, aspect)) : 55;
+  camera.aspect = aspect;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+updateCamProjection();
 
 const INK = 0x15151C, RED = 0xE0202F;
 
@@ -873,6 +973,11 @@ hero.position.copy(perch);
 const HERO_BASE_ROT = 2.75;
 hero.rotation.y = HERO_BASE_ROT;
 scene.add(hero);
+
+// Dedicated lighting on Spider-Man so he pops brightly on all devices
+const spideyLight = new THREE.PointLight(0xFFFFFF, 1.5, 20);
+spideyLight.position.set(perch.x - 1, perch.y + 3, perch.z + 2.5);
+scene.add(spideyLight);
 
 // GLTF Auto-Loader Hook: When you paste/send your .glb file, it automatically swaps in!
 if (window.THREE && window.THREE.GLTFLoader) {
@@ -1022,13 +1127,17 @@ function tick() {
   tipRing.position.copy(tp);
   tipRing.rotation.z = t * 3;
 
-  const followX = THREE.MathUtils.lerp(camBase.x, tp.x * .55, webProgress);
-  const followY = THREE.MathUtils.lerp(camBase.y, 2.5 + tp.y * .35, webProgress);
-  const followZ = THREE.MathUtils.lerp(camBase.z, 15.5, webProgress);
-  camera.position.x += ((followX + mouse.x * 1.6) - camera.position.x) * .05;
-  camera.position.y += ((followY - mouse.y * 1.0) - camera.position.y) * .05;
+  const isMob = isMobileMode();
+  const curCamBase = isMob ? { x: 3.2, y: 5.6, z: 18.5 } : camBase;
+  const followX = THREE.MathUtils.lerp(curCamBase.x, tp.x * .55, webProgress);
+  const followY = THREE.MathUtils.lerp(curCamBase.y, 2.5 + tp.y * .35, webProgress);
+  const followZ = THREE.MathUtils.lerp(curCamBase.z, isMob ? 19.5 : 15.5, webProgress);
+  camera.position.x += ((followX + mouse.x * 1.4) - camera.position.x) * .05;
+  camera.position.y += ((followY - mouse.y * 0.8) - camera.position.y) * .05;
   camera.position.z += ((followZ - camera.position.z) * .05);
-  const lookStart = new THREE.Vector3(perch.x - 4.6, perch.y - 2.2, perch.z);
+  const lookOffsetX = isMob ? 1.4 : 4.6;
+  const lookOffsetY = isMob ? 1.6 : 2.2;
+  const lookStart = new THREE.Vector3(perch.x - lookOffsetX, perch.y - lookOffsetY, perch.z);
   const look = new THREE.Vector3().lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + .05));
   camera.lookAt(look);
 
@@ -1051,10 +1160,7 @@ function tick() {
   renderer.render(scene, camera);
   if (!reduceMotion) requestAnimationFrame(tick);
 }
-addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-});
+addEventListener('resize', updateCamProjection);
 
 /* ============================================================
    2D CANVAS WEB TRAIL (SPRING-FOLLOW PHYSICS)
